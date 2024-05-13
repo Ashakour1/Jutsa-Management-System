@@ -35,3 +35,36 @@ model Finance {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Position {
+  id    String @id @db.ObjectId @default(auto()) @map("_id")
+  title String
+  teams Team[]
+}
+
+model Team {
+  id            String    @id @db.ObjectId @default(auto()) @map("_id")
+  name          String
+  address       String
+  email         String    @unique
+  semester      String
+  studentId     String    @unique
+  year          String
+  position_Id   String    @db.ObjectId
+  position      Position  @relation(fields: [position_Id] ,references: [id])
+}
+
+model Competitor{
+  id            String    @id @db.ObjectId @default(auto()) @map("_id")
+  name          String
+  number        String 
+  email         String 
+  semester      String
+  class         String
+  skills        String[]
+  project_name  String
+  registered_At DateTime   @default(now())
+}
+
+
+
