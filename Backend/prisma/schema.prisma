@@ -61,7 +61,7 @@ model Competitor{
   email         String 
   semester      String
   class         String
-  skills        String[]
+  skill        String
   project_name  String
   registered_At DateTime   @default(now())
 }
