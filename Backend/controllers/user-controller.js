@@ -141,7 +141,9 @@ export const updateUserController = asyncHandler(async (req, res) => {
 
   // Update the user
   const updatedUser = await prisma.user.update({
-    where: { id: parseInt(id) },
+    where: {
+      id: id,
+    },
     data: {
       //` '||' : Waxay hubinaysaa in haddii qiimaha cusub aan la soo dirin, qiimaha hore uu sii jiro.
       email: email || user.email,
