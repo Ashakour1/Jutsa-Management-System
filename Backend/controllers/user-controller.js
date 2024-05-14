@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import prisma from "../config/db.js";
 import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 // Implement user controller logic here
 
 /** 
@@ -124,7 +124,9 @@ export const updateUserController = asyncHandler(async (req, res) => {
 
   // Check if user exists
   const user = await prisma.user.findUnique({
-    where: { id: parseInt(id) }, //parseInt waxan u isticmalay si u convert u sameyo string to int
+    where: {
+      id: id,
+    }, //parseInt waxan u isticmalay si u convert u sameyo string to int
   });
 
   if (!user) {
@@ -133,12 +135,15 @@ export const updateUserController = asyncHandler(async (req, res) => {
   }
 
   // Hash the password if it's being updated
-  const hashedPassword = password ? await bcrypt.hash(password, 10) : user.password;
+  const hashedPassword = password
+    ? await bcrypt.hash(password, 10)
+    : user.password;
 
   // Update the user
   const updatedUser = await prisma.user.update({
     where: { id: parseInt(id) },
-    data: {  //` '||' : Waxay hubinaysaa in haddii qiimaha cusub aan la soo dirin, qiimaha hore uu sii jiro.
+    data: {
+      //` '||' : Waxay hubinaysaa in haddii qiimaha cusub aan la soo dirin, qiimaha hore uu sii jiro.
       email: email || user.email,
       name: name || user.name,
       password: hashedPassword,
@@ -199,13 +204,13 @@ export const deleteUser = asyncHandler(async (req, res) => {
 @method POST
  */
 
-export const loginUser = asyncHandler(async(req,res)=>{
-    const { email, password } = req.body;
+export const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-    if (!email || !password) {
-      res.status(400);
-      throw new Error("All fields are required");
-    }
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("All fields are required");
+  }
 
   const isUserExists = await prisma.user.findUnique({
     where: {
@@ -213,20 +218,20 @@ export const loginUser = asyncHandler(async(req,res)=>{
     },
   });
 
-  if(!isUserExists) {
+  if (!isUserExists) {
     res.status(404);
     throw new Error("Invalid email provided");
   }
 
-  const isPasswordValid = await bcrypt.compare(password,isUserExists.password)
-  if(!isPasswordValid) {
+  const isPasswordValid = await bcrypt.compare(password, isUserExists.password);
+  if (!isPasswordValid) {
     res.status(401);
     throw new Error("Invalid password provided");
   }
 
-  const secret = process.env.JWT_SECRET_KEY
-  const expiresIn = 24*60*60
-  const token = jwt.sign({email: isUserExists.email},secret,{expiresIn})
+  const secret = process.env.JWT_SECRET_KEY;
+  const expiresIn = 24 * 60 * 60;
+  const token = jwt.sign({ email: isUserExists.email }, secret, { expiresIn });
 
   isUserExists.password = undefined;
 
@@ -239,6 +244,5 @@ export const loginUser = asyncHandler(async(req,res)=>{
       data: isUserExists,
     },
   });
-
-}) 
+});
 // End of User Controller
