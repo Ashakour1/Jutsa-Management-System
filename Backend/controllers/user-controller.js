@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import prisma from "../config/db.js";
-
+import bcrypt from "bcrypt";
 // Implement user controller logic here
 
 /** 
@@ -13,11 +13,42 @@ import prisma from "../config/db.js";
 export const UserRegister = asyncHandler(async (req, res) => {
   const { email, name, password } = req.body;
 
-  if(!email || !name || !password){
-    
+  if (!email || !name || !password) {
+    res.status(400);
+    throw new Error("All fields are required");
   }
-});
 
+  // Check if user already exists
+  const userExists = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  // Check if user already exists
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Create a new user
+  const user = await prisma.user.create({
+    data: {
+      email,
+      name,
+      password: hashedPassword,
+    },
+  });
+
+  // send the response
+  res.status(201).json({
+    success: true,
+    error: null,
+    data: user,
+  });
+});
 
 // get all users controller
 /**
@@ -28,7 +59,6 @@ export const UserRegister = asyncHandler(async (req, res) => {
 @method GET
  */
 
-
 // get user by id controller
 /**
 @controller getUserByIdController  
@@ -37,7 +67,6 @@ export const UserRegister = asyncHandler(async (req, res) => {
 @access private
 @method GET
  */
-
 
 // update user controller
 /**
