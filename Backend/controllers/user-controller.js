@@ -27,6 +27,17 @@ export const UserRegister = asyncHandler(async (req, res) => {
 @access private
 @method GET
  */
+export const getUsers = asyncHandler(async (req, res) => {
+  const users = await prisma.user.findMany();
+  res.status(200).json({
+    suceses: true,
+    error: null,
+    results: {
+      data: users,
+    }
+  }
+  )
+});
 
 
 // get user by id controller
