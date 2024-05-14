@@ -7,13 +7,14 @@ const app = express();
 
 const PORT = 5000;
 
+// Middleware 
 app.use(express.json());
-app.use(errorHandler);
+
+// Routes
 app.use("/api/users", userRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// Error handler middleware
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
