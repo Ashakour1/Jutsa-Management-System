@@ -98,6 +98,30 @@ export const getUsers = asyncHandler(async (req, res) => {
 @access private
 @method DELETE
   */
+export const deleteUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await prisma.user.delete({
+      where: { id: Number(id) },
+    });
+
+    res.status(200).json({
+      success: true,
+      error: null,
+      results: {
+        message: "Successfully User Deleted",
+        data: user,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      results: null,
+    });
+  }
+});
 
 // login user controller
 /**
