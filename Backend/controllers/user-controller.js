@@ -11,6 +11,8 @@ import bcrypt from "bcrypt";
 @method POST
 */
 export const UserRegister = asyncHandler(async (req, res) => {
+
+  console.log(req.body);
   const { email, name, password } = req.body;
 
   if (!email || !name || !password) {
