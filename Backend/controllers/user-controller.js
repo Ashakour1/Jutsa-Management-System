@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import prisma from "../config/db.js";
 import bcrypt from "bcrypt";
+import { ObjectId } from "mongodb";
 // Implement user controller logic here
 
 /** 
@@ -11,7 +12,6 @@ import bcrypt from "bcrypt";
 @method POST
 */
 export const UserRegister = asyncHandler(async (req, res) => {
-
   console.log(req.body);
   const { email, name, password } = req.body;
 
@@ -67,9 +67,8 @@ export const getUsers = asyncHandler(async (req, res) => {
     error: null,
     results: {
       data: users,
-    }
-  }
-  )
+    },
+  });
 });
 
 // get user by id controller
@@ -80,6 +79,35 @@ export const getUsers = asyncHandler(async (req, res) => {
 @access private
 @method GET
  */
+
+export const getUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  // Find user by id
+  if(!ObjectId.isValid(id)){
+    res.status(400);
+    throw new Error(`Please provide user id ${id}`);
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  // Check if user exists
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // send response
+  res.status(200).json({
+    success: true,
+    error: null,
+    data: user,
+  });
+});
 
 // update user controller
 /**
