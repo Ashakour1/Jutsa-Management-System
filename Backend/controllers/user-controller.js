@@ -118,7 +118,7 @@ export const getUser = asyncHandler(async (req, res) => {
 @access private
 @method PUT
  */
-export const updateUserController = asyncHandler(async (req, res) => {
+export const updateUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { email, name, password } = req.body;
 
@@ -128,6 +128,8 @@ export const updateUserController = asyncHandler(async (req, res) => {
       id: id,
     }, //parseInt waxan u isticmalay si u convert u sameyo string to int
   });
+
+  // console.log(parseInt(id));
 
   if (!user) {
     res.status(404);
