@@ -84,7 +84,7 @@ export const getUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   // Find user by id
-  if(!ObjectId.isValid(id)){
+  if (!ObjectId.isValid(id)) {
     res.status(400);
     throw new Error(`Please provide user id ${id}`);
   }
@@ -129,26 +129,31 @@ export const getUser = asyncHandler(async (req, res) => {
 export const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const user = await prisma.user.delete({
-      where: { id: Number(id) },
-    });
-
-    res.status(200).json({
-      success: true,
-      error: null,
-      results: {
-        message: "Successfully User Deleted",
-        data: user,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      results: null,
-    });
+  if (!ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error(`Please provide user id ${id}`);
   }
+
+  const user = await prisma.user.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  // Check if user exists
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  res.status(200).json({
+    success: true,
+    error: null,
+    results: {
+      message: "Successfully User Deleted",
+      data: user,
+    },
+  });
 });
 
 // login user controller
