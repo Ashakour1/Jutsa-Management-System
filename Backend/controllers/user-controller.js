@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import prisma from "../config/db.js";
 import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
+import jwt from 'jsonwebtoken'
 // Implement user controller logic here
 
 /** 
@@ -63,7 +64,7 @@ export const UserRegister = asyncHandler(async (req, res) => {
 export const getUsers = asyncHandler(async (req, res) => {
   const users = await prisma.user.findMany();
   res.status(200).json({
-    suceses: true,
+    success: true,
     error: null,
     results: {
       data: users,
@@ -165,4 +166,46 @@ export const deleteUser = asyncHandler(async (req, res) => {
 @method POST
  */
 
+export const loginUser = asyncHandler(async(req,res)=>{
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      res.status(400);
+      throw new Error("All fields are required");
+    }
+
+  const isUserExists = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  if(!isUserExists) {
+    res.status(404);
+    throw new Error("Invalid email provided");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password,isUserExists.password)
+  if(!isPasswordValid) {
+    res.status(401);
+    throw new Error("Invalid password provided");
+  }
+
+  const secret = process.env.JWT_SECRET_KEY
+  const expiresIn = 24*60*60
+  const token = jwt.sign({email: isUserExists.email},secret,{expiresIn})
+
+  isUserExists.password = undefined;
+
+  res.status(200).json({
+    success: true,
+    error: null,
+    results: {
+      message: "User Login Successfully",
+      token,
+      data: isUserExists,
+    },
+  });
+
+}) 
 // End of User Controller
