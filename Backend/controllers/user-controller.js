@@ -117,6 +117,39 @@ export const getUser = asyncHandler(async (req, res) => {
 @access private
 @method PUT
  */
+export const updateUserController = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { email, name, password } = req.body;
+
+  // Check if user exists
+  const user = await prisma.user.findUnique({
+    where: { id: parseInt(id) }, //parseInt waxan u isticmalay si u convert u sameyo string to int
+  });
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Hash the password if it's being updated
+  const hashedPassword = password ? await bcrypt.hash(password, 10) : user.password;
+
+  // Update the user
+  const updatedUser = await prisma.user.update({
+    where: { id: parseInt(id) },
+    data: {  //` '||' : Waxay hubinaysaa in haddii qiimaha cusub aan la soo dirin, qiimaha hore uu sii jiro.
+      email: email || user.email,
+      name: name || user.name,
+      password: hashedPassword,
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    error: null,
+    data: updatedUser,
+  });
+});
 
 // delete user controller
 /**
