@@ -28,7 +28,7 @@ export const UserRegister = asyncHandler(async (req, res) => {
     },
   });
 
-  // Check if user already exists
+  // Check if user already exists 
   if (userExists) {
     res.status(400);
     throw new Error("User already exists");
