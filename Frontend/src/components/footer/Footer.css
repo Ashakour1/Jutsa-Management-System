@@ -1,0 +1,21 @@
+.footer {
+    margin-top: auto;
+  }
+  .img {
+    width: 300px;
+    height: 200px;
+  }
+  
+  .imgContainer, p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  @media screen and (max-width: 400px) {
+    .img {
+      width: 200px;
+      height: 120px;
+    }
+  }
+  
