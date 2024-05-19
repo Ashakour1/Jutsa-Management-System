@@ -1,29 +1,32 @@
-import React from 'react'
-import logo  from '../assets/logo.png'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div> <header className='bg-white-500 text-white p-4 shadow-md'>
-    <div className='container mx-auto flex flex-wrap items-center justify-between flex-row-reverse'>
-      <nav className='flex-grow'>
-        <ul className='flex space-x-4'>
-          <li><Link style={{ textDecoration:"none"}} to='/'>Home</Link>{menu==="home"?<hr/>:<></>}</li>
-          <li><Link style={{ textDecoration:"none"}} to='/About'>About</Link>{menu==="about"?<hr/>:<></>}</li>
-          <li><Link style={{ textDecoration:"none"}} to='/FAQ'>FAQ</Link>{menu==="faq"?<hr/>:<></>}</li>
-        </ul>
-
-      </nav>
-      <div className='flex-grow text-center'>
-        <img src={logo} alt="logo" className='h-10 mx-auto' />
+    <header className="bg-white shadow-md h-18">
+      <div className="max-w-[1040px] mx-auto h-full flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <Link className="" href="#">
+            Home
+          </Link>
+          <Link className="" href="#">
+            About
+          </Link>
+          <Link className="" href="#">
+            FAQ
+          </Link>
+        </div>
+        <div className="flex-grow flex justify-center">
+          <img src="./logo.png" alt="logo" className="h-full pr-20" />
+        </div>
+        <div>
+          <button className="py-2 px-4 bg-customGreen rounded-sm">
+            Register Now
+          </button>
+        </div>
       </div>
-      <div className='flex-grow flex justify-end'>
-        <button className='bg-green text-black px-4 py-2 rounded-md shadow hover:bg-white '>Register Now</button>
-      </div>
-    </div>
+    </header>
+  );
+};
 
-  </header></div>
-  
-  )
-}
-
-export default Header
+export default Header;
