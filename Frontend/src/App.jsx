@@ -1,7 +1,12 @@
 import "./App.css";
+import Benefits from "./pages/benefits";
 
 function App() {
-  return <>hello world</>;
+  return (
+    <>
+      <Benefits />
+    </>
+  );
 }
 
 export default App;
