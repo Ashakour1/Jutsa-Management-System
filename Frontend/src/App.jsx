@@ -5,13 +5,16 @@ import Header from "./component/Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HeroSection from "./pages/Hero-section";
 
+import CallToAction from "./pages/Call-to-action";
+
 function App() {
   return (
     <>
       <Router>
         <Header />
-        <HeroSection/>
+        <HeroSection />
         {/* <Benefits /> */}
+        <CallToAction />
         <Footer />
       </Router>
     </>
