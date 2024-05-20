@@ -36,7 +36,7 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
       number: Number(number),
       email,
       semester: Number(semester),
-      className: className,
+      className,
       skill,
       project_name,
     },
@@ -51,6 +51,32 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     },
   });
 });
+
+
+/**
+ * @controller getAllCompetitors
+ * @description Get all competitors
+ * @route GET /api/competitors
+ * @access Public
+ * @method GET
+ */
+export const getAllCompetitors = asyncHandler(async (req, res) => {
+  try {
+    const competitors = await prisma.competitor.findMany();
+    res.status(200).json({
+      success: true,
+      data: competitors,
+    });
+  } catch (error) {
+    console.error("Error fetching competitors:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
+//End of Competitor Controller
 
 // Delete existing competitor using unique ID
 export const  deleteCompetitor = asyncHandler(async(req,res)=>{
@@ -91,3 +117,4 @@ export const  deleteCompetitor = asyncHandler(async(req,res)=>{
       },
   });
 })
+
