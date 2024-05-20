@@ -1,7 +1,7 @@
 const Benefits = () => {
   return (
     <div className="container mx-auto py-5 h-svh flex-col lg:flex-row flex justify-between gap-6 md:gap-5 md:items-center">
-      <div className="benefits-text basis-2/4 px-3 lg:px-0 flex flex-col gap-5">
+      <div className=" ml-10 benefits-text basis-2/4 px-3 lg:px-0 flex flex-col gap-5">
         <div className=" space-y-3">
           <h1 className=" font-bold text-2xl lg:text-4xl">
             Participate in IT-DAY: <br /> Share Your Projects and Ideas
