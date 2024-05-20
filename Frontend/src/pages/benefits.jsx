@@ -1,6 +1,5 @@
 const Benefits = () => {
   return (
-
     <section className="max-w-[1140px] mx-auto h-screen">
       <div className="py-5 h-svh flex-col lg:flex-row flex justify-between gap-6 md:gap-5 md:items-center">
         <div className="benefits-text basis-2/4 px-3 lg:px-0 flex flex-col gap-5">
@@ -13,27 +12,6 @@ const Benefits = () => {
               innovative projects to a community of tech enthusiasts. As a
               Computer Science student, this is your opportunity to share your
               skills, connect with industry experts,
-=======
-    <div className="container mx-auto py-5 h-svh flex-col lg:flex-row flex justify-between gap-6 md:gap-5 md:items-center">
-      <div className=" ml-10 benefits-text basis-2/4 px-3 lg:px-0 flex flex-col gap-5">
-        <div className=" space-y-3">
-          <h1 className=" font-bold text-2xl lg:text-4xl">
-            Participate in IT-DAY: <br /> Share Your Projects and Ideas
-          </h1>
-          <p className=" leading-7 text-lg">
-            Join us for IT-DAY at Jamhuuriya University and showcase your
-            innovative projects to a community of tech enthusiasts. As a
-            Computer Science student, this is your opportunity to share your
-            skills, connect with industry experts,
-          </p>
-        </div>
-        <div className=" flex items-center gap-5 flex-col  md:flex-row">
-          <div className=" md:basis-2/5 ">
-            <h3 className="font-bold text-xl lg:text-xl">Skill Development</h3>
-            <p className=" text-lg leading-6">
-              Present your projects and demonstrate your technical capabilities
-              to peers, faculty.
-
             </p>
           </div>
           <div className=" flex items-center gap-5 flex-col  md:flex-row">
