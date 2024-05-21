@@ -76,6 +76,67 @@ export const getAllCompetitors = asyncHandler(async (req, res) => {
   }
 });
 
+// Update competitor unique Id
+export const updatedCompetitor = asyncHandler(async(req,res)=>{
+  const { id } = req.params;
+  const { name, number, email, semester, className, skill, project_name } = req.body;
+
+
+  if(!ObjectId.isValid(id)){
+    res.status(400)
+    throw new Error('Please enter a valid id') 
+  }
+
+
+  const isCompetitorExists = await prisma.competitor.findUnique({
+    where:{
+      id
+    }
+  })
+
+
+
+  if(!isCompetitorExists){
+    res.status(404)
+    throw new Error("competitor not found ")
+  }
+
+
+
+  const updatedCompetitor = await prisma.competitor.update({
+    data:{
+      name,
+      number:Number(number),
+      semester:Number(semester),
+      className,
+      email,
+      skill,
+      project_name,
+    },
+    where:{
+      id
+    }
+  })
+
+
+
+  if(!updatedCompetitor){
+    res.status(400)
+    throw new Error("Unexpected Error while updating")
+  }
+
+
+
+  res.status(200).json({
+    success: true,
+    error: null,
+    data:{
+        message:'Updated successfully'
+    }
+  });
+
+})
+
 //End of Competitor Controller
 
 // Delete existing competitor using unique ID
