@@ -3,28 +3,29 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-md h-18">
-      <div className="max-w-[1140px] mx-auto h-full flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <Link className="font-medium" href="#">
+    <header className="backdrop-blur-sm fixed w-full top-0 ">
+      <div className=" flex justify-between items-center px-10 max-w-[1140px] mx-auto h-16 mt-1">
+        <div className="logo">
+          <img src="./logo.png" alt="" className="w-48" />
+        </div>
+        <div className="flex gap-3 pr-20">
+          <Link className="font-medium" to="/">
             Home
           </Link>
-          <Link className="font-medium" href="#">
+          <Link className="font-medium" to="/about">
             About
           </Link>
-          <Link className="font-medium" href="#">
-            FaQ
+          <Link className="font-medium" to="/faq">
+            FAQ
           </Link>
         </div>
-        <div className="flex flex-col justify-center items-center">
-          <img src="./logo.png" alt="logo" className="h-full pr-6" />
-        </div>
         <div>
-          <button className="py-2 px-4 bg-customGreen text-customBlue rounded-sm">
+          <button className="px-4 py-2 rounded-md bg-customBlue text-white">
             Register Now
           </button>
         </div>
       </div>
+      
     </header>
   );
 };
