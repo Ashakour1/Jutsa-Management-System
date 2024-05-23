@@ -23,7 +23,8 @@ const HeroSection = () => {
             </button>
           </div>
         </div>
-        <div className="md:w-full w-full flex justify-center md:px-10 px-4 py-5">
+
+        <div className="md:w-full  flex justify-center md:px-10 px-4 py-5">
           <img
             className="w-[1140px] mx-auto rounded-md"
             src="./hero-image.jpg"
