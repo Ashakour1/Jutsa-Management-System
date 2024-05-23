@@ -3,7 +3,7 @@ import React from "react";
 const HeroSection = () => {
   return (
     <main>
-      <div className="max-w-[1240px] mx-auto h-full flex flex-col">
+      <div className="max-w-[1240px] md:pt-16 pt-10 mx-auto h-full flex flex-col">
         <div className="flex flex-col md:text-center text-start sm:text-center md:px-0 px-2 justify-center md:items-center items-start sm:items-center pt-10">
           <h1 className="md:text-4xl sm:text-2xl text-[20px] max-w-[600px] font-semibold text-customBlue">
             Empowering Student{" "}
