@@ -20,6 +20,7 @@ function App() {
               <>
                 <HeroSection />
                 <CallToAction />
+                <Benefits />
                 <Footer />
               </>
             }
