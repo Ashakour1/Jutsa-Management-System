@@ -31,7 +31,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden md:flex">
-          <button className="px-4 py-2 rounded-md bg-customBlue text-white">
+          <button className="px-5 py-2 h-12 rounded-md bg-customBlue text-white font-semibold text-base">
             Register Now
           </button>
         </div>
