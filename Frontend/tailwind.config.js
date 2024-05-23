@@ -7,7 +7,7 @@ export default {
         customGreen: "#2BB77B",
         customBlue: "#0E103F",
       },
-       maxWidth: {
+      maxWidth: {
         contain: "1140px",
       },
     },
