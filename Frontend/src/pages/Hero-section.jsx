@@ -15,10 +15,10 @@ const HeroSection = () => {
             of inspiration and opportunity
           </p>
           <div className="flex gap-2 py-4">
-            <button className="py-2 px-4 bg-customGreen text-customBlue rounded-sm">
+            <button className="md:py-2 py-2 sm:py-2  px-2 sm:px-4 md:px-4 bg-customGreen text-customBlue rounded-md">
               Register Now
             </button>
-            <button className="py-2 px-4 bg-customBlue text-white rounded-sm">
+            <button className="md:py-2 md:px-4 px-2 sm:px-4 bg-customBlue text-white rounded-md">
               Learn More
             </button>
           </div>
