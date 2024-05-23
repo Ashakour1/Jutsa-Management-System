@@ -9,7 +9,7 @@ const Benefits = () => {
   return (
     <section class="bg-white text-black">
       <div class="mx-auto max-w-contain px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
-        <div class="mx-auto max-w-[700px] text-center">
+        <div class="mx-auto max-w-[850px] text-center">
           <h2 class="text-2xl font-semibold sm:text-4xl">
             Unlock Opportunities by Showcasing Your Skills at IT-DAY!
           </h2>
@@ -104,9 +104,9 @@ const Benefits = () => {
         <div class="mt-12 text-center">
           <a
             href="#"
-            class="inline-block rounded bg-pink-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400"
+            class="inline-block rounded bg-customBlue px-10 py-4 text-sm font-medium text-white transition"
           >
-            Get Started Today
+            Join Us Today
           </a>
         </div>
       </div>
