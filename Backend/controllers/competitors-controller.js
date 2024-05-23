@@ -76,6 +76,34 @@ export const getAllCompetitors = asyncHandler(async (req, res) => {
   }
 });
 
+
+
+// Get competitor by ID
+export const getCompetitorById= asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error('Please use  a valid id');
+  }
+
+  const competitor = await prisma.competitor.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!competitor) {
+    res.status(404);
+    throw new Error('Competitor was not found');
+  }
+
+  res.status(200).json({
+    success: true,
+    data: competitor,
+  });
+});
+
 // Update competitor unique Id
 export const updatedCompetitor = asyncHandler(async(req,res)=>{
   const { id } = req.params;
