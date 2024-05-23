@@ -1,10 +1,8 @@
 import React from "react";
-import {ContainerScroll} from "../component/ui/container-scroll-animation"
 
 const HeroSection = () => {
   return (
     <main>
-     
       <div className="max-w-[1240px] md:pt-16 pt-10 mx-auto h-full flex flex-col">
         <div className="flex flex-col md:text-center text-start sm:text-center md:px-0 px-4 justify-center md:items-center items-start sm:items-center pt-10">
           <h1 className="md:text-4xl sm:text-2xl text-[20px] max-w-[800px] font-semibold text-customBlue">
@@ -25,7 +23,6 @@ const HeroSection = () => {
             </button>
           </div>
         </div>
-        <ContainerScroll>
         <div className="md:w-full w-full flex justify-center md:px-10 px-4 py-5">
           <img
             className="w-[1140px] mx-auto rounded-md"
@@ -33,11 +30,8 @@ const HeroSection = () => {
             alt=""
           />
         </div>
-        </ContainerScroll>
       </div>
-      
     </main>
-    
   );
 };
 
