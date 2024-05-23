@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { TiThMenu } from "react-icons/ti";
 import { TiThMenuOutline } from "react-icons/ti";
 
-
 const Header = () => {
   const [navIsOpen, setNavIsOpen] = useState(false);
 
@@ -11,6 +10,10 @@ const Header = () => {
 
   const openNavBar = () => {
     setNavIsOpen(!navIsOpen);
+  };
+
+  const closeNavBar = () => {
+    setNavIsOpen(false);
   };
   return (
     <header className="backdrop-blur-sm fixed w-full top-0 ">
@@ -53,15 +56,15 @@ const Header = () => {
       {navIsOpen ? (
         <div className="md:hidden absolute top-14 rounded-sm right-0 h-64 w-full bg-customBlue text-white bg-backdrop-blur-sm mr-2 p-4">
           <div className="flex flex-col ">
-            <Link className="font-medium p-4" to="/">
+            <Link onClick={closeNavBar} className="font-medium p-4" to="/">
               Home
             </Link>
             <hr />
-            <Link className="font-medium p-4" to="/about">
+            <Link onClick={closeNavBar} className="font-medium p-4" to="/about">
               About
             </Link>
             <hr />
-            <Link className="font-medium p-4" to="/faq">
+            <Link onClick={closeNavBar} className="font-medium p-4" to="/faq">
               FAQ
             </Link>
             <hr />
