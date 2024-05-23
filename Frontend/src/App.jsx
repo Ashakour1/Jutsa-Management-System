@@ -6,16 +6,26 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HeroSection from "./pages/Hero-section";
 
 import CallToAction from "./pages/Call-to-action";
+import NotFound from "./pages/not-found";
 
 function App() {
   return (
     <>
       <Router>
         <Header />
-        <HeroSection />
-        {/* <Benefits /> */}
-        <CallToAction />
-        <Footer />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <HeroSection />
+                <CallToAction />
+                <Footer />
+              </>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Router>
     </>
   );
