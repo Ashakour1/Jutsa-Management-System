@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import errorHandler from "./middlewares/error-middleware.js";
 import userRoutes from "./routes/user-routes.js";
 import competitorRoutes from "./routes/competitor-routes.js";
+import positionRoutes from "./routes/position-routes.js"
 import cors from "cors";
 dotenv.config();
 const app = express();
@@ -14,11 +15,10 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/api/positions",positionRoutes)
 app.use("/api/users", userRoutes);
 app.use("/api/competitors", competitorRoutes);
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+
 
 // Error handler middleware
 app.use(errorHandler);
