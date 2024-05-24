@@ -42,7 +42,7 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
   const competitor = await prisma.competitor.create({
     data: {
       name,
-      number : Number(number),
+      number: Number(number),
       email,
       semester,
       className,
@@ -57,9 +57,7 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     success: true,
     error: null,
     message: "Competitor created successfully",
-    data: {
-      results: competitor,
-    },
+    data: competitor,
   });
 });
 
