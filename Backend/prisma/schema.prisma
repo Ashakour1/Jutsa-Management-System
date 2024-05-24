@@ -38,8 +38,9 @@ model Finance {
 }
 
 model Position {
-  id    String @id @db.ObjectId @default(auto()) @map("_id")
-  title String
+  id    String @id @default(auto()) @map("_id")@db.ObjectId  
+  title String @unique
+  description String
   members Member[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
