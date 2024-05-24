@@ -1,6 +1,6 @@
 import express from "express";
 
-import { registerCompetitor, getAllCompetitors,getCompetitorById ,deleteCompetitor, updatedCompetitor } from "../controllers/competitors-controller.js";
+import { registerCompetitor, getAllCompetitors,getCompetitorById ,deleteCompetitor, updatedCompetitor } from "../controllers/competitor-controller.js";
 
 
 const router = express.Router();
