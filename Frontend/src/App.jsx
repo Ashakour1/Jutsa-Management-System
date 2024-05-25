@@ -4,7 +4,7 @@ import Benefits from "./pages/benefits";
 import Header from "./component/Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HeroSection from "./pages/Hero-section";
-
+import { Toaster, toast } from "sonner";
 import CallToAction from "./pages/Call-to-action";
 import NotFound from "./pages/not-found";
 import RegisterForm from "./component/Register-form";
@@ -14,6 +14,7 @@ import FAQPage from "./pages/FAQ-page";
 function App() {
   return (
     <>
+      <Toaster richColors position="top-center" />
       <Router>
         <Header />
         <Routes>
