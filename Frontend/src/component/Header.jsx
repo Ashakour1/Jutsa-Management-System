@@ -66,7 +66,7 @@ const Header = () => {
               About
             </Link>
             <hr />
-            <Link onClick={closeNavBar} className="font-medium p-4" to="/faq">
+            <Link onClick={closeNavBar} className="font-medium p-4" to="/about/faq">
               FAQ
             </Link>
             <hr />
