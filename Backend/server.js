@@ -3,11 +3,13 @@ import dotenv from "dotenv";
 import errorHandler from "./middlewares/error-middleware.js";
 import userRoutes from "./routes/user-routes.js";
 import competitorRoutes from "./routes/competitor-routes.js";
+import cors from "cors";
 dotenv.config();
 const app = express();
 
 const PORT = 5000;
 
+app.use(cors());
 // Middleware
 app.use(express.json());
 
