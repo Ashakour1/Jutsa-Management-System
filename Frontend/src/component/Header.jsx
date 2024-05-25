@@ -73,7 +73,7 @@ const Header = () => {
           </div>
           <div className="md:hidden flex pt-4">
             <Link to="/register" className="w-full">
-              <button onClick={closeNavBar} className="px-4 py-2 rounded-md bg-customGreen text-white">
+              <button onClick={closeNavBar} className="px-4 py-2 rounded-md bg-customGreen text-white w-full">
                 Register Now
               </button>
             </Link>
