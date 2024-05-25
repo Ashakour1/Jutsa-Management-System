@@ -16,6 +16,9 @@ app.use(express.json());
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/competitors", competitorRoutes);
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 // Error handler middleware
 app.use(errorHandler);
