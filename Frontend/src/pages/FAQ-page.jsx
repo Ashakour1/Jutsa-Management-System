@@ -2,7 +2,7 @@ import React from "react";
 
 const FAQPage = () => {
   return (
-    <div className="mt-20 max-w-[840px] mx-auto">
+    <div className="mt-20 max-w-[840px] mx-auto md:px-0 px-5">
       <div className="space-y-4">
         <h1 className="text-3xl font-semibold text-gray-900">FAQs</h1>
 
