@@ -29,7 +29,7 @@ const Header = () => {
           <Link className="font-medium" to="/about">
             About
           </Link>
-          <Link className="font-medium" to="/faq">
+          <Link className="font-medium" to="/about/faq">
             FAQ
           </Link>
         </div>
