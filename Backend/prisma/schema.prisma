@@ -66,8 +66,10 @@ model Competitor{
   email         String   
   semester      Int
   className     String
+  Type          String
   skill         String
   project_name  String
+  Technologies String
   status String @default("pending")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
