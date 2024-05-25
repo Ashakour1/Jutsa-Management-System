@@ -68,7 +68,7 @@ const RegisterForm = () => {
           Please fill in the form below to register for IT-DAY
         </p>
         <form className="space-y-6">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
                 className="mb-1 text-sm font-medium text-gray-700 "
@@ -104,7 +104,7 @@ const RegisterForm = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
                 className="mb-1 text-sm font-medium text-gray-700 "
@@ -150,7 +150,7 @@ const RegisterForm = () => {
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
                 className="mb-1 text-sm font-medium text-gray-700 "
@@ -193,7 +193,7 @@ const RegisterForm = () => {
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
                 className="mb-1 text-sm font-medium text-gray-700 "
