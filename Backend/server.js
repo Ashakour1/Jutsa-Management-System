@@ -22,7 +22,9 @@ const PORT = 5000;
 // app.use("/api/users", userRoutes);
 // app.use("/api/competitors", competitorRoutes);
 app.get("/", (req, res) => {
-  res.send("API is running...");
+  res.json({
+    message: "You have been authenticated to access this website",
+  });
 });
 
 // // Error handler middleware
