@@ -29,14 +29,16 @@ const Header = () => {
           <Link className="font-medium" to="/about">
             About
           </Link>
-          <Link className="font-medium" to="/faq">
+          <Link className="font-medium" to="/about/faq">
             FAQ
           </Link>
         </div>
         <div className="hidden md:flex">
-          <button className="px-5 py-2 h-12 rounded-md bg-customBlue text-white font-semibold text-base">
-            Register Now
-          </button>
+          <Link to="/register">
+            <button className="px-5 py-2 h-12 rounded-md bg-customBlue text-white font-semibold text-base">
+              Register Now
+            </button>
+          </Link>
         </div>
       </div>
       {/* mobile */}
@@ -64,15 +66,17 @@ const Header = () => {
               About
             </Link>
             <hr />
-            <Link onClick={closeNavBar} className="font-medium p-4" to="/faq">
+            <Link onClick={closeNavBar} className="font-medium p-4" to="/about/faq">
               FAQ
             </Link>
             <hr />
           </div>
           <div className="md:hidden flex pt-4">
-            <button className="px-4 py-2 rounded-md bg-customGreen text-white w-full">
-              Register Now
-            </button>
+            <Link to="/register" className="w-full">
+              <button onClick={closeNavBar} className="px-4 py-2 rounded-md bg-customGreen text-white w-full">
+                Register Now
+              </button>
+            </Link>
           </div>
         </div>
       ) : null}
