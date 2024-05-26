@@ -7,9 +7,11 @@ import HeroSection from "./pages/Hero-section";
 import { Toaster, toast } from "sonner";
 import CallToAction from "./pages/Call-to-action";
 import NotFound from "./pages/not-found";
+import About from "./pages/About";
 import RegisterForm from "./component/Register-form";
 import RegisterPage from "./pages/Register-page";
 import FAQPage from "./pages/FAQ-page";
+
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
               </>
             }
           />
+
+          <Route path="/about" element={<About/>} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/about/faq" element={<FAQPage />} />
           <Route path="*" element={<NotFound />} />
