@@ -9,7 +9,12 @@ const app = express();
 
 const PORT = 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "https://jutsa-management-system.vercel.app/",
+  })
+);
 // Middleware
 app.use(express.json());
 
