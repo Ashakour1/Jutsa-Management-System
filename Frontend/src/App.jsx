@@ -7,6 +7,7 @@ import HeroSection from "./pages/Hero-section";
 
 import CallToAction from "./pages/Call-to-action";
 import NotFound from "./pages/not-found";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               </>
             }
           />
+          <Route path="/about" element={<About/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
