@@ -219,7 +219,7 @@ const RegisterForm = () => {
                 Project Name
               </label>
               <input
-                value={formData.project}
+                value={formData.projectName}
                 onChange={handleChange}
                 className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary "
                 id="project-name"
