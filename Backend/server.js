@@ -23,6 +23,8 @@ app.get("/", (req, res) => {
 // Error handler middleware
 app.use(errorHandler);
 
+app.use(express.static("public"));
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
