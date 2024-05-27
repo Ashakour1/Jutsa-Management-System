@@ -53,7 +53,7 @@ export const updatePosition = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Invalid id");
   }
-  // 
+  //
   const { title, description } = req.body;
 
   const findPosition = await prisma.position.findUnique({
@@ -78,28 +78,47 @@ export const updatePosition = asyncHandler(async (req, res) => {
       id,
     },
   });
+  // response status
+  res.status(200).json({
+    success: true,
+    error: null,
+    data: updatePosition,
+  });
 });
 
 export const deletePosition = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
+  // Delete the position
+  if (!ObjectId.isValid(id)) {
+    res.status(404);
+    throw new Error("Invalid id");
+  }
+
+  // find the position
   const findPosition = await prisma.position.findUnique({
     where: {
       id,
     },
   });
-  // check if the position
 
+  // check if the position is available
   if (!findPosition) {
     res.status(404);
     throw new Error("Position not found");
   }
 
   // delete the position
-
   const deletePosition = await prisma.position.delete({
     where: {
       id,
     },
+  });
+
+  // response status
+  res.status(200).json({
+    success: true,
+    error: null,
+    data: deletePosition,
   });
 });
