@@ -40,12 +40,12 @@ model Finance {
 model Position {
   id    String @id @db.ObjectId @default(auto()) @map("_id")
   title String
-  teams Team[]
+  members Member[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Team {
+model Member {
   id            String    @id @db.ObjectId @default(auto()) @map("_id")
   name          String
   address       String
