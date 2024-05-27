@@ -39,20 +39,34 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formatDate = (date) => {
+      const d = date.getDate();
+      const m = date.getMonth() + 1; // Months are zero-based
+      const y = date.getFullYear();
+      return `${d}-${m}-${y}`;
+    };
+  
+    // Get the current date and format it
+    const currentDate = formatDate(new Date());
     try {
-      const response = await axios.post(
-        "https://jutsa-api.vercel.app/api/competitors/",
-        formData
-      );
-      toast.success("Registration successful");
-      clearText();
-      // console.log(response.data);
+      if (currentDate === "6-6-2024") {
+        toast.success("This form is currently not open for registration.");
+      } else {
+        const response = await axios.post(
+          "https://jutsa-api.vercel.app/api/competitors/",
+          formData
+        );
+        toast.success("Registration successful");
+        clearText();
+        // console.log(response.data);
+      }
     } catch (err) {
       console.log(err);
-      if(err){
-        toast.error(err.response.data.message)
-      }else{
-        toast.error("An error occured")
+      if (err) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error("An error occurred");
       }
     }
   };
