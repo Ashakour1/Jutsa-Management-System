@@ -13,7 +13,7 @@ const About = () => {
   return (
     <main className="flex-1">
       <section className="bg-white text-black py-12 md:py-24" id="hero">
-        <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 ">
+        <div className="max-w-contain mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 ">
           <div className="space-y-4 pt-16">
             <h1 className="text-3xl md:text-4xl font-bold">
               IT-DAY: Celebrating Innovation and Excellence
