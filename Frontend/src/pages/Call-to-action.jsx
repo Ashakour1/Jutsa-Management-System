@@ -14,15 +14,16 @@ const CallToAction = () => {
             part of the excitement! Join us now!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/register"
+            <Link
+              to="/register"
               className="inline-flex h-12 items-center justify-center rounded-md px-5  text-gray-50 shadow transition-colors focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 bg-customGreen"
               href="#"
             >
-             Register Now
+              Register Now
             </Link>
-            <Link to="/about"
+            <Link
+              to="/about"
               className="inline-flex h-12 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors text-customBlue hover:bg-gray-200  disabled:pointer-events-none disabled:opacity-50"
-              
             >
               Learn More
             </Link>
