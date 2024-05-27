@@ -206,7 +206,7 @@ const RegisterForm = () => {
                 onChange={handleChange}
                 className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary  "
                 id="skill"
-                placeholder="eg: backend developer etc."
+                placeholder="Enter your skill"
                 type="text"
                 name="skill"
               />
