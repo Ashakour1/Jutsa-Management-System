@@ -50,3 +50,25 @@ export const getFinances = asyncHandler(async(req,res)=>{
         data: finances,
     });
 })
+
+// Read single financial information
+
+export const getFinance = asyncHandler(async(req,res)=>{
+    const { id } = req.params;
+    const finance = await prisma.finance.findUnique({
+        where:{
+            id
+        }
+    })
+
+    if(!finance){
+        res.status(404);
+        throw new Error("Unable to find:No finance found");
+    }
+
+    res.status(200).json({
+        success: true,
+        error: null,
+        data: finance,
+    });
+})
