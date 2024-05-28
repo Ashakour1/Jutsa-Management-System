@@ -102,3 +102,50 @@ export const deleteFinance = asyncHandler(async(req,res)=>{
         },
     });
 })
+
+// Update Finance using unique ID
+
+export const updateFinance = asyncHandler(async(req,res)=>{
+    const { id } = req.params;
+    const {title,amount,type,category,userId} = req.body;
+
+    if(!ObjectId.isValid(id)){
+        res.status(400);
+        throw new Error("Please provide a valid id");
+    }
+
+    const isFinanceExists = await prisma.finance.findUnique({
+        where:{
+            id
+        }
+    })
+
+    if(!isFinanceExists){
+        res.status(404);
+        throw new Error("Unable to find:No finance found");
+    }
+
+    const updatedFinance = await prisma.finance.update({
+        data:{
+            title: title,
+            amount: Number(amount),
+            type: type,
+            category: category,
+            userId: userId,
+        },
+        where:{
+            id
+        }
+    })
+    
+    if(!updatedFinance){
+        res.status(501);
+        throw new Error("Unable to update: unexpected error occurred");
+    }
+
+    res.status(200).json({
+        success: true,
+        error: null,
+        data:updatedFinance
+    });
+})
