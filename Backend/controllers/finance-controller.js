@@ -72,3 +72,33 @@ export const getFinance = asyncHandler(async(req,res)=>{
         data: finance,
     });
 })
+
+// Delete Finance using unique ID
+
+export const deleteFinance = asyncHandler(async(req,res)=>{
+    const { id } = req.params;
+
+    if(!ObjectId.isValid(id)){
+        res.status(400);
+        throw new Error("Please provide a valid id");
+    }
+
+    const finance = await prisma.finance.delete({
+        where:{
+            id
+        }
+    })
+
+    if(!finance){
+        res.status(501);
+        throw new Error("Unable to delete: unexpected error occurred");
+    }
+
+    res.status(200).json({
+        success: true,
+        error: null,
+        data: {
+            message: "Deleted successfully",
+        },
+    });
+})
