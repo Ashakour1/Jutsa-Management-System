@@ -10,9 +10,18 @@ import { ObjectId } from "mongodb";
  * @description This route is used to create a new member
  */
 export const registerMember = asyncHandler(async (req, res) => {
-  const { name, address, email, semester, studentId, year, position_Id } = req.body;
+  const { name, address, email, semester, studentId, year, position_Id } =
+    req.body;
 
-  if (!name || !address || !email || !semester || !studentId || !year || !position_Id) {
+  if (
+    !name ||
+    !address ||
+    !email ||
+    !semester ||
+    !studentId ||
+    !year ||
+    !position_Id
+  ) {
     res.status(400);
     throw new Error("All fields are required");
   }
@@ -46,19 +55,11 @@ export const registerMember = asyncHandler(async (req, res) => {
  * @method GET
  */
 export const getAllMembers = asyncHandler(async (req, res) => {
-  try {
-    const members = await prisma.member.findMany();
-    res.status(200).json({
-      success: true,
-      data: members,
-    });
-  } catch (error) {
-    console.error("Error fetching members:", error);
-    res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
+  const members = await prisma.member.findMany();
+  res.status(200).json({
+    success: true,
+    data: members,
+  });
 });
 
 // Get member by ID
@@ -90,15 +91,8 @@ export const getMemberById = asyncHandler(async (req, res) => {
 // Update member unique Id
 export const updateMember = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const {
-    name,
-    address,
-    email,
-    semester,
-    studentId,
-    year,
-    position_Id,
-  } = req.body;
+  const { name, address, email, semester, studentId, year, position_Id } =
+    req.body;
 
   if (!ObjectId.isValid(id)) {
     res.status(400);
@@ -179,8 +173,7 @@ export const deleteMember = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     error: null,
-    data: {
-      message: "Deleted successfully",
-    },
+    message: "Deleted successfully",
+    data: deletedMember,
   });
 });
