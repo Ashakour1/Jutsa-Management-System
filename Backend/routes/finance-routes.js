@@ -1,10 +1,10 @@
 // finance root file
 import express from "express";
-import { createFinance, deleteFinance, getFinance, getFinances, updateFinance } from "../controllers/finance-controller.js";
+import { registerFinance, deleteFinance, getFinance, getFinances, updateFinance } from "../controllers/finance-controller.js";
 
 const router = express.Router();
 
-router.post('/create',createFinance)
+router.post('/reg',registerFinance)
 router.get('/',getFinances)
 router.get('/:id',getFinance)
 router.delete('/delete/:id',deleteFinance)
