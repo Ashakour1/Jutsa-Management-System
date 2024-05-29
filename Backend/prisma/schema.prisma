@@ -76,5 +76,15 @@ model Competitor{
   updatedAt DateTime @updatedAt
 }
 
+model Sport{
+  id              String    @id @db.ObjectId @default(auto()) @map("_id")
+  monitorName     String
+  monitorNumber   String
+  className       String
+  description     String
+  amount          Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
 
 
