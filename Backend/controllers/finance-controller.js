@@ -40,11 +40,6 @@ export const registerFinance = asyncHandler(async (req, res) => {
 export const getFinances = asyncHandler(async (req, res) => {
   const finances = await prisma.finance.findMany();
 
-  if (finances.length === 0) {
-    res.status(404);
-    throw new Error("Unable to find:No finances found");
-  }
-
   res.status(200).json({
     success: true,
     error: null,
