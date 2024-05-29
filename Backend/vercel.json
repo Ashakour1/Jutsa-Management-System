@@ -9,9 +9,5 @@
       }
     }
   ],
-  "routes": [
-    { "src": "/api/users/(.*)", "dest": "/server.js" },
-    { "src": "/api/competitors/(.*)", "dest": "/server.js" },
-    { "src": "/", "dest": "/server.js" }
-  ]
+  "routes": [{ "src": "/(*)", "dest": "/server.js" }]
 }
