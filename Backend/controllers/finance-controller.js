@@ -4,7 +4,7 @@ import prisma from "../config/db.js";
 import asyncHandler from "express-async-handler";
 
 // Create
-export const RegisterFinance = asyncHandler(async (req, res) => {
+export const registerFinance = asyncHandler(async (req, res) => {
   const { title, amount, type, userId, category } = req.body;
 
   if (!title || !amount || !type || !userId || !category) {
