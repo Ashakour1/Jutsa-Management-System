@@ -7,7 +7,7 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     number: "",
-    id: "",
+    idNumber: "",
     email: "",
     semester: "",
     skill: "",
@@ -41,6 +41,7 @@ const RegisterForm = () => {
       newErrors.projectName = "Project Name is required";
     if (!formData.technologies)
       newErrors.technologies = "Technologies are required";
+    if (!formData.idNumber) newErrors.idNumber = "ID is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -62,6 +63,7 @@ const RegisterForm = () => {
     setFormData({
       name: "",
       number: "",
+      idNumber: "",
       email: "",
       semester: "",
       skill: "",
@@ -104,7 +106,7 @@ const RegisterForm = () => {
       }
     } catch (err) {
       console.log(err);
-      if (err.response && err.response.data && err.response.data.message) {
+      if (err) {
         toast.error(err.response.data.message);
       } else {
         toast.error("An error occurred");
@@ -240,20 +242,22 @@ const RegisterForm = () => {
             <div className="flex flex-col">
               <label
                 className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="className"
+                htmlFor="id"
               >
                 ID
               </label>
               <input
                 onChange={handleChange}
-                value={formData.id}
+                value={formData.idNumber}
                 className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-                id="className"
+                id="id"
                 placeholder="Enter your id number"
                 type="text"
-                name="className"
+                name="idNumber"
               />
-              {errors.id && <p className="text-red-500 text-xs">{errors.id}</p>}
+              {errors.idNumber && (
+                <p className="text-red-500 text-xs">{errors.idNumber}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <label
