@@ -56,7 +56,7 @@ const RegisterForm = () => {
         toast.warning("This form is currently not open for registration.");
       } else {
         const response = await axios.post(
-          "https://159.100.6.253:5000/api/competitors/",
+          "http://159.100.6.253:5000/api/competitors/",
           formData
         );
         toast.success("Registration successful");
