@@ -56,7 +56,7 @@ const RegisterForm = () => {
         toast.warning("This form is currently not open for registration.");
       } else {
         const response = await axios.post(
-          "http://localhost:5000/api/competitors",
+          "https://jutsa-api.vercel.app/api/competitors/",
           formData
         );
         toast.success("Registration successful");
