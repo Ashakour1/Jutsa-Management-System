@@ -105,12 +105,7 @@ const RegisterForm = () => {
         clearText();
       }
     } catch (err) {
-      console.log(err);
-      if (err) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("An error occurred");
-      }
+      toast.error(err.response.data.message);
     } finally {
       setLoading(false);
     }
