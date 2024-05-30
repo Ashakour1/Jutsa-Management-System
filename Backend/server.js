@@ -22,6 +22,9 @@ app.use("/api/positions", positionRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/competitors", competitorRoutes);
 app.use("/api/members", memberRoutes);
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 app.use("/api/finances", financeRoutes);
 
