@@ -12,6 +12,6 @@
   "routes": [
     { "src": "/api/users/(.*)", "dest": "/" },
     { "src": "/api/competitors/(.*)", "dest": "/" },
-    { "src": "/", "dest": "/server.js" }
+    { "src": "/", "dest": "/" }
   ]
 }
