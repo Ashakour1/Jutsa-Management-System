@@ -291,7 +291,7 @@ const RegisterForm = () => {
                 ></path>
               </svg>
             ) : (
-              "Register"
+              "Register Now"
             )}
           </button>
         </form>
