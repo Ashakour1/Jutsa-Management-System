@@ -22,7 +22,7 @@ const Header = () => {
           {/* <img src="./logo.png" alt="" /> */}
          <img src="./logo.png" alt="" className="w-10" />
         </div>
-        <div className="hidden md:flex gap-3 text-center items-center">
+        <div className="hidden pl-10 md:flex gap-3 text-center items-center">
           <Link className="font-medium" to="/">
             Home
           </Link>
