@@ -27,6 +27,7 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     email,
     semester,
     skill,
+    idNumber,
     className,
     type,
     projectName,
@@ -40,6 +41,7 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     !email ||
     !semester ||
     !skill ||
+    !idNumber ||
     !className ||
     !projectName
   ) {
@@ -50,13 +52,9 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
   // Check if the competitor is already registered for the same project in the same semester
   const competitorExists = await prisma.competitor.findFirst({
     where: {
-      AND: [
-        { semester },
-        { projectName },
-        {
-          OR: [{ email }, { number: Number(number) }],
-        },
-      ],
+      idNumber,
+      semester,
+      projectName,
     },
   });
 
@@ -74,6 +72,7 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
       number: Number(number),
       email,
       semester,
+      idNumber,
       className,
       skill,
       type,
