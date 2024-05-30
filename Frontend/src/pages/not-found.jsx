@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const NotFound = () => {
   return (
     <div>
+      <Helmet>
+        <title>404 - Jutsa</title>
+      </Helmet>
       <div class="grid h-screen place-content-center bg-white px-4">
         <div class="text-center">
           <h1 class="text-9xl font-black text-gray-200">404</h1>
