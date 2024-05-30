@@ -4,6 +4,7 @@ import { VscFeedback } from "react-icons/vsc";
 import { GiInspiration } from "react-icons/gi";
 import { CgCommunity } from "react-icons/cg";
 import { MdExplore } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Benefits = () => {
   return (
@@ -102,12 +103,12 @@ const Benefits = () => {
         </div>
 
         <div class="mt-12 text-center">
-          <a
-            href="#"
+          <Link
+            to="/register"
             class="inline-block rounded bg-customBlue px-10 py-4 text-sm font-medium text-white transition"
           >
             Join Us Today
-          </a>
+          </Link>
         </div>
       </div>
     </section>
