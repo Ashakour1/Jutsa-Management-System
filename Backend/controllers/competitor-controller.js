@@ -21,7 +21,7 @@ import { ObjectId } from "mongodb";
 // status String @default("pending")
 
 export const registerCompetitor = asyncHandler(async (req, res) => {
-  console.log(req.body);
+  console.log(req.body)
   const {
     name,
     number,
