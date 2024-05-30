@@ -50,8 +50,8 @@ const RegisterForm = () => {
     // Get the current date and format it
     const currentDate = formatDate(new Date());
     try {
-      if (currentDate === "6-6-2024") {
-        toast.success("This form is currently not open for registration.");
+      if (currentDate > "6-6-2024") {
+        toast.warning("This form is currently not open for registration.");
       } else {
         const response = await axios.post(
           "https://jutsa-api.vercel.app/api/competitors/",
