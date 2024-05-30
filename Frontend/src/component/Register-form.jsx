@@ -101,7 +101,7 @@ const RegisterForm = () => {
           "https://jutsa-api.vercel.app/api/competitors/",
           formData
         );
-        toast.success("Registration successful");
+        toast.success(response.data.message);
         clearText();
       }
     } catch (err) {
