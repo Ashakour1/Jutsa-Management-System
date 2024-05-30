@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -15,13 +16,44 @@ const RegisterForm = () => {
     technologies: "",
   });
 
-  console.log(formData);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name) newErrors.name = "Name is required";
+    if (!formData.number) {
+      newErrors.number = "Phone number is required";
+    } else if (!/^\d+$/.test(formData.number)) {
+      newErrors.number = "Phone number must be numeric";
+    }
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+    }
+    if (!formData.semester) newErrors.semester = "Semester is required";
+    if (!formData.skill) newErrors.skill = "Skill is required";
+    if (!formData.className) newErrors.className = "Class Name is required";
+    if (!formData.type) newErrors.type = "Type is required";
+    if (!formData.projectName)
+      newErrors.projectName = "Project Name is required";
+    if (!formData.technologies)
+      newErrors.technologies = "Technologies are required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: null,
     }));
   };
 
@@ -37,11 +69,17 @@ const RegisterForm = () => {
       projectName: "",
       technologies: "",
     });
+    setErrors({});
   };
 
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
+
+    setLoading(true);
 
     const formatDate = (date) => {
       const d = date.getDate();
@@ -62,17 +100,16 @@ const RegisterForm = () => {
         );
         toast.success("Registration successful");
         clearText();
-        setLoading(false);
-        // console.log(response.data);
       }
     } catch (err) {
-      setLoading(false);
       console.log(err);
-      if (err) {
+      if (err.response && err.response.data && err.response.data.message) {
         toast.error(err.response.data.message);
       } else {
         toast.error("An error occurred");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,14 +120,13 @@ const RegisterForm = () => {
           Registration
         </h1>
         <p className="mb-4 text-gray-700">
-          {" "}
           Please fill in the form below to register for IT-DAY
         </p>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700 "
+                className="mb-1 text-sm font-medium text-gray-700"
                 htmlFor="name"
               >
                 Name
@@ -104,29 +140,35 @@ const RegisterForm = () => {
                 type="text"
                 name="name"
               />
+              {errors.name && (
+                <p className="text-red-500 text-xs">{errors.name}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700 "
-                htmlFor="phone"
+                className="mb-1 text-sm font-medium text-gray-700"
+                htmlFor="number"
               >
                 Phone Number
               </label>
               <input
                 onChange={handleChange}
                 value={formData.number}
-                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary  "
-                id="phone"
+                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="number"
                 placeholder="Enter your phone number"
                 type="tel"
                 name="number"
               />
+              {errors.number && (
+                <p className="text-red-500 text-xs">{errors.number}</p>
+              )}
             </div>
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700 "
+                className="mb-1 text-sm font-medium text-gray-700"
                 htmlFor="email"
               >
                 Email
@@ -134,16 +176,19 @@ const RegisterForm = () => {
               <input
                 onChange={handleChange}
                 value={formData.email}
-                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary  "
+                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="email"
                 placeholder="Enter your email"
                 type="email"
                 name="email"
               />
+              {errors.email && (
+                <p className="text-red-500 text-xs">{errors.email}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700 "
+                className="mb-1 text-sm font-medium text-gray-700"
                 htmlFor="semester"
               >
                 Semester
@@ -151,13 +196,11 @@ const RegisterForm = () => {
               <select
                 value={formData.semester}
                 onChange={handleChange}
-                className="rounded-md border  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                className="rounded-md border p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="semester"
-                placeholder="Enter your semester"
-                type="number"
                 name="semester"
               >
-                <option value>Select Semester</option>
+                <option value="">Select Semester</option>
                 <option value="1">1st Semester</option>
                 <option value="2">2nd Semester</option>
                 <option value="3">3rd Semester</option>
@@ -167,29 +210,35 @@ const RegisterForm = () => {
                 <option value="7">7th Semester</option>
                 <option value="8">8th Semester</option>
               </select>
+              {errors.semester && (
+                <p className="text-red-500 text-xs">{errors.semester}</p>
+              )}
             </div>
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700 "
-                htmlFor="class-name"
+                className="mb-1 text-sm font-medium text-gray-700"
+                htmlFor="className"
               >
                 Class Name
               </label>
               <input
                 onChange={handleChange}
                 value={formData.className}
-                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary   "
-                id="class-name"
+                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="className"
                 placeholder="Enter your class name"
                 type="text"
                 name="className"
               />
+              {errors.className && (
+                <p className="text-red-500 text-xs">{errors.className}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700 "
+                className="mb-1 text-sm font-medium text-gray-700"
                 htmlFor="type"
               >
                 Type
@@ -198,24 +247,25 @@ const RegisterForm = () => {
                 value={formData.type}
                 name="type"
                 onChange={handleChange}
-                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary  "
+                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="type"
-                placeholder="Enter your type"
-                type="text"
               >
-                <option value>Select Type</option>
+                <option value="">Select Type</option>
                 <option value="Network">Network</option>
                 <option value="webdevelopment">Web Development</option>
                 <option value="Mobile Application">Mobile Application</option>
                 <option value="Graphic Design">Graphic Design</option>
-                <option value="typing">Typing </option>
+                <option value="typing">Typing</option>
               </select>
+              {errors.type && (
+                <p className="text-red-500 text-xs">{errors.type}</p>
+              )}
             </div>
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700 "
+                className="mb-1 text-sm font-medium text-gray-700"
                 htmlFor="skill"
               >
                 Skill
@@ -223,34 +273,40 @@ const RegisterForm = () => {
               <input
                 value={formData.skill}
                 onChange={handleChange}
-                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary  "
+                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="skill"
                 placeholder="Enter your skill"
                 type="text"
                 name="skill"
               />
+              {errors.skill && (
+                <p className="text-red-500 text-xs">{errors.skill}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700 "
-                htmlFor="project-name"
+                className="mb-1 text-sm font-medium text-gray-700"
+                htmlFor="projectName"
               >
                 Project Name
               </label>
               <input
                 value={formData.projectName}
                 onChange={handleChange}
-                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary "
-                id="project-name"
+                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="projectName"
                 placeholder="Enter your project name"
                 type="text"
                 name="projectName"
               />
+              {errors.projectName && (
+                <p className="text-red-500 text-xs">{errors.projectName}</p>
+              )}
             </div>
           </div>
           <div className="flex flex-col">
             <label
-              className="mb-1 text-sm font-medium text-gray-700 "
+              className="mb-1 text-sm font-medium text-gray-700"
               htmlFor="technologies"
             >
               Technologies
@@ -259,16 +315,19 @@ const RegisterForm = () => {
               value={formData.technologies}
               onChange={handleChange}
               name="technologies"
-              className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary  "
+              className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
               id="technologies"
               placeholder="Enter the technologies used"
               type="text"
             />
+            {errors.technologies && (
+              <p className="text-red-500 text-xs">{errors.technologies}</p>
+            )}
           </div>
           <button
-            onClick={handleSubmit}
-            className="w-full rounded-md bg-customBlue px-4  text-sm font-medium text-white  py-3"
+            className="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
             type="submit"
+            disabled={loading}
           >
             {loading ? "Loading..." : "Register"}
           </button>
