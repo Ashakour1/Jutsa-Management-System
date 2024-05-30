@@ -8,10 +8,14 @@ import { FaSpinner } from "react-icons/fa";
 
 import { MdShowChart } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const About = () => {
   return (
     <main className="flex-1">
+      <Helmet>
+        <title>About - Jutsa</title>
+      </Helmet>
       <section className="bg-white text-black py-12 md:py-24" id="hero">
         <div className="max-w-contain mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 ">
           <div className="space-y-4 pt-16">
