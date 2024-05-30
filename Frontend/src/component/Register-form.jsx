@@ -7,6 +7,7 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     number: "",
+    id: "",
     email: "",
     semester: "",
     skill: "",
@@ -239,6 +240,24 @@ const RegisterForm = () => {
             <div className="flex flex-col">
               <label
                 className="mb-1 text-sm font-medium text-gray-700"
+                htmlFor="className"
+              >
+                ID
+              </label>
+              <input
+                onChange={handleChange}
+                value={formData.id}
+                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="className"
+                placeholder="Enter your id number"
+                type="text"
+                name="className"
+              />
+              {errors.id && <p className="text-red-500 text-xs">{errors.id}</p>}
+            </div>
+            <div className="flex flex-col">
+              <label
+                className="mb-1 text-sm font-medium text-gray-700"
                 htmlFor="type"
               >
                 Type
@@ -261,8 +280,6 @@ const RegisterForm = () => {
                 <p className="text-red-500 text-xs">{errors.type}</p>
               )}
             </div>
-          </div>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="flex flex-col">
               <label
                 className="mb-1 text-sm font-medium text-gray-700"
@@ -283,26 +300,27 @@ const RegisterForm = () => {
                 <p className="text-red-500 text-xs">{errors.skill}</p>
               )}
             </div>
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="projectName"
-              >
-                Project Name
-              </label>
-              <input
-                value={formData.projectName}
-                onChange={handleChange}
-                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-                id="projectName"
-                placeholder="Enter your project name"
-                type="text"
-                name="projectName"
-              />
-              {errors.projectName && (
-                <p className="text-red-500 text-xs">{errors.projectName}</p>
-              )}
-            </div>
+          </div>
+
+          <div className="flex flex-col">
+            <label
+              className="mb-1 text-sm font-medium text-gray-700"
+              htmlFor="projectName"
+            >
+              Project Name
+            </label>
+            <input
+              value={formData.projectName}
+              onChange={handleChange}
+              className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+              id="projectName"
+              placeholder="Enter your project name"
+              type="text"
+              name="projectName"
+            />
+            {errors.projectName && (
+              <p className="text-red-500 text-xs">{errors.projectName}</p>
+            )}
           </div>
           <div className="flex flex-col">
             <label
