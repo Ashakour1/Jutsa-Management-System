@@ -7,6 +7,7 @@ import positionRoutes from "./routes/position-routes.js";
 import memberRoutes from "./routes/member-routes.js";
 import cors from "cors";
 import financeRoutes from "./routes/finance-routes.js";
+
 dotenv.config();
 const app = express();
 
