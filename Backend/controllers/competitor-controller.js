@@ -51,11 +51,9 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
   }
 
   // Check if the competitor is already registered for the same project in the same semester
-  const competitorExists = await prisma.competitor.findFirst({
+  const competitorExists = await prisma.competitor.findUnique({
     where: {
       idNumber,
-      semester,
-      projectName,
     },
   });
 
