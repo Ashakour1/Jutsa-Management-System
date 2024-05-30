@@ -51,14 +51,18 @@ const RegisterForm = () => {
 
     // Get the current date and format it
     const currentDate = formatDate(new Date());
+    const APIURL = "https://159.100.6.253:5000/api/competitors/";
     try {
       if (currentDate > "6-6-2024") {
         toast.warning("This form is currently not open for registration.");
       } else {
-        const response = await axios.post(
-          "https://159.100.6.253:5000/api/competitors/",
-          formData
-        );
+        const response = await fetch(APIURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
         toast.success("Registration successful");
         clearText();
         setLoading(false);
