@@ -13,12 +13,7 @@ const app = express();
 
 const PORT = 5000;
 
-app.use(
-  cors({
-    origin: "https://itday.jtech.so/",
-    credentials: true,
-  })
-);
+app.use(cors({}));
 // Middleware
 app.use(express.json());
 
