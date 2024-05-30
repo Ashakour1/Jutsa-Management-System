@@ -14,7 +14,7 @@ const PORT = 5000;
 
 app.use(
   cors({
-    origin: 'http://159.100.6.253:5000',
+    origin: 'https://itday.jtech.so', // Allow requests from the client's origin
     credentials: true,
   })
 );
