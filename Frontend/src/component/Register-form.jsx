@@ -40,6 +40,7 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     const formatDate = (date) => {
