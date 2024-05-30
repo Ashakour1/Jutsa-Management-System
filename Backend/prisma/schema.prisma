@@ -67,7 +67,7 @@ model Competitor{
   email         String   
   semester      String
   className     String
-  idNumber      String
+  idNumber      String @unique
   type          String
   skill         String
   projectName   String
