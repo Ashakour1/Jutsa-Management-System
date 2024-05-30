@@ -33,12 +33,41 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     technologies,
   } = req.body;
 
-  if ((!name, !number, !email, !semester, !skill, !className, !projectName)) {
+  // Check if all required fields are provided
+  if (
+    !name ||
+    !number ||
+    !email ||
+    !semester ||
+    !skill ||
+    !className ||
+    !projectName
+  ) {
     res.status(400);
     throw new Error("All fields are required");
   }
 
-  // create a new competitor
+  // Check if the competitor is already registered for the same project in the same semester
+  const competitorExists = await prisma.competitor.findFirst({
+    where: {
+      AND: [
+        { semester },
+        { projectName },
+        {
+          OR: [{ email }, { number: Number(number) }],
+        },
+      ],
+    },
+  });
+
+  if (competitorExists) {
+    res.status(400);
+    throw new Error(
+      "You are already registered for this project this semester with the same email or number"
+    );
+  }
+
+  // Create a new competitor
   const competitor = await prisma.competitor.create({
     data: {
       name,
@@ -52,7 +81,8 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
       technologies,
     },
   });
-  // send a response
+
+  // Send a response
   res.status(200).json({
     success: true,
     error: null,
@@ -74,6 +104,7 @@ export const getAllCompetitors = asyncHandler(async (req, res) => {
     res.status(200).json({
       success: true,
       data: competitors,
+      total: competitors.length,
     });
   } catch (error) {
     console.error("Error fetching competitors:", error);

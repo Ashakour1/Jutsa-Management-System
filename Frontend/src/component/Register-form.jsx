@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 const RegisterForm = () => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     number: "",
@@ -13,6 +14,7 @@ const RegisterForm = () => {
     projectName: "",
     technologies: "",
   });
+
   console.log(formData);
 
   const handleChange = (e) => {
@@ -46,7 +48,7 @@ const RegisterForm = () => {
       const y = date.getFullYear();
       return `${d}-${m}-${y}`;
     };
-  
+
     // Get the current date and format it
     const currentDate = formatDate(new Date());
     try {
@@ -54,14 +56,16 @@ const RegisterForm = () => {
         toast.warning("This form is currently not open for registration.");
       } else {
         const response = await axios.post(
-          "https://jutsa-api.vercel.app/api/competitors/",
+          "http://localhost:5000/api/competitors",
           formData
         );
         toast.success("Registration successful");
         clearText();
+        setLoading(false);
         // console.log(response.data);
       }
     } catch (err) {
+      setLoading(false);
       console.log(err);
       if (err) {
         toast.error(err.response.data.message);
@@ -265,7 +269,30 @@ const RegisterForm = () => {
             className="w-full rounded-md bg-customBlue px-4  text-sm font-medium text-white  py-3"
             type="submit"
           >
-            Register
+            {loading ? (
+              <svg
+                className="animate-spin h-5 w-5 mr-3 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            ) : (
+              "Register"
+            )}
           </button>
         </form>
       </div>
