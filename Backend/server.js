@@ -7,22 +7,18 @@ import positionRoutes from "./routes/position-routes.js";
 import memberRoutes from "./routes/member-routes.js";
 import cors from "cors";
 import financeRoutes from "./routes/finance-routes.js";
+import cors from "cors";
 dotenv.config();
 const app = express();
 
 const PORT = 5000;
 
 app.use(
-  
-  
   cors({
-      origin: 'https://itday.jtech.so',  // Allow requests from the client's origin
-    credentials: true,
-    allowedHeaders: ["Content-Type"],
-    
+    origin: "https://itday.jtech.so",
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
   })
 );
-// Middleware
 app.use(express.json());
 
 // Routes
