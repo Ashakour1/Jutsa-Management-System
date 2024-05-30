@@ -67,11 +67,11 @@ model Competitor{
   email         String   
   semester      String
   className     String
-  idNumber String
+  idNumber      String
   type          String
   skill         String
-  projectName  String
-  technologies String
+  projectName   String
+  technologies  String
   status String @default("pending")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
