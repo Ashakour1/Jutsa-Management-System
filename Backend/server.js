@@ -13,9 +13,13 @@ const app = express();
 const PORT = 5000;
 
 app.use(
+  
+  
   cors({
-    origin: 'https://itday.jtech.so', // Allow requests from the client's origin
+      origin: 'https://itday.jtech.so',  // Allow requests from the client's origin
     credentials: true,
+    allowedHeaders: ["Content-Type"],
+    
   })
 );
 // Middleware
