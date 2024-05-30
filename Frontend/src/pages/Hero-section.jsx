@@ -6,7 +6,7 @@ const HeroSection = () => {
   return (
     <main>
       <Helmet>
-        <title>Home - jutsa</title>
+        <title>Home</title>
       </Helmet>
       <div className="max-w-[1240px] md:pt-16 pt-10 mx-auto h-full flex flex-col">
         <div className="flex flex-col md:text-center text-start sm:text-center md:px-0 px-4 justify-center md:items-center items-start sm:items-center pt-10">
