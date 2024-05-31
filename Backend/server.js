@@ -6,6 +6,7 @@ import competitorRoutes from "./routes/competitor-routes.js";
 import positionRoutes from "./routes/position-routes.js";
 import memberRoutes from "./routes/member-routes.js";
 import financeRoutes from "./routes/finance-routes.js";
+import sportRoutes from './routes/sport-routes.js'
 import cors from "cors";
 
 dotenv.config();
@@ -28,6 +29,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/finances", financeRoutes);
 
+
+app.use('/api/sports',sportRoutes)
 // Error handler middleware
 app.use(errorHandler);
 
