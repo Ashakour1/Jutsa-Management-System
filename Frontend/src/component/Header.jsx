@@ -23,13 +23,13 @@ const Header = () => {
          <img src="./logo.png" alt="" className="w-10" />
         </div>
         <div className="hidden md:flex gap-3 text-center items-center">
-          <Link className="font-medium" to="/">
+          <Link className="font-medium p-4" to="/">
             Home
           </Link>
-          <Link className="font-medium" to="/about">
+          <Link className="font-medium p-4" to="/about">
             About
           </Link>
-          <Link className="font-medium" to="/about/faq">
+          <Link className="font-medium p-4" to="/about/faq">
             FAQ
           </Link>
         </div>
