@@ -111,7 +111,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      {currentDate === "2-6-2024" ? (
+      {currentDate === "4-6-2024" ? (
         <div className="flex min-h-[100dvh] w-full flex-col items-center justify-center  px-4 py-12 ">
           <div className="mx-auto w-full max-w-md space-y-6 rounded-lg bg-customBlue p-6 shadow-lg ">
             <div className="space-y-2 text-center">
