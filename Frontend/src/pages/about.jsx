@@ -58,7 +58,7 @@ const About = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-black">
               About IT-DAY
             </h2>
-            <p className="text-gray-500  text-lg">
+            <p className="text-gray-500  text-lg max-w-[900px] mx-auto">
               IT-DAY is an annual event that celebrates the innovation and
               excellence of our IT students. It's a platform for them to
               showcase their skills, projects, and achievements.
