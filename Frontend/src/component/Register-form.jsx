@@ -84,6 +84,8 @@ const RegisterForm = () => {
 
   // Get the current date and format it
   const currentDate = formatDate(new Date());
+  const eventEndDate = new Date('2024-06-06');
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -111,7 +113,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      {currentDate < "2024-06-06" ? (
+      {currentDate < "2024-06-10" ? (
         <div className="flex min-h-[100dvh] w-full flex-col items-center justify-center  px-4 py-12 ">
           <div className="mx-auto w-full max-w-md space-y-6 rounded-lg bg-customBlue p-6 shadow-lg ">
             <div className="space-y-2 text-center">
