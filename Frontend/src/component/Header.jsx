@@ -20,7 +20,10 @@ const Header = () => {
       <div className=" flex justify-between items-center px-5 max-w-[1140px] mx-auto h-16 mt-1">
         <div className="logo">
           {/* <img src="./logo.png" alt="" /> */}
-         <img src="./logo.png" alt="" className="w-10" />
+          <Link to="/">
+          <img src="./logo.png" alt="" className="w-10" />
+          </Link>
+        
         </div>
         <div className="hidden md:flex gap-3 text-center items-center">
           <Link className="font-medium p-4" to="/">
