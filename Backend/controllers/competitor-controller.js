@@ -19,9 +19,7 @@ import { ObjectId } from "mongodb";
 // skill        String
 // project_name  String
 // status String @default("pending")
-
 export const registerCompetitor = asyncHandler(async (req, res) => {
-  // console.log(req.body)
   const {
     name,
     number,
@@ -50,21 +48,49 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     throw new Error("All fields are required");
   }
 
-  // Check if the competitor is already registered for the same project in the same semester
-  const competitorExists = await prisma.competitor.findFirst({
-    where: {
-      OR: [{ email }, { idNumber }],
-      semester,
-      projectName,
-    },
-  });
+  // // Check if the email already exists
+  // const competitorEmailExists = await prisma.competitor.findFirst({
+  //   where: {
+  //     email: email,
+  //   },
+  // });
 
-  if (competitorExists) {
-    res.status(400);
-    throw new Error(
-      "You are already registered for this project this semester with the same email or number"
-    );
-  }
+  // if (competitorEmailExists) {
+  //   res.status(400);
+  //   throw new Error("Email already exists");
+  // }
+
+  // // Check if the idNumber already exists
+
+  // const competitorIdNumberExists = await prisma.competitor.findFirst({
+  //   where: {
+  //     idNumber: idNumber,
+  //   },
+  // });
+
+  // if (competitorIdNumberExists) {
+  //   res.status(400);
+  //   throw new Error("ID number already exists");
+  // }
+
+  // // Check if the competitor is already registered for the same project in the same semester
+  // const competitorExists = await prisma.competitor.findFirst({
+  //   where: {
+  //     AND: [
+  //       { email: email },
+  //       { number: number },
+  //       { projectName: projectName },
+  //       { semester: semester },
+  //     ],
+  //   },
+  // });
+
+  // if (competitorExists) {
+  //   res.status(400);
+  //   throw new Error(
+  //     `You are already registered for ${projectName} in ${semester} with the same email and number`
+  //   );
+  // }
 
   // Create a new competitor
   const competitor = await prisma.competitor.create({
@@ -82,6 +108,11 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     },
   });
 
+  if(!competitor) {
+    res.status(500);
+    throw new Error("Failed to register competitor");
+  }
+
   // Send a response
   res.status(200).json({
     success: true,
@@ -90,7 +121,6 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     data: competitor,
   });
 });
-
 /**
  * @controller getAllCompetitors
  * @description Get all competitors
