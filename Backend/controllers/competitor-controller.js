@@ -10,15 +10,6 @@ import { ObjectId } from "mongodb";
  * @description This route is used to create a new competitor
  */
 
-// id            String    @id @db.ObjectId @default(auto()) @map("_id")
-// name          String
-// number        String
-// email         String
-// semester      String
-// class         String
-// skill        String
-// project_name  String
-// status String @default("pending")
 export const registerCompetitor = asyncHandler(async (req, res) => {
   const {
     name,
@@ -48,49 +39,30 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     throw new Error("All fields are required");
   }
 
-  // // Check if the email already exists
-  // const competitorEmailExists = await prisma.competitor.findFirst({
-  //   where: {
-  //     email: email,
-  //   },
-  // });
+  // Get the current year
+  const currentYear = new Date().getFullYear();
 
-  // if (competitorEmailExists) {
-  //   res.status(400);
-  //   throw new Error("Email already exists");
-  // }
+ 
+  const competitorExists = await prisma.competitor.findFirst({
+    where: {
+      OR: [
+        { idNumber: idNumber },
+        { email: email },
+        { projectName: projectName },
+      ],
+      createdAt: {
+        gte: new Date(`${currentYear}-01-01T00:00:00.000Z`),
+        lt: new Date(`${currentYear + 1}-01-01T00:00:00.000Z`),
+      },
+    },
+  });
 
-  // // Check if the idNumber already exists
-
-  // const competitorIdNumberExists = await prisma.competitor.findFirst({
-  //   where: {
-  //     idNumber: idNumber,
-  //   },
-  // });
-
-  // if (competitorIdNumberExists) {
-  //   res.status(400);
-  //   throw new Error("ID number already exists");
-  // }
-
-  // // Check if the competitor is already registered for the same project in the same semester
-  // const competitorExists = await prisma.competitor.findFirst({
-  //   where: {
-  //     AND: [
-  //       { email: email },
-  //       { number: number },
-  //       { projectName: projectName },
-  //       { semester: semester },
-  //     ],
-  //   },
-  // });
-
-  // if (competitorExists) {
-  //   res.status(400);
-  //   throw new Error(
-  //     `You are already registered for ${projectName} in ${semester} with the same email and number`
-  //   );
-  // }
+  if (competitorExists) {
+    res.status(400);
+    throw new Error(
+      `You are already registered in ${currentYear} with the same email, number, or ID number`
+    );
+  }
 
   // Create a new competitor
   const competitor = await prisma.competitor.create({
@@ -108,18 +80,17 @@ export const registerCompetitor = asyncHandler(async (req, res) => {
     },
   });
 
-  if(!competitor) {
+  if (!competitor) {
     res.status(500);
     throw new Error("Failed to register competitor");
+  } else {
+    res.status(200).json({
+      success: true,
+      error: null,
+      message: "Registered successfully",
+      data: competitor,
+    });
   }
-
-  // Send a response
-  res.status(200).json({
-    success: true,
-    error: null,
-    message: "Registered successfully",
-    data: competitor,
-  });
 });
 /**
  * @controller getAllCompetitors
