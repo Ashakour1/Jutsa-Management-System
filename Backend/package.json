@@ -10,6 +10,7 @@
     "postinstall": "prisma generate",
     "build": "npm run postinstall",
     "start": "node server.js",
+    "server": "nodemon server.js",
     "db-push": "prisma db push"
   },
   "author": "",
