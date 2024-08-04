@@ -12,6 +12,19 @@ import RegisterForm from "./component/Register-form";
 import RegisterPage from "./pages/Register-page";
 import FAQPage from "./pages/FAQ-page";
 import { HelmetProvider } from "react-helmet-async";
+import Login from "./pages/Login";
+
+// Layout with header and footer
+const MainLayout = ({ children }) => (
+  <>
+    <Header />
+    {children}
+    <Footer />
+  </>
+);
+
+// Layout without header and footer
+const LoginAndSignLayout = ({ children }) => <>{children}</>;
 
 function App() {
   return (
@@ -19,25 +32,59 @@ function App() {
       <Toaster richColors position="top-center" />
       <HelmetProvider>
         <Router>
-          <Header />
           <Routes>
             <Route
               path="/"
               element={
-                <>
+                <MainLayout>
                   <HeroSection />
                   <CallToAction />
                   <Benefits />
-                </>
+                </MainLayout>
               }
             />
 
-            <Route path="/about" element={<About />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/about/faq" element={<FAQPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="/about"
+              element={
+                <MainLayout>
+                  <About />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <LoginAndSignLayout>
+                  <Login />
+                </LoginAndSignLayout>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <MainLayout>
+                  <RegisterPage />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/about/faq"
+              element={
+                <MainLayout>
+                  <FAQPage />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <MainLayout>
+                  <NotFound />
+                </MainLayout>
+              }
+            />
           </Routes>
-          <Footer />
         </Router>
       </HelmetProvider>
     </>
