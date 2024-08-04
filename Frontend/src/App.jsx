@@ -13,6 +13,7 @@ import RegisterPage from "./pages/Register-page";
 import FAQPage from "./pages/FAQ-page";
 import { HelmetProvider } from "react-helmet-async";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 // Layout with header and footer
 const MainLayout = ({ children }) => (
@@ -50,6 +51,14 @@ function App() {
                 <MainLayout>
                   <About />
                 </MainLayout>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <LoginAndSignLayout>
+                  <Signup />
+                </LoginAndSignLayout>
               }
             />
             <Route
