@@ -8,18 +8,6 @@ import Login from "./pages/Login";
 import NotFound from "./pages/not-found";
 import Signup from "./pages/Signup";
 
-// Layout with header and footer
-const MainLayout = ({ children }) => (
-  <>
-    <Header />
-    {children}
-    <Footer />
-  </>
-);
-
-// Layout without header and footer
-const LoginAndSignLayout = ({ children }) => <>{children}</>;
-
 function App() {
   return (
     <>
@@ -27,31 +15,10 @@ function App() {
       <HelmetProvider>
         <Router>
           <Routes>
-            <Route
-              path="/signup"
-              element={
-                <LoginAndSignLayout>
-                  <Signup />
-                </LoginAndSignLayout>
-              }
-            />
-            <Route
-              path="/"
-              element={
-                <LoginAndSignLayout>
-                  <Login />
-                </LoginAndSignLayout>
-              }
-            />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={<Login />} />
 
-            <Route
-              path="*"
-              element={
-                <MainLayout>
-                  <NotFound />
-                </MainLayout>
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       </HelmetProvider>
