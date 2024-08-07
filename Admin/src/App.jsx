@@ -15,7 +15,7 @@ function App() {
       <HelmetProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Signup />} />
+            <Route path="/register" element={<Signup />} />
             <Route path="/" element={<Login />} />
 
             <Route path="*" element={<NotFound />} />
