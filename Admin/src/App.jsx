@@ -2,12 +2,9 @@ import { HelmetProvider } from "react-helmet-async";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import "./App.css";
-import Footer from "./component/Footer";
-import Header from "./component/Header";
-import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/not-found";
 import Signup from "./pages/Signup";
-import Component from "./component/component/component";
 
 function App() {
   return (
@@ -17,7 +14,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/register" element={<Signup />} />
-            <Route path="/" element={<Component />} />
+            <Route path="/" element={<Dashboard />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

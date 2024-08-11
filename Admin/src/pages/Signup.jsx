@@ -1,5 +1,4 @@
-import React from "react";
-import SignupForm from "../component/SignUpForm";
+import SignupForm from "../components/SignUpForm";
 
 const Signup = () => {
   return (
@@ -9,5 +8,4 @@ const Signup = () => {
   );
 };
 
-
-export default Signup
+export default Signup;

@@ -28,7 +28,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip";
+} from "../components/ui/tooltip";
 
 import { CiCalendar } from "react-icons/ci";
 import { FiDollarSign, FiInbox } from "react-icons/fi";
@@ -36,8 +36,13 @@ import { GoGear } from "react-icons/go";
 import { IoMenu, IoTrophyOutline } from "react-icons/io5";
 import { LuUsers } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -45,10 +50,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+} from "../components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 
-export default function Component() {
+export default function Dashboard() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
