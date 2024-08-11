@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { registerSport,getAllSports,getSingleSport, deleteSport, updateSport} from '../controllers/sports-controller'
+import { registerSport,getAllSports,getSingleSport, deleteSport, updateSport} from "../controllers/sport-controller.js"
 
 
 const router = express.Router();
