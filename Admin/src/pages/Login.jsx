@@ -1,8 +1,8 @@
-import LoginForm from "../component/LoginForm";
+import LoginForm from "../components/LoginForm";
 
 function Login() {
   return (
-  <div className="max-w-md flex justify-center items-center mx-auto min-h-screen">
+    <div className="max-w-md flex justify-center items-center mx-auto min-h-screen">
       <LoginForm />
     </div>
   );
