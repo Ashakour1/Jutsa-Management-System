@@ -1,18 +1,18 @@
 import express from 'express'
 
-import { registerSport,getAllSports,getSingleSport, deleteSport, updateSport} from '../controllers/sports-controller'
+import { registerSport,getAllSports,getSingleSport, deleteSport, updateSport} from "../controllers/sport-controller.js"
 
 
 const router = express.Router();
 
-router.post('/sports',registerSport)
+router.post('/',registerSport)
 
-router.get('/sports',getAllSports)
+router.get('/',getAllSports)
 
-router.get('/sports/:id',getSingleSport)
+router.get('/:id',getSingleSport)
 
-router.put('/sports/:id',updateSport)
+router.put('/:id',updateSport)
 
-router.delete('/sports/:id',deleteSport)
+router.delete('/:id',deleteSport)
 
 export default router;

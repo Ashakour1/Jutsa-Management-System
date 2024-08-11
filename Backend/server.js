@@ -23,7 +23,7 @@ app.use("/api/positions", positionRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/competitors", competitorRoutes);
 app.use("/api/members", memberRoutes);
-app.use("./api/sports",Sport)
+app.use("/api/sports",Sport)
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
