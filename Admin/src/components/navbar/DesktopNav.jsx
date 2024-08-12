@@ -11,17 +11,17 @@ import clsx from "clsx";
 export const routes = [
   {
     name: "Finance",
-    route:"/dashboard/",
+    route:"/dashboard/finance",
     icon:<FiDollarSign className="h-5 w-5" />
   },
   {
     name: "Positions",
-    route:"/dashboard/",
+    route:"/dashboard/positions",
     icon:<LuUsers className="h-5 w-5" />
   },
   {
     name: "Members",
-    route:"/dashboard/",
+    route:"/dashboard/members",
     icon:<LuUsers className="h-5 w-5" />
   },
   {
@@ -31,12 +31,12 @@ export const routes = [
   },
   {
     name: "IT Day",
-    route:"/dashboard/",
+    route:"/dashboard/it-day",
     icon:<CiCalendar className="h-5 w-5" />
   },
   {
     name: "User Management",
-    route:"/dashboard/",
+    route:"/dashboard/user-management",
     icon:<GoGear className="h-5 w-5" />
   },
 ]

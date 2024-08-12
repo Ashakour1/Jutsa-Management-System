@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { CiMenuBurger } from "react-icons/ci";
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../ui/button';
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '../ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { routes } from "./DesktopNav";
 
 const MobileNav = () => {
@@ -33,6 +33,7 @@ const MobileNav = () => {
           {
             routes.map((route,index)=>(
               <li key={index}>
+                <SheetClose asChild>
                 <Link
                   to={route.route}
                   className={clsx(
@@ -42,10 +43,11 @@ const MobileNav = () => {
                     }
                   )}
                   
-                >
+                  >
                   {route.icon}
                   {route.name}
                 </Link>
+                  </SheetClose>
               </li>
             ))
           }
