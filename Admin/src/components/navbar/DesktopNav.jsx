@@ -7,20 +7,21 @@ import { Link, useLocation } from 'react-router-dom';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import clsx from "clsx";
 
+// add your route path here route:/dashboard/pathname
 export const routes = [
   {
     name: "Finance",
-    route:"/",
+    route:"/dashboard/",
     icon:<FiDollarSign className="h-5 w-5" />
   },
   {
     name: "Positions",
-    route:"/",
+    route:"/dashboard/",
     icon:<LuUsers className="h-5 w-5" />
   },
   {
     name: "Members",
-    route:"/",
+    route:"/dashboard/",
     icon:<LuUsers className="h-5 w-5" />
   },
   {
@@ -30,12 +31,12 @@ export const routes = [
   },
   {
     name: "IT Day",
-    route:"/",
+    route:"/dashboard/",
     icon:<CiCalendar className="h-5 w-5" />
   },
   {
     name: "User Management",
-    route:"/",
+    route:"/dashboard/",
     icon:<GoGear className="h-5 w-5" />
   },
 ]
@@ -83,7 +84,7 @@ const DesktopNav = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
-              to="#"
+              to="/dashboard/"
               className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
     
             >
