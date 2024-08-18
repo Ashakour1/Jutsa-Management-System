@@ -1,7 +1,7 @@
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import { createBrowserRouter } from "react-router-dom";
-import { Dashboard } from "@/pages/Dashboard/Dashboard";
+import { Dashboard } from "@/pages/Dashboard";
 import Header from "@/components/Navigations/Header";
 
 export const router = createBrowserRouter([
