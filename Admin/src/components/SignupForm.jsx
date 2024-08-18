@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "./ui/button";
 
 const SignupForm = () => {
   return (
@@ -35,9 +36,9 @@ const SignupForm = () => {
               placeholder="Password"
             />
           </div>
-          <button className="w-full bg-customBlue font-medium p-2 rounded mt-8 text-white">
+          <Button className="w-full bg-customBlue font-medium p-2 rounded mt-8 text-white">
             Sign Up
-          </button>
+          </Button>
         </form>
       </div>
     </div>
