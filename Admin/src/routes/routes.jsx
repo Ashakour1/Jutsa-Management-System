@@ -6,11 +6,11 @@ import Header from "@/components/Navigations/Header";
 
 export const router = createBrowserRouter([
   {
-    path: "/dashboard",
+    path: "/",
     element: <Header />, // This will render the Header
     children: [
       {
-        index: true, // This will match the /dashboard path
+        path: "/dashboard", // This will match the /dashboard path
         element: <Dashboard />, // This will render Dashboard inside Header
       },
     ],
