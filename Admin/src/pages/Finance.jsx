@@ -59,11 +59,11 @@ const Finance = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Date</TableHead>
                   <TableHead>Title</TableHead>
                   <TableHead>Amount</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Category</TableHead>
+                  <TableHead>Reg Date</TableHead>
                   <TableHead>
                     <span className="sr-only">Actions</span>
                   </TableHead>
@@ -72,13 +72,19 @@ const Finance = () => {
               <TableBody>
                 {finances.map((finance) => (
                   <TableRow key={finance.id}>
+                    <TableCell>{finance.title}</TableCell>
+                    <TableCell>{finance.amount.toLocaleString()}</TableCell>
+                    <TableCell>
+                      {finance.type === "income" ? (
+                        <span className="text-green-500">Income</span>
+                      ) : (
+                        <span className="text-red-500">Expense</span>
+                      )}
+                    </TableCell>
+                    <TableCell>{finance.category}</TableCell>
                     <TableCell>
                       {new Date(finance.createdAt).toLocaleDateString()}
                     </TableCell>
-                    <TableCell>{finance.title}</TableCell>
-                    <TableCell>${finance.amount.toLocaleString()}</TableCell>
-                    <TableCell>{finance.type}</TableCell>
-                    <TableCell>{finance.category}</TableCell>
                     <TableCell>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
