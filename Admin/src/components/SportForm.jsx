@@ -71,7 +71,7 @@ const SportsForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/sports",
+        "http://localhost:5000/api/sports",
         formData
       );
       toast.success(response.data.message);
