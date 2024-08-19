@@ -13,36 +13,36 @@ import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Button } from "../ui/button";
 import HeaderMobile from "./Header-mobile";
+
 export const routes = [
   {
     route: "/dashboard",
     name: "Dashboard",
   },
   {
-    route: "/positions",
+    route: "/dashboard/positions",
     name: "Positions",
   },
   {
-    route: "/finance",
+    route: "/dashboard/finance",
     name: "Finance",
   },
   {
-    route: "/sports",
+    route: "/dashboard/sports",
     name: "Sports",
   },
   {
-    route: "/it-day",
+    route: "/dashboard/it-day",
     name: "IT Day",
   },
   {
-    route: "/user-management",
+    route: "/dashboard/user-management",
     name: "User Management",
   },
 ];
+
 const Header = () => {
   const [navIsOpen, setNavIsOpen] = useState(false);
-
-  const [openNav, setOpenNav] = useState(false);
 
   const openNavBar = () => {
     setNavIsOpen(!navIsOpen);
@@ -55,8 +55,8 @@ const Header = () => {
   return (
     <div>
       <header className="sticky top-0 flex justify-between h-16 items-center text-black gap-4 border-b bg-background x-4 md:px-6">
-        <div className=" md:flex gap-5 hidden">
-          <img src="logo.png" alt="logo" className=" w-10 h-10" />
+        <div className="md:flex gap-5 hidden">
+          <img src="logo.png" alt="logo" className="w-10 h-10" />
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             {routes.map((route, index) => (
               <Link
@@ -71,7 +71,7 @@ const Header = () => {
         </div>
 
         <HeaderMobile />
-        <div className="">
+        <div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
