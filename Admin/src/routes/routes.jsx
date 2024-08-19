@@ -1,9 +1,7 @@
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import { createBrowserRouter } from "react-router-dom";
-
 import { Dashboard } from "@/pages/Dashboard";
-
 import NotFound from "@/pages/not-found";
 import Header from "@/components/Navigations/Header";
 import Finance from "@/pages/Finance";
