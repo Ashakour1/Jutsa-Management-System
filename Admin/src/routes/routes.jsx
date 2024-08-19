@@ -17,11 +17,11 @@ export const router = createBrowserRouter([
         element: <Dashboard />, // This will render Dashboard inside Header
       },
       {
-        path: "finance", // This will match /dashboard/finance
+        path: "/dashboard/finance", // This will match /dashboard/finance
         element: <Finance />,
       },
       {
-        path: "sports", // This will match /dashboard/sports
+        path: "/dashboard/sports", // This will match /dashboard/sports
         element: <Sports />,
       },
       {
