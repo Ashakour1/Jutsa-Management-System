@@ -65,7 +65,7 @@ const FinanceForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/finances/reg",
+        "http://localhost:5000/api/finances/reg",
         formData
       );
       toast.success(response.data.message);
@@ -79,124 +79,123 @@ const FinanceForm = () => {
   };
 
   return (
-    
-      <div className="rounded-lg mx-auto bg-white text-black p-8 shadow-lg ">
-        <h1 className="my-4 text-3xl font-bold tracking-tight text-black">
-          Register Finance
-        </h1>
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div className="flex flex-col">
-            <label
-              className="mb-1 text-sm font-medium text-gray-700"
-              htmlFor="title"
-            >
-              Title
-            </label>
-            <input
-              onChange={handleChange}
-              value={formData.title}
-              className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="title"
-              placeholder="Enter finance title"
-              type="text"
-              name="title"
-            />
-            {errors.title && (
-              <p className="text-red-500 text-xs">{errors.title}</p>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label
-              className="mb-1 text-sm font-medium text-gray-700"
-              htmlFor="amount"
-            >
-              Amount
-            </label>
-            <input
-              onChange={handleChange}
-              value={formData.amount}
-              className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="amount"
-              placeholder="Enter amount"
-              type="text"
-              name="amount"
-            />
-            {errors.amount && (
-              <p className="text-red-500 text-xs">{errors.amount}</p>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label
-              className="mb-1 text-sm font-medium text-gray-700"
-              htmlFor="type"
-            >
-              Type
-            </label>
-            <select
-              value={formData.type}
-              name="type"
-              onChange={handleChange}
-              className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="type"
-            >
-              <option value="">Select Type</option>
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
-            </select>
-            {errors.type && (
-              <p className="text-red-500 text-xs">{errors.type}</p>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label
-              className="mb-1 text-sm font-medium text-gray-700"
-              htmlFor="category"
-            >
-              Category
-            </label>
-            <input
-              onChange={handleChange}
-              value={formData.category}
-              className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="category"
-              placeholder="Enter category"
-              type="text"
-              name="category"
-            />
-            {errors.category && (
-              <p className="text-red-500 text-xs">{errors.category}</p>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label
-              className="mb-1 text-sm font-medium text-gray-700"
-              htmlFor="userId"
-            >
-              User ID
-            </label>
-            <input
-              onChange={handleChange}
-              value={formData.userId}
-              className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="userId"
-              placeholder="Enter user ID"
-              type="text"
-              name="userId"
-            />
-            {errors.userId && (
-              <p className="text-red-500 text-xs">{errors.userId}</p>
-            )}
-          </div>
-          <button
-            className="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
-            type="submit"
-            disabled={loading}
+    <div className="rounded-lg mx-auto bg-white text-black p-8 shadow-lg border mt-10 ">
+      <h1 className="py-4 text-2xl font-bold tracking-tight text-black">
+        Register Finance
+      </h1>
+      <p className="text-gray-500 pb-7">
+        Fill in the form below to register a new finance.
+      </p>
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="flex flex-col">
+          <label
+            className="mb-1 text-sm font-medium text-gray-700"
+            htmlFor="title"
           >
-            {loading ? "Loading..." : "Register Finance"}
-          </button>
-        </form>
-      </div>
-    
+            Title
+          </label>
+          <input
+            onChange={handleChange}
+            value={formData.title}
+            className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+            id="title"
+            placeholder="Enter finance title"
+            type="text"
+            name="title"
+          />
+          {errors.title && (
+            <p className="text-red-500 text-xs">{errors.title}</p>
+          )}
+        </div>
+        <div className="flex flex-col">
+          <label
+            className="mb-1 text-sm font-medium text-gray-700"
+            htmlFor="amount"
+          >
+            Amount
+          </label>
+          <input
+            onChange={handleChange}
+            value={formData.amount}
+            className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+            id="amount"
+            placeholder="Enter amount"
+            type="text"
+            name="amount"
+          />
+          {errors.amount && (
+            <p className="text-red-500 text-xs">{errors.amount}</p>
+          )}
+        </div>
+        <div className="flex flex-col">
+          <label
+            className="mb-1 text-sm font-medium text-gray-700"
+            htmlFor="type"
+          >
+            Type
+          </label>
+          <select
+            value={formData.type}
+            name="type"
+            onChange={handleChange}
+            className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+            id="type"
+          >
+            <option value="">Select Type</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          {errors.type && <p className="text-red-500 text-xs">{errors.type}</p>}
+        </div>
+        <div className="flex flex-col">
+          <label
+            className="mb-1 text-sm font-medium text-gray-700"
+            htmlFor="category"
+          >
+            Category
+          </label>
+          <input
+            onChange={handleChange}
+            value={formData.category}
+            className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+            id="category"
+            placeholder="Enter category"
+            type="text"
+            name="category"
+          />
+          {errors.category && (
+            <p className="text-red-500 text-xs">{errors.category}</p>
+          )}
+        </div>
+        <div className="flex flex-col">
+          <label
+            className="mb-1 text-sm font-medium text-gray-700"
+            htmlFor="userId"
+          >
+            User ID
+          </label>
+          <input
+            onChange={handleChange}
+            value={formData.userId}
+            className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+            id="userId"
+            placeholder="Enter user ID"
+            type="text"
+            name="userId"
+          />
+          {errors.userId && (
+            <p className="text-red-500 text-xs">{errors.userId}</p>
+          )}
+        </div>
+        <button
+          className="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Loading..." : "Register Finance"}
+        </button>
+      </form>
+    </div>
   );
 };
 
