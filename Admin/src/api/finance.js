@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:7000/api/finances";
+const BASE_URL = "http://localhost:5000/api/finances";
 
 export const getFinances = async (searchQuery = "") => {
   const response = await axios.get(BASE_URL, {
