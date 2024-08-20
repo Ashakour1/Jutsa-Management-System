@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:7000/api/sports";
+const BASE_URL = "http://localhost:5000/api/sports";
 
 export const getSports = async (searchQuery = "") => {
   const response = await axios.get(BASE_URL, {
@@ -9,9 +9,18 @@ export const getSports = async (searchQuery = "") => {
   return response.data;
 };
 
-export const createSport = async (sportData) => {
-  const response = await axios.post(`${BASE_URL}/reg`, sportData);
+export const getSportById = async (id) => {
+  const response = await axios.get(`${BASE_URL}/${id}`);
   return response.data;
+};
+
+export const createSport = async (sportData) => {
+  const response = await axios.post(`${BASE_URL}`, sportData);
+  if (response.data.success) {
+    return response.data;
+  } else {
+    throw new Error(response.data.message);
+  }
 };
 
 export const updateSport = async (id, updatedData) => {
