@@ -1,8 +1,11 @@
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { createFinance, updateFinance, getFinanceById } from "@/api/finance";
 import { toast } from "sonner";
+import { useNavigate, useParams } from "react-router-dom";
 
 const FinanceForm = () => {
+  const navigate = useNavigate();
+  const { id } = useParams(); // Get the finance ID from the URL params
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -11,8 +14,38 @@ const FinanceForm = () => {
     category: "",
     userId: "",
   });
-
   const [errors, setErrors] = useState({});
+  const [types] = useState(["Expense", "Income"]); // Example types, you can modify or fetch from API
+
+  useEffect(() => {
+    const fetchFinanceData = async () => {
+      setLoading(true);
+      try {
+        const res = await getFinanceById(id);
+        if (res) {
+          setFormData({
+            title: res.data.title || "",
+            amount: res.data.amount || "",
+            type: res.data.type || "",
+            category: res.data.category || "",
+            userId: res.data.userId || "",
+          });
+        } else {
+          console.error("Finance data not found");
+          toast.error("Finance data not found");
+        }
+      } catch (error) {
+        toast.error("Failed to load finance data");
+        console.error("Fetch Finance Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchFinanceData();
+    }
+  }, [id]);
 
   const validate = () => {
     const newErrors = {};
@@ -43,7 +76,7 @@ const FinanceForm = () => {
     }));
   };
 
-  const clearText = () => {
+  const clearForm = () => {
     setFormData({
       title: "",
       amount: "",
@@ -54,31 +87,59 @@ const FinanceForm = () => {
     setErrors({});
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!validate()) {
-      return;
-    }
-
-    setLoading(true);
-
+  const handleCreateFinance = async () => {
     try {
+<<<<<<< HEAD
       const response = await axios.post(
         "http://localhost:5000/api/finances/reg",
         formData
+=======
+      await createFinance(formData);
+      toast.success("Finance created successfully");
+      console.log("Finance created successfully");
+      clearForm();
+      navigate("/dashboard/finance"); // Redirect back to finance list
+    } catch (error) {
+      console.error("Create Finance Error:", error);
+      toast.error(
+        error.response?.data?.message || "An error occurred during creation"
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
       );
-      toast.success(response.data.message);
-      clearText();
-    } catch (err) {
-      console.log(err);
-      toast.error(err.response?.data?.message || "An error occurred");
-    } finally {
-      setLoading(false);
     }
   };
 
+  const handleUpdateFinance = async () => {
+    try {
+      await updateFinance(id, formData);
+      toast.success("Finance updated successfully");
+      console.log("Finance updated successfully", formData);
+      navigate("/dashboard/finance"); // Redirect back to finance list
+    } catch (error) {
+      console.error("Update Finance Error:", error);
+      toast.error(
+        error.response?.data?.message || "An error occurred during update"
+      );
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    setLoading(true);
+
+    if (id) {
+      await handleUpdateFinance();
+    } else {
+      await handleCreateFinance();
+    }
+
+    setLoading(false);
+  };
+
   return (
+<<<<<<< HEAD
     <div className="rounded-lg mx-auto bg-white text-black p-8 shadow-lg border mt-10 ">
       <h1 className="py-4 text-2xl font-bold tracking-tight text-black">
         Register Finance
@@ -86,6 +147,12 @@ const FinanceForm = () => {
       <p className="text-gray-500 pb-7">
         Fill in the form below to register a new finance.
       </p>
+=======
+    <div className="w-[800px] rounded-lg mx-auto bg-white text-black p-8 shadow-lg">
+      <h1 className="my-4 text-3xl font-bold tracking-tight text-black">
+        {id ? "Update Finance" : "Register Finance"}
+      </h1>
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="flex flex-col">
           <label
@@ -107,6 +174,10 @@ const FinanceForm = () => {
             <p className="text-red-500 text-xs">{errors.title}</p>
           )}
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
         <div className="flex flex-col">
           <label
             className="mb-1 text-sm font-medium text-gray-700"
@@ -127,6 +198,10 @@ const FinanceForm = () => {
             <p className="text-red-500 text-xs">{errors.amount}</p>
           )}
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
         <div className="flex flex-col">
           <label
             className="mb-1 text-sm font-medium text-gray-700"
@@ -135,6 +210,7 @@ const FinanceForm = () => {
             Type
           </label>
           <select
+<<<<<<< HEAD
             value={formData.type}
             name="type"
             onChange={handleChange}
@@ -147,6 +223,24 @@ const FinanceForm = () => {
           </select>
           {errors.type && <p className="text-red-500 text-xs">{errors.type}</p>}
         </div>
+=======
+            onChange={handleChange}
+            value={formData.type}
+            className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+            id="type"
+            name="type"
+          >
+            <option value="">Select type</option>
+            {types.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+          {errors.type && <p className="text-red-500 text-xs">{errors.type}</p>}
+        </div>
+
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
         <div className="flex flex-col">
           <label
             className="mb-1 text-sm font-medium text-gray-700"
@@ -167,6 +261,10 @@ const FinanceForm = () => {
             <p className="text-red-500 text-xs">{errors.category}</p>
           )}
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
         <div className="flex flex-col">
           <label
             className="mb-1 text-sm font-medium text-gray-700"
@@ -187,12 +285,22 @@ const FinanceForm = () => {
             <p className="text-red-500 text-xs">{errors.userId}</p>
           )}
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
         <button
           className="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
           type="submit"
           disabled={loading}
+<<<<<<< HEAD
         >
           {loading ? "Loading..." : "Register Finance"}
+=======
+          onClick={handleSubmit}
+        >
+          {loading ? "Loading..." : id ? "Update Finance" : "Register Finance"}
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
         </button>
       </form>
     </div>

@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Button } from "../ui/button";
 import HeaderMobile from "./Header-mobile";
+import logo from "../../../public/logo.png";
 
 export const routes = [
   {
@@ -56,7 +57,11 @@ const Header = () => {
     <div>
       <header className="sticky top-0 flex justify-between h-16 items-center text-black gap-4 border-b bg-background x-4 md:px-6">
         <div className="md:flex gap-5 hidden">
+<<<<<<< HEAD
           <img src="/logo.png" alt="logo" className="w-10 h-10" />
+=======
+          <img src={logo} alt="logo" className="w-10 h-10" />
+>>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             {routes.map((route, index) => (
               <Link
