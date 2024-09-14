@@ -89,11 +89,6 @@ const SportsForm = () => {
 
   const handleCreateSport = async () => {
     try {
-<<<<<<< HEAD
-      const response = await axios.post(
-        "http://localhost:5000/api/sports",
-        formData
-=======
       await createSport(formData);
       toast.success("Sport created successfully");
       clearForm();
@@ -102,7 +97,6 @@ const SportsForm = () => {
       console.error("Create Sport Error:", error);
       toast.error(
         error.response?.data?.message || "An error occurred during creation"
->>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
       );
     }
   };

@@ -82,61 +82,6 @@ const Finance = () => {
             </Link>
           </CardHeader>
           <CardContent>
-<<<<<<< HEAD
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead>Reg Date</TableHead>
-                  <TableHead>
-                    <span className="sr-only">Actions</span>
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {finances.map((finance) => (
-                  <TableRow key={finance.id}>
-                    <TableCell>{finance.title}</TableCell>
-                    <TableCell>{finance.amount.toLocaleString()}</TableCell>
-                    <TableCell>
-                      {finance.type === "income" ? (
-                        <span className="text-green-500">Income</span>
-                      ) : (
-                        <span className="text-red-500">Expense</span>
-                      )}
-                    </TableCell>
-                    <TableCell>{finance.category}</TableCell>
-                    <TableCell>
-                      {new Date(finance.createdAt).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            aria-haspopup="true"
-                            size="icon"
-                            variant="ghost"
-                          >
-                            <AiOutlineMenu className="w-4 h-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>
-                            <BiEdit className="w-4 h-4 mr-2" />
-                            Edit
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <BiTrash className="w-4 h-4 mr-2" />
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-=======
             {loading ? (
               <div className="flex justify-center items-center h-64">
                 <ClipLoader size={40} color={"#4A5568"} loading={loading} />
@@ -153,7 +98,6 @@ const Finance = () => {
                     <TableHead>
                       <span className="sr-only">Actions</span>
                     </TableHead>
->>>>>>> ccec6920188afc6060bb699c9c2cbba90af0e140
                   </TableRow>
                 </TableHeader>
                 <TableBody>
