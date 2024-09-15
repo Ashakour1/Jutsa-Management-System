@@ -8,6 +8,8 @@ import CallToAction from "./pages/Call-to-action";
 import FAQPage from "./pages/FAQ-page";
 import HeroSection from "./pages/Hero-section";
 import NotFound from "./pages/not-found";
+import Header from "./component/Header";
+import Footer from "./component/Footer";
 import RegisterPage from "./pages/Register-page";
 
 // Layout with header and footer
@@ -18,6 +20,7 @@ function App() {
       <Toaster richColors position="top-center" />
       <HelmetProvider>
         <Router>
+          <Header />
           <Routes>
             <Route
               path="/"
@@ -25,6 +28,7 @@ function App() {
                 <>
                   <HeroSection />
                   <CallToAction />
+                  <Benefits />
                 </>
               }
             />
@@ -35,6 +39,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
+        <Footer />
       </HelmetProvider>
     </>
   );

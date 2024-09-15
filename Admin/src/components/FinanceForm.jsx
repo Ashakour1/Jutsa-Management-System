@@ -158,7 +158,6 @@ const FinanceForm = () => {
             <p className="text-red-500 text-xs">{errors.title}</p>
           )}
         </div>
-
         <div className="flex flex-col">
           <label
             className="mb-1 text-sm font-medium text-gray-700"
@@ -179,7 +178,6 @@ const FinanceForm = () => {
             <p className="text-red-500 text-xs">{errors.amount}</p>
           )}
         </div>
-
         <div className="flex flex-col">
           <label
             className="mb-1 text-sm font-medium text-gray-700"
@@ -224,7 +222,6 @@ const FinanceForm = () => {
             <p className="text-red-500 text-xs">{errors.category}</p>
           )}
         </div>
-
         <div className="flex flex-col">
           <label
             className="mb-1 text-sm font-medium text-gray-700"
@@ -245,7 +242,6 @@ const FinanceForm = () => {
             <p className="text-red-500 text-xs">{errors.userId}</p>
           )}
         </div>
-
         <button
           className="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
           type="submit"

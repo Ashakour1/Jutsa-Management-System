@@ -14,7 +14,7 @@ const HeaderMobile = () => {
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
-        <img src="logo.png" alt="logo" className="w-10 h-10" />
+        <img src="/logo.png" alt="logo" className="w-10 h-10" />
         <nav className="grid gap-6 text-lg font-medium">
           {routes.map((route, index) => (
             <Link
