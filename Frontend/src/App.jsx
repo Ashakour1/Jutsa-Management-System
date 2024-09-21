@@ -6,7 +6,7 @@ import About from "./pages/about";
 import Benefits from "./pages/benefits";
 import CallToAction from "./pages/Call-to-action";
 import FAQPage from "./pages/FAQ-page";
-import HeroSection from "./pages/Hero-section";
+import HeroSectionItDay from "./component/Hero-section-itday";
 import NotFound from "./pages/not-found";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
@@ -26,14 +26,13 @@ function App() {
               path="/"
               element={
                 <>
-                  <HeroSection />
+                  <HeroSectionItDay />
                   <CallToAction />
                   <Benefits />
                 </>
               }
             />
-            <Route path="/about" element={<About />} />
-            ء
+            <Route path="/about" element={<About />} />{" "}
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/about/faq" element={<FAQPage />} />
             <Route path="*" element={<NotFound />} />
