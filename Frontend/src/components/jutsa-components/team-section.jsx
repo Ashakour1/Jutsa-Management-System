@@ -34,42 +34,48 @@ const TeamSection = () => {
   ];
 
   return (
-    <div className="max-w-[1200px] mx-auto px-4 py-8">
-      <h2 className="font-bold mb-2 text-customGreen">Team</h2>
-      <h1 className="text-3xl font-bold mb-2 text-customBlue">Meet Our Team</h1>
-      <p className="mb-8">Meet the dedicated members of AITSA.</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {teamMembers.map((member, index) => (
-          <div key={index}>
-            <img
-              src={member.image}
-              alt={member.name}
-              className="w-full h-56 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-base text-customBlue font-semibold mb-1">
-                {member.name}
-              </h2>
-              <p className="text-sm text-customGreen font-bold mb-2">
-                {member.role}
-              </p>
-              <p className="text-gray-700 text-sm mb-4">{member.description}</p>
-              <div className="flex space-x-4">
-                <a href="#" className="hover:text-gray-600 text-xl">
-                  <FaXTwitter />
-                </a>
-                <a href="#" className="hover:text-gray-600 text-xl">
-                  <FaLinkedin />
-                </a>
-                <a href="#" className="hover:text-gray-600 text-xl">
-                  <IoBasketballOutline />
-                </a>
+    <section className="bg-gray-100">
+      <div className="max-w-[1200px] text-center mx-auto px-4 py-8">
+        <h2 className="font-bold mb-2 text-customGreen">Team</h2>
+        <h1 className="text-3xl font-bold mb-2 text-customBlue">
+          Meet Our Team
+        </h1>
+        <p className="mb-8">Meet the dedicated members of JUTSA.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {teamMembers.map((member, index) => (
+            <div key={index}>
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-full h-56 object-cover"
+              />
+              <div className="p-4">
+                <h2 className="text-base text-customBlue font-semibold mb-1">
+                  {member.name}
+                </h2>
+                <p className="text-sm text-customGreen font-bold mb-2">
+                  {member.role}
+                </p>
+                <p className="text-gray-700 text-sm mb-4">
+                  {member.description}
+                </p>
+                <div className="flex space-x-4">
+                  <a href="#" className="hover:text-gray-600 text-xl">
+                    <FaXTwitter />
+                  </a>
+                  <a href="#" className="hover:text-gray-600 text-xl">
+                    <FaLinkedin />
+                  </a>
+                  <a href="#" className="hover:text-gray-600 text-xl">
+                    <IoBasketballOutline />
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
