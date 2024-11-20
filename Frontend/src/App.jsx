@@ -11,6 +11,11 @@ import NotFound from "./pages/not-found";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import RegisterPage from "./pages/Register-page";
+import HeroSection from "./component/jutsa-components/HeroSection";
+import ServiceSection from "./component/jutsa-components/Services";
+import TeamSection from "./component/jutsa-components/team-section";
+import ItDay from "./pages/It-day";
+import Sports from "./pages/Sports";
 
 // Layout with header and footer
 
@@ -26,13 +31,16 @@ function App() {
               path="/"
               element={
                 <>
-                  <HeroSectionItDay />
-                  <CallToAction />
-                  <Benefits />
+                  <HeroSection />
+                  <ServiceSection />
+
+                  <TeamSection />
                 </>
               }
             />
             <Route path="/about" element={<About />} />{" "}
+            <Route path="/it-day" element={<ItDay />} />{" "}
+            <Route path="/sports" element={<Sports />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/about/faq" element={<FAQPage />} />
             <Route path="*" element={<NotFound />} />
