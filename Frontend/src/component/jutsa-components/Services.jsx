@@ -1,4 +1,4 @@
-export default function ServiceSection() {
+const ServiceSection = () => {
   const services = [
     {
       title: "Academic Support",
@@ -21,18 +21,17 @@ export default function ServiceSection() {
   ];
 
   return (
-    <section className="container mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-2">
-          Empower
+    <section className="max-w-contain mx-auto px-4 py-16">
+      <div className="text- mb-12">
+        <h2 className="font-bold mb-2 text-customGreen">
+          Activities and Resources We Offer
         </h2>
-        <h3 className="text-3xl font-bold mb-4">
-          Discover the Services and Resources We Offer
-        </h3>
-        <p className="max-w-2xl mx-auto text-gray-600">
-          At Jutsa, we provide a wide range of services and resources to support
-          and enhance your student experience. From academic support to
-          extracurricular activities, we have everything you need to thrive.
+        <h1 className="text-3xl font-bold mb-2 text-customBlue">
+          Our Activities{" "}
+        </h1>
+        <p className="mb-8 w-4/5">
+          Discover the wide range of activities and resources we offer to help
+          you succeed in your academic and personal life.
         </p>
       </div>
 
@@ -41,28 +40,18 @@ export default function ServiceSection() {
           <ServiceCard key={index} {...service} />
         ))}
       </div>
-
-      <div className="flex justify-center items-center mt-12 space-x-4">
-        <button className="px-6 py-3 border border-gray-600 text-gray-700 rounded-md hover:bg-gray-50 transition">
-          Learn More
-        </button>
-        <button className="px-6 py-3 bg-white text-black rounded-md hover:bg-gray-200 transition flex items-center space-x-2">
-          <span>Sign Up</span>
-          <span className="text-lg">→</span>
-        </button>
-      </div>
     </section>
   );
-}
+};
 
 function ServiceCard({ title, description, imageUrl }) {
   return (
-    <div className="border border-gray-200 rounded-lg shadow-lg overflow-hidden transition hover:border-green-500 hover:shadow-green-100 hover:shadow-lg hover:scale-105">
-      <div className="overflow-hidden h-48">
+    <div className="border border-gray-200 rounded-lg shadow-lg  hover:border-green-500 hover:shadow-green-100 hover:shadow-lg hover:scale-15">
+      <div className="h-48">
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          className="w-full h-full object-cover"
           loading="lazy"
         />
       </div>
@@ -73,3 +62,4 @@ function ServiceCard({ title, description, imageUrl }) {
     </div>
   );
 }
+export default ServiceSection;
