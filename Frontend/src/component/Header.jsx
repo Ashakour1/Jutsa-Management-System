@@ -21,25 +21,27 @@ const Header = () => {
         <div className="logo">
           {/* <img src="./logo.png" alt="" /> */}
           <Link to="/">
-          <img src="./logo.png" alt="" className="w-10" />
+            <img src="./logo.png" alt="" className="w-10" />
           </Link>
-        
         </div>
-        <div className="hidden md:flex gap-3 text-center items-center">
+        <div className="hidden   md:flex gap-3 text-center items-center">
           <Link className="font-medium p-4" to="/">
             Home
           </Link>
           <Link className="font-medium p-4" to="/about">
             About
           </Link>
-          <Link className="font-medium p-4" to="/about/faq">
-            FAQ
+          <Link className="font-medium p-4" to="/it-day">
+            It day
+          </Link>
+          <Link className="font-medium p-4" to="/sports">
+            Sports
           </Link>
         </div>
         <div className="hidden md:flex">
-          <Link to="/register">
-            <button className="px-5 py-2 h-12 rounded-md bg-customBlue text-white font-semibold text-base">
-              Register Now
+          <Link to="/contact  ">
+            <button className="px-5 py-2  rounded-full bg-customBlue text-white font-medium  text-xs">
+              Contact Us
             </button>
           </Link>
         </div>
@@ -69,14 +71,21 @@ const Header = () => {
               About
             </Link>
             <hr />
-            <Link onClick={closeNavBar} className="font-medium p-4" to="/about/faq">
+            <Link
+              onClick={closeNavBar}
+              className="font-medium p-4"
+              to="/about/faq"
+            >
               FAQ
             </Link>
             <hr />
           </div>
           <div className="md:hidden flex pt-4">
             <Link to="/register" className="w-full">
-              <button onClick={closeNavBar} className="px-4 py-2 rounded-md bg-customGreen text-white w-full">
+              <button
+                onClick={closeNavBar}
+                className="px-4 py-2 rounded-md bg-customGreen text-white w-full"
+              >
                 Register Now
               </button>
             </Link>
