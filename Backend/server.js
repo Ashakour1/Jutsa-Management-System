@@ -6,7 +6,7 @@ import competitorRoutes from "./routes/competitor-routes.js";
 import positionRoutes from "./routes/position-routes.js";
 import memberRoutes from "./routes/member-routes.js";
 import financeRoutes from "./routes/finance-routes.js";
-import Sport from './routes/sport-routes.js'
+import Sport from "./routes/sport-routes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -17,13 +17,14 @@ const PORT = 5000;
 app.use(cors({}));
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use("/api/positions", positionRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/competitors", competitorRoutes);
 app.use("/api/members", memberRoutes);
-app.use("/api/sports",Sport)
+app.use("/api/sports", Sport);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
