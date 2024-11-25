@@ -17,7 +17,7 @@ const Header = () => {
   };
   return (
     <header className="backdrop-blur-sm fixed w-full top-0 ">
-      <div className=" flex justify-between items-center px-5 max-w-[1140px] mx-auto h-16 mt-1">
+      <div className=" flex justify-between items-center px-5 max-w-[1200px] mx-auto h-16 mt-1">
         <div className="logo">
           {/* <img src="./logo.png" alt="" /> */}
           <Link to="/">
