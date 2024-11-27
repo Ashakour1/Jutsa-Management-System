@@ -17,6 +17,9 @@ import TeamSection from "./components/jutsa-components/team-section";
 import ItDay from "./pages/It-day";
 import Sports from "./pages/Sports";
 import Contact from "./pages/Contact";
+import AboutSection from "./components/jutsa-components/About";
+import EventsSection from "./components/jutsa-components/events";
+import CtaSection from "./components/jutsa-components/cta";
 
 // Layout with header and footer
 
@@ -33,9 +36,11 @@ function App() {
               element={
                 <>
                   <HeroSection />
+                  <AboutSection />
                   <ServiceSection />
-
                   <TeamSection />
+                  <EventsSection />
+                  <CtaSection />
                 </>
               }
             />
