@@ -1,9 +1,9 @@
 import React from "react";
-import HeroSection from "../component/Hero-section-itday";
+import HeroSection from "../components/Hero-section-itday";
 import CallToAction from "./Call-to-action";
 import Benefits from "./benefits";
-import AboutItDaySection from "../component/about-itday-section";
-import Departments from "../component/Departments";
+import AboutItDaySection from "../components/about-itday-section";
+import Departments from "../components/Departments";
 
 const ItDay = () => {
   return (
