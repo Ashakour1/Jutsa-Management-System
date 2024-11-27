@@ -6,11 +6,12 @@ import { useEffect } from "react";
 
 const TopSideButtons = () => {
   const Navigate = useNavigate();
+  console.log("Navigate", Navigate);
   return (
     <div className="inline-block float-right">
       <button
         className="btn px-6 btn-sm normal-case btn-primary"
-        onClick={() => Navigate("/register")}
+        onClick={() => Navigate("/add-finance")}
       >
         Add New
       </button>
