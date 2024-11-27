@@ -1,5 +1,5 @@
 import React from "react";
-import RegisterForm from "../component/Register-form";
+import RegisterForm from "../components/Register-form";
 import { Helmet } from "react-helmet-async";
 
 const RegisterPage = () => {
