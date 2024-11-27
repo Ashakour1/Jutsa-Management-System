@@ -6,7 +6,7 @@ import { useEffect } from "react"
 import  {  removeNotificationMessage } from "../features/common/headerSlice"
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import ModalLayout from "./ModalLayout"
+// import ModalLayout from "./ModalLayout"
 
 function Layout(){
   const dispatch = useDispatch()
@@ -38,7 +38,7 @@ function Layout(){
         <NotificationContainer />
 
       {/* Modal layout container */}
-        <ModalLayout />
+        {/* <ModalLayout /> */}
 
       </>
     )
