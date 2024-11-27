@@ -25,7 +25,7 @@ const About = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-20 space-y-12">
+    <div className="max-w-5xl mx-auto px-4 py-20 space-y-12">
       {/* Our Vision Section */}
       <section className="space-y-4">
         <h2 className="text-blue-600 uppercase text-sm font-medium">
