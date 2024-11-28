@@ -25,10 +25,10 @@ const About = () => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-20 space-y-12">
+    <div className="max-w-5xl mx-auto px-4 py-32 space-y-12">
       {/* Our Vision Section */}
       <section className="space-y-4">
-        <h2 className="text-blue-600 uppercase text-sm font-medium">
+        <h2 className="text-customGreen uppercase text-sm font-medium">
           Our Vision
         </h2>
         <h3 className="text-3xl font-bold leading-tight">
@@ -57,7 +57,7 @@ const About = () => {
 
       {/* Our Mission Section */}
       <section className="space-y-4">
-        <h2 className="text-blue-600 uppercase text-sm font-medium">
+        <h2 className="text-customGreen uppercase text-sm font-medium">
           Our Mission
         </h2>
         <h3 className="text-3xl font-bold leading-tight">
@@ -76,8 +76,8 @@ const About = () => {
       </section>
 
       {/* President's Message */}
-      <section className="space-y-4">
-        <h2 className="text-blue-600 uppercase text-sm font-medium">
+      <section className="space-y-4 ">
+        <h2 className="text-customGreen uppercase text-sm font-medium">
           President&apos;s Message
         </h2>
         <div className="flex flex-col md:flex-row gap-4 items-start">
@@ -149,22 +149,22 @@ const About = () => {
         </div>
       </section> */}
       {/* Our Innovations Section }*/}
-      <section className="py-16 px-4 bg-gradient-to-br ">
+      <section className="py-16 bg-gradient-to-br ">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-5">
-            <h2 className="text-blue-600 uppercase text-sm font-medium tracking-wider">
+          <div className="text-start mb-5">
+            <h2 className="text-customGreen uppercase text-sm font-medium tracking-wider">
               Our Innovations
             </h2>
           </div>
 
-          <div className="flex gap-8 items-center mb-16">
+          <div className="flex gap-3 items-center mb-16">
             <div className="w-[700px]">
               <div className="bg-blue-200 rounded-full"></div>
               <img
                 src="/cdo.jpg"
                 alt="Chief Development Officer"
-                width={400}
-                height={400}
+                width={200}
+                height={200}
                 className="rounded-full z-10"
               />
             </div>
@@ -172,10 +172,10 @@ const About = () => {
               <h4 className="text-2xl font-semibold text-gray-800">
                 Abdishakur Mohamed Hussein
               </h4>
-              <p className="text-blue-600 font-medium">
+              <p className="text-customGreen font-medium">
                 Chief Development Officer
               </p>
-              <blockquote className="text-gray-600 italic border-l-4 border-blue-500 pl-4">
+              <blockquote className="text-gray-600 italic border-l-4 border-customGreen pl-4">
                 "Innovation is at the heart of everything we do at the Tech
                 Student Association. We're not just learning about technology;
                 we're actively creating solutions that can make a real
@@ -190,7 +190,7 @@ const About = () => {
                 key={index}
                 className="bg-white rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <div className="text-blue-500 mb-4">
+                <div className="text-customGreen mb-4">
                   <TbInnerShadowTopRight size={48} />
                 </div>
                 <h5 className="text-xl font-semibold mb-2">
@@ -199,7 +199,7 @@ const About = () => {
                 <p className="text-gray-600 mb-4">{innovation.description}</p>
                 <a
                   href="#"
-                  className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors group"
+                  className="inline-flex items-center text-customGreen hover:text-customBlue transition-colors group"
                 >
                   Learn more{" "}
                   <CgArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
