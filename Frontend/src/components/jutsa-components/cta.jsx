@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CtaSection = () => {
   return (
-    <section className="w-full my-10 py-10 md:py-20 lg:py-20 bg-gray-100  flex flex-col justify-center items-center">
+    <section className="w-full  py-10 md:py-20 lg:py-20 bg-gray-100  flex flex-col justify-center items-center">
       <div className="container px-4 md:px-6 text-center">
         <div className="space-y-4">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black">
