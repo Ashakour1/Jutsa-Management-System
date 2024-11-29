@@ -32,10 +32,10 @@ const Header = () => {
             About
           </Link>
           <Link className="font-medium p-4" to="/it-day">
-            It day
+            Faculty Day
           </Link>
           <Link className="font-medium p-4" to="/sports">
-            Sports
+            Sports Tournament
           </Link>
         </div>
         <div className="hidden md:flex">
