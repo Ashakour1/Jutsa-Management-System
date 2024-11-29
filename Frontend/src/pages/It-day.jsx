@@ -9,9 +9,9 @@ const ItDay = () => {
   return (
     <div>
       <HeroSection />
-      <CallToAction />
       <Benefits />
       <AboutItDaySection />
+      <CallToAction />
       <Departments />
     </div>
   );
