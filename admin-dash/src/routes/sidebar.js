@@ -37,11 +37,6 @@ const routes = [
     name: "Finance", // name that appear in Sidebar
   },
   {
-    path: "/app/sports", // url
-    icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
-    name: "Transactions", // name that appear in Sidebar
-  },
-  {
     path: "/app/charts", // url
     icon: <ChartBarIcon className={iconClasses} />, // icon component
     name: "Analytics", // name that appear in Sidebar
@@ -63,12 +58,12 @@ const routes = [
         name: "Seminars & Workshops",
       },
       {
-        path: "/it-day", //url
+        path: "/app/it-day", //url
         icon: <LuBookMarked className={submenuIconClasses} />, // icon component
         name: "Faculty Day", // name that appear in Sidebar
       },
       {
-        path: "/sports",
+        path: "/app/sports",
         icon: <MdOutlineSportsSoccer className={submenuIconClasses} />,
         name: "Sports",
       },
@@ -100,7 +95,7 @@ const routes = [
         name: "Billing",
       },
       {
-        path: "/app/settings-team", // url
+        path: "/app/Members", // url
         icon: <UsersIcon className={submenuIconClasses} />, // icon component
         name: "Team Members", // name that appear in Sidebar
       },
