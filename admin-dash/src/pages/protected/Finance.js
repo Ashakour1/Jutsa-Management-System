@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPageTitle } from '../../features/common/headerSlice'
-import Leads from '../../features/leads'
+import Finance from '../../features/finance'
 
 function InternalPage(){
     const dispatch = useDispatch()
@@ -12,7 +12,7 @@ function InternalPage(){
 
 
     return(
-        <Leads />
+        <Finance />
     )
 }
 
