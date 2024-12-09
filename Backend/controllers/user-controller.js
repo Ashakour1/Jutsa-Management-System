@@ -14,9 +14,9 @@ import jwt from "jsonwebtoken";
 */
 export const UserRegister = asyncHandler(async (req, res) => {
   console.log(req.body);
-  const { email, name, password } = req.body;
+  const { email, name, role, password } = req.body;
 
-  if (!email || !name || !password) {
+  if (!email || !name || !role || !password) {
     res.status(400);
     throw new Error("All fields are required");
   }
@@ -28,7 +28,7 @@ export const UserRegister = asyncHandler(async (req, res) => {
     },
   });
 
-  // Check if user already exists 
+  // Check if user already exists
   if (userExists) {
     res.status(400);
     throw new Error("User already exists");
@@ -41,6 +41,7 @@ export const UserRegister = asyncHandler(async (req, res) => {
     data: {
       email,
       name,
+      role,
       password: hashedPassword,
     },
   });
@@ -233,9 +234,13 @@ export const loginUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid password provided");
   }
 
-  const secret = process.env.JWT_SECRET_KEY;
+  const secret = process.env.JWT_SECRET;
   const expiresIn = 24 * 60 * 60;
-  const token = jwt.sign({ email: isUserExists.email }, secret, { expiresIn });
+  const token = jwt.sign(
+    { id: isUserExists.id, role: isUserExists.role },
+    secret,
+    { expiresIn }
+  );
 
   isUserExists.password = undefined;
 
