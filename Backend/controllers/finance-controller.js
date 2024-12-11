@@ -2,18 +2,24 @@
 import { ObjectId } from "mongodb";
 import prisma from "../config/db.js";
 import asyncHandler from "express-async-handler";
-
+import generateCustomId from "../utils/generate-custom-id.js";
 // Create
 export const registerFinance = asyncHandler(async (req, res) => {
   const { title, amount, type, userId, category } = req.body;
 
+  console.log(req.body);
+
+  const id = await generateCustomId()
+  console.log(id)
+
   if (!title || !amount || !type || !userId || !category) {
     res.status(400);
-    throw new Error("All fields are required");
+    throw new Error("All fields are required" + title + " " + amount + " " + type + " " + userId + " " + category);
   }
 
   const finance = await prisma.finance.create({
     data: {
+      id : id,
       title,
       amount: Number(amount),
       type,
@@ -74,10 +80,10 @@ export const getFinance = asyncHandler(async (req, res) => {
 export const deleteFinance = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  if (!ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error("Please provide a valid id");
-  }
+  // if (!ObjectId.isValid(id)) {
+  //   res.status(400);
+  //   throw new Error("Please provide a valid id");
+  // }
 
   const deletedFinance = await prisma.finance.delete({
     where: {
@@ -104,10 +110,10 @@ export const updateFinance = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { title, amount, type, category, userId } = req.body;
 
-  if (!ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error("Please provide a valid id");
-  }
+  // if (!ObjectId.isValid(id)) {
+  //   res.status(400);
+  //   throw new Error("Please provide a valid id");
+  // }
 
   const isFinanceExists = await prisma.finance.findUnique({
     where: {
