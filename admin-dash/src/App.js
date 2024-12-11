@@ -10,7 +10,10 @@ const Layout = lazy(() => import('./containers/Layout'))
 const Login = lazy(() => import('./pages/Login'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
 const Register = lazy(() => import('./pages/Register'))
+const Finance = lazy(() => import("./pages/protected/Finance"));
+const AddFinance = lazy(() => import("./pages/protected/Add-finance"));
 const Documentation = lazy(() => import('./pages/Documentation'))
+
 
 
 // Initializing different libraries
@@ -40,8 +43,15 @@ function App() {
           
           {/* Place new routes over this */}
           <Route path="/app/*" element={<Layout />} />
+          
+          {/* <Route path="/add" element={<AddFinance/>} /> */}
 
           {/* <Route path="*" element={<Navigate to={token ? "/app/welcome" : "/login"} replace />}/> */}
+        
+
+
+          {/* Default Route - If no route matches */}
+          <Route path="*" element={<Navigate to={token ? "/app" : "/login"} replace />} />
 
         </Routes>
       </Router>
