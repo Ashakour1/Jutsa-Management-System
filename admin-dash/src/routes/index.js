@@ -1,6 +1,6 @@
 // All components mapping with path for internal routes
 
-import { lazy } from "react";
+import { Children, lazy } from "react";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Welcome = lazy(() => import("../pages/protected/Welcome"));
@@ -8,6 +8,7 @@ const Page404 = lazy(() => import("../pages/protected/404"));
 const Blank = lazy(() => import("../pages/protected/Blank"));
 const Charts = lazy(() => import("../pages/protected/Charts"));
 const Finance = lazy(() => import("../pages/protected/Finance"));
+const AddFinance = lazy(() => import("../pages/protected/Add-finance"));
 const Sports = lazy(() => import("../pages/protected/Sports"));
 const Members = lazy(() => import("../pages/protected/members"));
 const Competitors = lazy(() => import("../pages/protected/itday-competitors"));
@@ -35,6 +36,11 @@ const routes = [
   {
     path: "/finance",
     component: Finance,
+    
+  },
+  {
+    path: "/finance/add",
+    component : AddFinance
   },
   {
     path: "/sports",
@@ -96,6 +102,7 @@ const routes = [
     path: "/blank",
     component: Blank,
   },
+
 
 ];
 
