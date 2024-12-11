@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/reg',registerFinance)
 router.get('/',getFinances)
 router.get('/:id',getFinance)
-router.delete('/delete/:id',deleteFinance)
+router.delete('/:id',deleteFinance)
 router.put('/update/:id',updateFinance)
 
 export default router
