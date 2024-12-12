@@ -3,37 +3,32 @@ import { Link } from "react-router-dom";
 import LandingIntro from "./LandingIntro";
 import ErrorText from "../../components/Typography/ErrorText";
 import InputText from "../../components/Input/InputText";
+import useUserStore from "../../stores/userStore";
 
 function Login() {
-  const INITIAL_LOGIN_OBJ = {
+  const [formData, setFormData] = useState({
+    email: "",
     password: "",
-    emailId: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  console.log(formData);
+  const { login } = useUserStore();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ);
 
-  const submitForm = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setErrorMessage("");
 
-    if (loginObj.emailId.trim() === "")
-      return setErrorMessage("Email Id is required! (use any value)");
-    if (loginObj.password.trim() === "")
-      return setErrorMessage("Password is required! (use any value)");
-    else {
-      setLoading(true);
-      // Call API to check user credentials and save token in localstorage
-      localStorage.setItem("token", "DumyTokenHere");
-      setLoading(false);
-      window.location.href = "/app/welcome";
+    if (!formData.email || !formData.password) {
+      setErrorMessage("Please fill in all fields");
+      return;
     }
-  };
 
-  const updateFormValue = ({ updateType, value }) => {
-    setErrorMessage("");
-    setLoginObj({ ...loginObj, [updateType]: value });
+    login(formData);
   };
 
   return (
@@ -41,42 +36,32 @@ function Login() {
       <div className="card mx-auto w-[500px] max-w-5xl  shadow-xl">
         <div className="py-24 px-10">
           <h2 className="text-2xl font-semibold mb-2 text-center">Login</h2>
-          <form onSubmit={(e) => submitForm(e)}>
-            <div className="mb-4">
-              <InputText
-                type="emailId"
-                defaultValue={loginObj.emailId}
-                updateType="emailId"
-                containerStyle="mt-4"
-                labelTitle="Email Id"
-                updateFormValue={updateFormValue}
-              />
-
-              <InputText
-                defaultValue={loginObj.password}
-                type="password"
-                updateType="password"
-                containerStyle="mt-4"
-                labelTitle="Password"
-                updateFormValue={updateFormValue}
+          <form onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-2 pt-4">
+              <label className="text-black text-sm font-medium">Email</label>
+              <input
+                className="w-full p-3 border text-sm rounded"
+                type="email"
+                placeholder="Email"
+                name="email"
+                onChange={handleChange}
               />
             </div>
-
-            <div className="text-right text-primary">
-              <Link to="/forgot-password">
-                <span className="text-sm  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200">
-                  Forgot Password?
-                </span>
-              </Link>
+            <div className="flex flex-col gap-2 pt-3">
+              <label className="text-black text-sm font-medium ">
+                Password
+              </label>
+              <input
+                className="w-full p-3 border text-sm  rounded"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={handleChange}
+              />
             </div>
 
             <ErrorText styleClass="mt-8">{errorMessage}</ErrorText>
-            <button
-              type="submit"
-              className={
-                "btn mt-2 w-full btn-primary" + (loading ? " loading" : "")
-              }
-            >
+            <button type="submit" className="btn mt-2 w-full btn-primary">
               Login
             </button>
 
