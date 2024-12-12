@@ -8,7 +8,7 @@ const AddSports = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { fetchSportsById, registerSport, updateSports, } = useSportsStore();
+  const { fetchSportsById, registerSport, updateSports } = useSportsStore();
 
   const [formData, setFormData] = useState({
     monitorName: "",
@@ -63,7 +63,9 @@ const AddSports = () => {
     try {
       if (id) {
         await updateSports(id, formData);
-        dispatch(showNotification({ message: "Sport record updated!", status: 1 }));
+        dispatch(
+          showNotification({ message: "Sport record updated!", status: 1 })
+        );
       } else {
         await registerSport(formData);
         dispatch(showNotification({ message: "New Sport Added!", status: 1 }));
@@ -78,7 +80,9 @@ const AddSports = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">{id ? "Update Sport" : "Add Sport"}</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        {id ? "Update Sport" : "Add Sport"}
+      </h1>
       {error && <div className="text-red-500 mb-4">{error}</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="mb-4">
@@ -140,12 +144,8 @@ const AddSports = () => {
             required
           />
         </div>
-        <button
-          type="submit"
-          className={`btn btn-primary w-full ${loading ? "loading" : ""}`}
-          disabled={loading}
-        >
-          {loading ? (id ? "Updating..." : "Adding...") : id ? "Update Sport" : "Add Sport"}
+        <button type="submit" className={`btn btn-primary w-full`}>
+          {loading ? "Processing..." : "Submit"}
         </button>
       </form>
     </div>
