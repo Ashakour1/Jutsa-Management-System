@@ -11,7 +11,7 @@ const TopSideButtons = () => {
     <div className="inline-block float-right">
       <button
         className="btn px-6 btn-sm normal-case btn-primary"
-        onClick={() => Navigate("/add-finance")}
+        onClick={() => Navigate("/app/members/add")}
       >
         Add New
       </button>
