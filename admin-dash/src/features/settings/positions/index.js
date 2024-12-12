@@ -11,7 +11,7 @@ const TopSideButtons = () => {
     <div className="inline-block float-right">
       <button
         className="btn px-6 btn-sm normal-case btn-primary"
-        onClick={() => Navigate("/add-finance")}
+        onClick={() => Navigate("/app/positions/add")}
       >
         Add New
       </button>
@@ -21,9 +21,7 @@ const TopSideButtons = () => {
 
 function Positions() {
   const { PositionsDetails, loading, error, fetchPositionDetails } =
-  usePositionStore();
-  // console.log(MemberDetails.data);
-
+    usePositionStore();
   useEffect(() => {
     fetchPositionDetails();
   }, []);
@@ -35,50 +33,41 @@ function Positions() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   return (
     <>
       <TitleCard
-        title="Team Members"
+        title="Positions"
         // description="Financial"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            <thead>
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PositionsDetails.map((k, index) => (
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>position_Id</th>
-                <th>Semester</th>
-                <th>year</th>
-                <th>Actions</th>
+                <td>{k.title}</td>
+                <td>{k.description}</td>
 
-               
+                <td>{k.createdAt.slice(0, 10)}</td>
+
+                <td>
+                  <button className="btn btn-square btn-ghost">
+                    <TrashIcon className="w-5" />
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {MemberDetails.map((k, index) => (
-                <tr>
-                  <td>{k.studentId}</td>
-                  <td>{k.name}</td>
-                  <td>{k.email}</td>
-                  <td>{k.position_Id}</td>
-                  <td>{k.semester}</td>
-                  <td>{k.year}</td>
-                 
-                  <td>
-                    <button className="btn btn-square btn-ghost">
-                      <TrashIcon className="w-5" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </TitleCard>
     </>
   );
