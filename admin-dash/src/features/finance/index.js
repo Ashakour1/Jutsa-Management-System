@@ -1,93 +1,110 @@
-import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import TitleCard from "../../components/Cards/TitleCard";
+import React, { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../common/headerSlice";
 import useFinanceStore from "../../stores/financeStore";
+import TitleCard from "../../components/Cards/TitleCard";
+import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 
 const TopSideButtons = () => {
-  const Navigate = useNavigate();
-  // console.log("Navigate", Navigate);
   return (
     <div className="inline-block float-right">
-      <Link to={"/app/finance/add"} >
-    <button
-      className="btn px-6 btn-sm normal-case btn-primary"
-      
-    >
-      Add New
-    </button>
-    </Link>
-  </div>
+      <Link to="/app/finance/add">
+        <button className="btn px-6 btn-sm normal-case btn-primary">
+          Add New
+        </button>
+      </Link>
+    </div>
   );
 };
 
-function Leads() {
-  const { financeDetails, loading, error, fetchFinanceDetails , deleteFinanceDetails } =
+const Leads = () => {
+  const { financeDetails, loading, error, fetchFinanceDetails, deleteFinance } =
     useFinanceStore();
-  console.log(financeDetails.data);
-
-
-  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchFinanceDetails();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const handleDelete = async (id) => {
+    try {
+      await deleteFinance(id);
+      dispatch(showNotification({ message: "Finance record deleted!", status: 1 }));
+      fetchFinanceDetails();
+    } catch (err) {
+      dispatch(showNotification({ message: err.message, status: 0 }));
+    }
+  };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const handleUpdate = (id) => {
+    navigate(`/app/finance/update/${id}`);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
-    <>
-      <TitleCard
-        title="Finance"
-        // description="Financial"
-        topMargin="mt-2"
-        TopSideButtons={<TopSideButtons />}
-      >
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Amount</th>
-                <th>Type</th>
-                <th>Category</th>
-                <th>Transactions Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {financeDetails.map((k, index) => (
-                <tr key={k.id}>
- 
-                  <td>{k.id}</td>
-                  <td>{k.title}</td>
-                  <td>{k.amount}</td>
-
-                  <td>
-                    <div className="badge badge-primary">{k.type}</div>
-                  </td>
-                  <td>{k.category}</td>
-                  <td>{k.createdAt.slice(0,10)}</td>
-                  <td>
-                    <button className="btn btn-square btn-ghost">
-                      <TrashIcon className="w-5" onClick={() => deleteFinanceDetails(k.id)}/>
+    <TitleCard
+      title="Finance"
+      topMargin="mt-2"
+      TopSideButtons={<TopSideButtons />}
+    >
+      <div className="overflow-x-auto w-full">
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Amount</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Transaction Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {financeDetails.map((key, index) => (
+              <tr key={key.id}>
+                <td>{key.id}</td>
+                <td>{key.title}</td>
+                <td>{key.amount}</td>
+                <td>
+                  <div
+                    className={`badge ${
+                      key.type === "income" ? "badge-success" : "badge-error"
+                    }`}
+                  >
+                    {key.type}
+                  </div>
+                </td>
+                <td>{key.category}</td>
+                <td>{key.createdAt.slice(0, 10)}</td>
+                <td>
+                  <div className="flex space-x-2">
+                    <button
+                      className="btn btn-square btn-ghost"
+                      onClick={() => handleUpdate(key.id)}
+                    >
+                      <PencilIcon className="w-5" />
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </TitleCard>
-    
-    </>
+                    <button
+                      className="btn btn-square btn-ghost"
+                      onClick={() => handleDelete(key.id)}
+                    >
+                      <TrashIcon className="w-5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </TitleCard>
   );
-}
+};
 
 export default Leads;

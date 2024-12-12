@@ -2,45 +2,75 @@ export const fetchFinanceDetailsFromAPI = async () => {
   const response = await fetch("http://localhost:5000/api/finances");
 
   if (!response.ok) {
-    throw new Error("Something went wrong from fetch");
+    throw new Error("Failed to fetch finance details");
   }
 
   const data = await response.json();
-  // console.log(data.data); // Log the data to inspect its structure
-  return data.data;
+  return data.data; // Assuming the API response structure
 };
 
-export const deleteFinanceDetails = async (id) => {
-  const response = await fetch(`http://localhost:5000/api/finances/${id}`, {
-    method: "DELETE",
+export const fetchFinanceByIdAPI = async (id) => {
+  const response = await fetch(`http://localhost:5000/api/finances/${id}`);
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to fetch finance by ID");
+  }
+
+  const data = await response.json();
+
+  return data.data; // Flexible to handle API response structure
+};
+
+export const addFinance = async (financeData) => {
+  const response = await fetch("http://localhost:5000/api/finances/reg", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(financeData),
   });
 
   if (!response.ok) {
-    throw new Error("Something went wrong from delete");
+    const error = await response.json();
+    throw new Error(error.message || "Failed to add finance record");
   }
 
-  const data = await response.json();
-  return data.data;
+  return await response.json();
 };
 
-export const createFinance = async (data) => {
+export const updateFinance = async (id, financeData) => {
   const response = await fetch(
-    `http://localhost:5000/api/finances/reg`,
+    `http://localhost:5000/api/finances/update/${id}`,
     {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(financeData),
     }
   );
 
-  console.log(response);
-
   if (!response.ok) {
-    throw new Error("Something went wrong");
+    const error = await response.json();
+    throw new Error(error.message || "Failed to update finance record");
   }
 
-  const result = response.json();
+  return await response.json();
+};
 
-  // console.log("result" + result);
-  return result.data;
+export const deleteFinance = async (id) => {
+  const response = await fetch(
+    `http://localhost:5000/api/finances/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to delete finance record");
+  }
+
+  return await response.json();
 };

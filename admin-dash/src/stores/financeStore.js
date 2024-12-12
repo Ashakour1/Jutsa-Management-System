@@ -1,51 +1,79 @@
 import { create } from "zustand";
-import { deleteFinanceDetails, fetchFinanceDetailsFromAPI,createFinance } from "../services/financeServices"
+import {
+  fetchFinanceDetailsFromAPI,
+  fetchFinanceByIdAPI,
+  addFinance,
+  updateFinance,
+  deleteFinance,
+} from "../services/financeServices";
 
 const useFinanceStore = create((set) => ({
-  financeDetails: [], // Always starts as an empty array
+  financeDetails: [],
+  selectedFinance: null,
   loading: false,
   error: null,
 
   fetchFinanceDetails: async () => {
     set({ loading: true, error: null });
-
     try {
       const data = await fetchFinanceDetailsFromAPI();
-      set({ financeDetails: data || [], loading: false }); // Ensure data is always an array
+      set({ financeDetails: data || [], loading: false });
     } catch (err) {
       set({ error: err.message, loading: false });
     }
   },
-  deleteFinanceDetails: async (id) => {
-    set({ loading: true, error: null }); // Set loading to true and clear previous errors
 
+  fetchFinanceById: async (id) => {
+    set({ loading: true, error: null });
     try {
-      // Call API to delete the finance detail
-      await deleteFinanceDetails(id); 
-
-      // Update the local state by removing the deleted item from the financeDetails array
-      set((state) => ({
-        financeDetails: state.financeDetails.filter(item => item.id !== id),
-        loading: false,
-      }));
+      const data = await fetchFinanceByIdAPI(id);
+      set({ selectedFinance: data, loading: false });
+      return data;
     } catch (err) {
-      set({ error: err.message, loading: false }); // Set error state if delete fails
+      set({ error: err.message, loading: false });
     }
   },
-  createFinanceDetails: async (data) => {
-    set({ loading: true, error: null });  // Set loading to true and clear previous errors
 
+  registerFinance: async (financeData) => {
+    set({ loading: true, error: null });
     try {
-      // Call the createFinance API function to send the data
-      const result = await createFinance(data); 
-
-      // Update the store with the new finance details
+      const result = await addFinance(financeData);
       set((state) => ({
-        financeDetails: [...state.financeDetails, result], // Assuming result contains the created finance data
+        financeDetails: [...state.financeDetails, result.data],
         loading: false,
       }));
     } catch (err) {
-      set({ error: err.message, loading: false });  // Set error state if the API request fails
+      set({ error: err.message, loading: false });
+    }
+  },
+
+  updateFinance: async (id, updatedData) => {
+    set({ loading: true, error: null });
+    try {
+      const result = await updateFinance(id, updatedData);
+      set((state) => ({
+        financeDetails: state.financeDetails.map((finance) =>
+          finance._id === id ? result.data : finance
+        ),
+        loading: false,
+      }));
+    } catch (err) {
+      set({ error: err.message, loading: false });
+    }
+  },
+
+  deleteFinance: async (id) => {
+    set({ loading: true, error: null });
+    try {
+      await deleteFinance(id);
+      set((state) => ({
+        financeDetails: state.financeDetails.filter(
+          (finance) => finance._id !== id
+        ),
+        loading: false,
+      }));
+    } catch (err) {
+      set({ error: err.message, loading: false });
     }
   },
 }));
