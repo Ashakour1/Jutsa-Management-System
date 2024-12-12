@@ -13,7 +13,7 @@ export const getAllPositions = asyncHandler(async (req, res) => {
 });
 
 export const registerPosition = asyncHandler(async (req, res) => {
-  const { title, description } = req.body;
+  const { id, title, description } = req.body;
 
   if (!title || !description) {
     res.status(404);
@@ -32,6 +32,7 @@ export const registerPosition = asyncHandler(async (req, res) => {
   }
   const createdPosition = await prisma.position.create({
     data: {
+      id,
       title,
       description,
     },
