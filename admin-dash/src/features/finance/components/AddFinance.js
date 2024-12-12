@@ -1,144 +1,154 @@
-import { useNavigate } from "react-router-dom";
-import TitleCard from "../../../components/Cards/TitleCard";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import useFinanceStore from "../../../stores/financeStore";
-import { useState } from "react";
+import { showNotification } from "../../common/headerSlice";
 
-function AddFinance() {
+const AddFinance = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { fetchFinanceById, registerFinance, updateFinance } = useFinanceStore();
+
   const [formData, setFormData] = useState({
     title: "",
-    amount: 0,
+    amount: "",
     type: "",
-    category: "", // Default value changed to empty string
+    category: "",
     userId: "673f75687c47f031e23e0dd3",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    console.log('ID from params:', id); 
+    if (!id) return;
+  
+    const fetchFinanceData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchFinanceById(id);
+        console.log("---------");
+        console.log(data);
+        console.log("---------");
+        setFormData(data || {});
+      } catch (err) {
+        setError("Failed to fetch finance details");
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchFinanceData();
+  }, [id, fetchFinanceById]);
+  
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const { financeDetails, createFinanceDetails } = useFinanceStore();
-
-  console.log("financeDetails" + financeDetails);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-    if (
-      !formData.title ||
-      !formData.amount ||
-      !formData.type ||
-      !formData.category
-    ) {
-      alert("Please fill in all fields.");
-      return;
+    try {
+      if (id) {
+        await updateFinance(id, formData);
+        dispatch(showNotification({ message: "Finance updated!", status: 1 }));
+      } else {
+        await registerFinance(formData);
+        dispatch(showNotification({ message: "Finance added!", status: 1 }));
+      }
+      navigate("/app/finance");
+    } catch (err) {
+      setError("Failed to save finance details");
+    } finally {
+      setLoading(false);
     }
-
-    console.log(formData);
-    createFinanceDetails(formData);
   };
 
   return (
-    <>
-      <TitleCard topMargin="mt-2">
-        <div className="w-full rounded-lg mx-auto text-black p-8">
-          <h1 className="my-4 text-3xl font-bold tracking-tight text-black">
-            Finance Registration
-          </h1>
-          <p className="mb-4 text-gray-700">
-            Please fill in the form below to add new finance data.
-          </p>
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="title"
-              >
-                Title
-              </label>
-              <input
-                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-                id="title"
-                placeholder="Enter the title"
-                type="text"
-                name="title"
-                onChange={handleChange}
-                value={formData.title}
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="amount"
-              >
-                Amount
-              </label>
-              <input
-                className="rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-                id="amount"
-                placeholder="Enter the amount"
-                type="number"
-                name="amount"
-                onChange={handleChange}
-                value={formData.amount}
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="type"
-              >
-                Type
-              </label>
-              <select
-                name="type"
-                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-                id="type"
-                onChange={handleChange}
-                value={formData.type}
-              >
-                <option value="">Select Type</option>
-                <option value="active">Income</option>
-                <option value="inactive">Expense</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="category"
-              >
-                Category
-              </label>
-              <select
-                name="category"
-                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-                id="category"
-                onChange={handleChange}
-                value={formData.category}
-              >
-                <option value="">Select Category</option>
-                <option value="itday">IT-DAY</option>
-                <option value="jday">JDAY</option>
-                <option value="sports">Sports</option>
-              </select>
-            </div>
-
-            <button
-              className="w-full rounded-md bg-black px-4 text-sm font-medium text-white py-3"
-              type="submit"
-            >
-              Add Finance
-            </button>
-          </form>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold">
+        {id ? "Update Finance" : "Add Finance"}
+      </h1>
+      {error && <div className="text-red-500">{error}</div>}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label>Title</label>
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
         </div>
-      </TitleCard>
-    </>
+        <div>
+          <label>Amount</label>
+          <input
+            type="number"
+            name="amount"
+            value={formData.amount}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          />
+        </div>
+        <div>
+          <label>Type</label>
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
+          >
+            <option value="" disabled>
+              Select Type
+            </option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2">Category</label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="input input-bordered w-full"
+            required
+          >
+            <option value="" disabled>
+              Select Category
+            </option>
+            <option value="itday">IT-DAY</option>
+            <option value="jday">JDAY</option>
+            <option value="sports">Sports</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          className={`btn btn-primary w-full ${loading ? "loading" : ""}`}
+          disabled={loading}
+        >
+          {loading
+            ? id
+              ? "Updating..."
+              : "Adding..."
+            : id
+            ? "Update Finance"
+            : "Add Finance"}
+        </button>
+      </form>
+    </div>
   );
-}
+};
 
 export default AddFinance;

@@ -9,6 +9,7 @@ const Charts = lazy(() => import("../pages/protected/Charts"));
 const Finance = lazy(() => import("../pages/protected/Finance"));
 const AddFinance = lazy(() => import("../pages/protected/Add-finance"));
 const Sports = lazy(() => import("../pages/protected/Sports"));
+const addSports = lazy(() => import("../features/sports/components/AddSports"));
 const Members = lazy(() => import("../pages/protected/members"));
 const Competitors = lazy(() => import("../pages/protected/itday-competitors"));
 const Integration = lazy(() => import("../pages/protected/Integration"));
@@ -38,8 +39,20 @@ const routes = [
     component: AddFinance,
   },
   {
+    path: "/finance/update/:id",
+    component : AddFinance
+  },
+  {
     path: "/sports",
     component: Sports,
+  },
+  {
+    path: "/sports/add",
+    component: addSports,
+  },
+  {
+    path: "/sports/update/:id",
+    component: addSports,
   },
   {
     path: "/members",
