@@ -8,7 +8,8 @@ const AddFinance = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { fetchFinanceById, registerFinance, updateFinance } = useFinanceStore();
+  const { fetchFinanceById, registerFinance, updateFinance } =
+    useFinanceStore();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -21,9 +22,9 @@ const AddFinance = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log('ID from params:', id); 
+    console.log("ID from params:", id);
     if (!id) return;
-  
+
     const fetchFinanceData = async () => {
       setLoading(true);
       setError(null);
@@ -39,10 +40,9 @@ const AddFinance = () => {
         setLoading(false);
       }
     };
-  
+
     fetchFinanceData();
   }, [id, fetchFinanceById]);
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -135,7 +135,7 @@ const AddFinance = () => {
 
         <button
           type="submit"
-          className={`btn btn-primary w-full ${loading ? "loading" : ""}`}
+          className={`btn btn-primary w-full `}
           disabled={loading}
         >
           {loading
