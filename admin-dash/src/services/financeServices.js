@@ -29,11 +29,11 @@ export const createFinance = async (data) => {
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-    },
-    {
-      body: JSON.stringify(data), // Convert the data to a JSON string
+      body: JSON.stringify(data),
     }
   );
+
+  console.log(response);
 
   if (!response.ok) {
     throw new Error("Something went wrong");
