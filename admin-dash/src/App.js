@@ -51,7 +51,7 @@ function App() {
 
 
           {/* Default Route - If no route matches */}
-          <Route path="*" element={<Navigate to={token ? "/app" : "/login"} replace />} />
+          <Route path="*" element={<Navigate to={"/login"} replace />} />
 
         </Routes>
       </Router>
