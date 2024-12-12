@@ -8,7 +8,9 @@ const Page404 = lazy(() => import("../pages/protected/404"));
 const Blank = lazy(() => import("../pages/protected/Blank"));
 const Charts = lazy(() => import("../pages/protected/Charts"));
 const Finance = lazy(() => import("../pages/protected/Finance"));
+const AddFinance = lazy(() => import("../features/finance/components/AddFinance"));
 const Sports = lazy(() => import("../pages/protected/Sports"));
+const AddSports = lazy(() => import("../features/sports/components/AddSports"));
 const Members = lazy(() => import("../pages/protected/members"));
 const Competitors = lazy(() => import("../pages/protected/itday-competitors"));
 const Integration = lazy(() => import("../pages/protected/Integration"));
@@ -96,7 +98,23 @@ const routes = [
     path: "/blank",
     component: Blank,
   },
-
+  {
+    path: "/finance/add-finance",
+    component: AddFinance,
+  },
+  {
+    path: "/finance/update-finance/:id",
+    component: AddFinance,
+  },
+  {
+    path: "/sports/add-sports",
+    component: AddSports,
+  },
+  {
+    path: "/sports/update-sports/:id",
+    component: AddSports,
+  },
+  
 ];
 
 export default routes;

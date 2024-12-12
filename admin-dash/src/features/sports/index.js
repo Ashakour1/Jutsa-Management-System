@@ -1,17 +1,20 @@
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 import TitleCard from "../../components/Cards/TitleCard";
 import { useNavigate } from "react-router-dom";
 import useSportsStore from "../../stores/sportsStore";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../common/headerSlice";
 
 const TopSideButtons = () => {
-  const Navigate = useNavigate();
-  console.log("Navigate", Navigate);
+  const navigate = useNavigate();
+
   return (
     <div className="inline-block float-right">
       <button
         className="btn px-6 btn-sm normal-case btn-primary"
-        onClick={() => Navigate("/add-finance")}
+        onClick={() => navigate("add-sports")}
       >
         Add New
       </button>
@@ -20,13 +23,34 @@ const TopSideButtons = () => {
 };
 
 function Sports() {
-  const { SportsDetails, loading, error, fetchSportsDetails } =
-  useSportsStore();
+  const {
+    SportsDetails,
+    loading,
+    error,
+    fetchSportsDetails,
+    deleteSports,
+  } = useSportsStore();
+  const dispatch = useDispatch();
 
-  console.log(SportsDetails)
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchSportsDetails();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteSports(id);
+      dispatch(showNotification({ message: "Sport record deleted!", status: 1 }));
+      fetchSportsDetails();
+    } catch (err) {
+      dispatch(showNotification({ message: err.message, status: 0 }));
+    }
+  };
+
+  const handleUpdate = (id) => {
+    navigate(`update-sports/${id}`);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -35,11 +59,11 @@ function Sports() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   return (
     <>
       <TitleCard
         title="Sports"
-        // description="Financial"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >
@@ -47,30 +71,39 @@ function Sports() {
           <table className="table w-full">
             <thead>
               <tr>
-                <th>monitorName</th>
-                <th>monitorNumber</th>
-                <th>className</th>
-                <th>description</th>
-                <th>amount</th>
-                <th></th>
+                <th>Monitor Name</th>
+                <th>Monitor Number</th>
+                <th>Class Name</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {SportsDetails.map((k, index) => (
-                <tr>
-                  <td>{k.monitorName}</td>
-                  <td>{k.monitorNumber}</td>
-
+              {SportsDetails.map((sport) => (
+                <tr key={sport.id}>
+                  <td>{sport.monitorName}</td>
+                  <td>{sport.monitorNumber}</td>
                   <td>
-                    <div className="badge badge-primary">{k.className}</div>
+                    <div className="badge badge-primary">{sport.className}</div>
                   </td>
-                  <td>{k.description}</td>
-                  <td>{k.amount}</td>
-
+                  <td>{sport.description}</td>
+                  <td>{sport.amount}</td>
                   <td>
-                    <button className="btn btn-square btn-ghost">
-                      <TrashIcon className="w-5" />
-                    </button>
+                    <div className="flex space-x-2">
+                      <button
+                        className="btn btn-square btn-ghost"
+                        onClick={() => handleUpdate(sport.id)}
+                      >
+                        <PencilIcon className="w-5" />
+                      </button>
+                      <button
+                        className="btn btn-square btn-ghost"
+                        onClick={() => handleDelete(sport.id)}
+                      >
+                        <TrashIcon className="w-5" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

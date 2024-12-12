@@ -1,17 +1,20 @@
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 import TitleCard from "../../components/Cards/TitleCard";
 import { useNavigate } from "react-router-dom";
 import useFinanceStore from "../../stores/financeStore";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../common/headerSlice";
 
 const TopSideButtons = () => {
-  const Navigate = useNavigate();
-  console.log("Navigate", Navigate);
+  const navigate = useNavigate();
+
   return (
     <div className="inline-block float-right">
       <button
         className="btn px-6 btn-sm normal-case btn-primary"
-        onClick={() => Navigate("/add-finance")}
+        onClick={() => navigate("add-finance")}
       >
         Add New
       </button>
@@ -20,13 +23,29 @@ const TopSideButtons = () => {
 };
 
 function Leads() {
-  const { financeDetails, loading, error, fetchFinanceDetails } =
+  const { financeDetails, loading, error, fetchFinanceDetails, deleteFinance } =
     useFinanceStore();
-  console.log(financeDetails.data);
+    const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchFinanceDetails();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteFinance(id);
+      dispatch(showNotification({ message: "Finance record deleted!", status: 1 }));
+      fetchFinanceDetails();
+    } catch (err) {
+      dispatch(showNotification({ message: err.message, status: 0 }));
+    }
+  };
+
+  const handleUpdate = (id) => {
+    navigate(`update-finance/${id}`);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -35,11 +54,11 @@ function Leads() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   return (
     <>
       <TitleCard
         title="Finance"
-        // description="Financial"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >
@@ -49,26 +68,43 @@ function Leads() {
               <tr>
                 <th>Title</th>
                 <th>Amount</th>
-                <th>Created At</th>
-                <th>Status</th>
-                <th>Assigned To</th>
-                <th></th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {financeDetails.map((k, index) => (
-                <tr>
-                  <td>{k.title}</td>
-                  <td>{k.amount}</td>
-
+              {financeDetails.map((finance) => (
+                <tr key={finance._id}>
+                  <td>{finance.title}</td>
+                  <td>{finance.amount}</td>
                   <td>
-                    <div className="badge badge-primary">{k.type}</div>
+                    <div
+                      className={`badge ${
+                        finance.type === "income"
+                          ? "badge-success"
+                          : "badge-error"
+                      }`}
+                    >
+                      {finance.type}
+                    </div>
                   </td>
-                  <td>{k.category}</td>
+                  <td>{finance.category}</td>
                   <td>
-                    <button className="btn btn-square btn-ghost">
-                      <TrashIcon className="w-5" />
-                    </button>
+                    <div className="flex space-x-2">
+                      <button
+                        className="btn btn-square btn-ghost"
+                        onClick={() => handleUpdate(finance.id)}
+                      >
+                        <PencilIcon className="w-5" />
+                      </button>
+                      <button
+                        className="btn btn-square btn-ghost"
+                        onClick={() => handleDelete(finance.id)}
+                      >
+                        <TrashIcon className="w-5" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
