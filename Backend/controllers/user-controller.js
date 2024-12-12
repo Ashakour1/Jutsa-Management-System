@@ -212,6 +212,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
+  console.log(req.body);
   if (!email || !password) {
     res.status(400);
     throw new Error("All fields are required");
