@@ -11,6 +11,9 @@ const AddFinance = lazy(() => import("../pages/protected/Add-finance"));
 const Sports = lazy(() => import("../pages/protected/Sports"));
 const addSports = lazy(() => import("../features/sports/components/AddSports"));
 const Members = lazy(() => import("../pages/protected/members"));
+const AddMember = lazy(() => import("../pages/protected/Add-member"));
+const Positions = lazy(() => import("../pages/protected/Positions"));
+const AddPosition = lazy(() => import("../pages/protected/Add-position"));
 const Competitors = lazy(() => import("../pages/protected/itday-competitors"));
 const Integration = lazy(() => import("../pages/protected/Integration"));
 const Calendar = lazy(() => import("../pages/protected/Calendar"));
@@ -40,7 +43,7 @@ const routes = [
   },
   {
     path: "/finance/update/:id",
-    component : AddFinance
+    component: AddFinance,
   },
   {
     path: "/sports",
@@ -55,8 +58,20 @@ const routes = [
     component: addSports,
   },
   {
+    path: "/positions",
+    component: Positions,
+  },
+  {
+    path: "/positions/add",
+    component: AddPosition,
+  },
+  {
     path: "/members",
     component: Members,
+  },
+  {
+    path: "/members/add",
+    component: AddMember,
   },
   {
     path: "/it-day",
