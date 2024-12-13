@@ -8,39 +8,35 @@ const AddPosition = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { register } = usePositionStore();
+  const { fetchPositionById, register, updatePosition } = usePositionStore();
 
-  const [formData, setFormData] = useState({
-    id: "111222",
-    title: "",
-    description: "",
-  });
+  const [formData, setFormData] = useState({ title: "", description: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // if (!id) return;
-    // const fetchPositionData = async () => {
-    //   setLoading(true);
-    //   setError(null);
-    //   try {
-    //     const data = await fetchPositionById(id);
-    //     setFormData(data || {});
-    //   } catch (err) {
-    //     setError("Failed to fetch position details");
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-    // fetchPositionData();
-  }, []);
+    if (!id) return;
+
+    const fetchPositionData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchPositionById(id);
+        console.log(data);
+        setFormData(data || {});
+      } catch (err) {
+        setError("Failed to fetch position details.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPositionData();
+  }, [id, fetchPositionById]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -49,9 +45,23 @@ const AddPosition = () => {
     setError(null);
 
     try {
-      await register(formData);
-      dispatch(showNotification({ message: "Position added!", status: 1 }));
-
+      if (id) {
+        await updatePosition(id, formData);
+        dispatch(
+          showNotification({
+            message: "Position updated successfully!",
+            status: 1,
+          })
+        );
+      } else {
+        await register(formData);
+        dispatch(
+          showNotification({
+            message: "Position added successfully!",
+            status: 1,
+          })
+        );
+      }
       navigate("/app/positions");
     } catch (err) {
       setError("Failed to save position details");
@@ -61,15 +71,18 @@ const AddPosition = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">
+    <div className="max-w-md mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">
         {id ? "Update Position" : "Add Position"}
       </h1>
-      {error && <div className="text-red-500">{error}</div>}
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label>Title</label>
+          <label htmlFor="title" className="block">
+            Title
+          </label>
           <input
+            id="title"
             type="text"
             name="title"
             value={formData.title}
@@ -79,16 +92,18 @@ const AddPosition = () => {
           />
         </div>
         <div>
-          <label>Description</label>
+          <label htmlFor="description" className="block">
+            Description
+          </label>
           <textarea
+            id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
             required
-            className="textarea textarea-bordered w-full"
+            className="input input-bordered w-full"
           ></textarea>
         </div>
-
         <button
           type="submit"
           className={`btn btn-primary w-full`}

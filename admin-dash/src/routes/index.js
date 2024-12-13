@@ -66,11 +66,19 @@ const routes = [
     component: AddPosition,
   },
   {
+    path: "/positions/update/:id",
+    component: AddPosition,
+  },
+  {
     path: "/members",
     component: Members,
   },
   {
     path: "/members/add",
+    component: AddMember,
+  },
+  {
+    path: "/members/update/:id",
     component: AddMember,
   },
   {

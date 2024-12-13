@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useMemberStore from "../../../../stores/memberStore";
-// import useMemberStore from "../../../stores/memberStore"; // Adjust this import path
 import { showNotification } from "../../../common/headerSlice";
 
 const AddMember = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { register } = useMemberStore();
+  const { register, updateMember, fetchMemberById } = useMemberStore();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -26,21 +25,21 @@ const AddMember = () => {
   useEffect(() => {
     if (!id) return;
 
-    // const fetchMemberData = async () => {
-    //   setLoading(true);
-    //   setError(null);
-    //   try {
-    //     const data = await fetchMemberById(id);
-    //     setFormData(data || {});
-    //   } catch (err) {
-    //     setError("Failed to fetch member details");
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
+    const fetchMemberData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchMemberById(id);
+        setFormData(data || {});
+      } catch (err) {
+        setError("Failed to fetch member details");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // fetchMemberData();
-  }, []);
+    fetchMemberData();
+  }, [id, fetchMemberById]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -56,12 +55,16 @@ const AddMember = () => {
     setError(null);
 
     try {
-      await register(formData);
-      dispatch(showNotification({ message: "Member added!", status: 1 }));
-
+      if (id) {
+        await updateMember(id, formData);
+        dispatch(showNotification({ message: "Member updated!", status: 1 }));
+      } else {
+        await register(formData);
+        dispatch(showNotification({ message: "Member added!", status: 1 }));
+      }
       navigate("/app/members");
     } catch (err) {
-      setError("Failed to save member details");
+      setError(id ? "Failed to update member details" : "Failed to save member details");
     } finally {
       setLoading(false);
     }
