@@ -1,35 +1,81 @@
 import { create } from "zustand";
-import { fetchPositionDetailsFromAPI, registerPosition } from "../services/positionServices";
+import {
+  fetchPositionDetailsFromAPI,
+  fetchPositionById,
+  registerPosition,
+  updatePosition,
+  deletePosition,
+} from "../services/positionServices";
 
 const usePositionStore = create((set) => ({
-  PositionsDetails: [], // Always starts as an empty array
+  PositionsDetails: [],
   loading: false,
   error: null,
 
+  // Fetch positions
   fetchPositionDetails: async () => {
     set({ loading: true, error: null });
-
     try {
       const data = await fetchPositionDetailsFromAPI();
-      set({ PositionsDetails: data || [], loading: false }); // Ensure data is always an array
-    } catch (err) {
-      set({ error: err.message, loading: false });
+      set({ PositionsDetails: data || [], loading: false });
+    } catch (error) {
+      set({ error: error.message, loading: false });
     }
   },
 
+  // Fetch position by ID
+fetchPositionById: async (id) => {
+  set({ loading: true, error: null });
+  try {
+    const data = await fetchPositionById(id);
+    set({ PositionsDetails: data, loading: false });
+    return data;
+  } catch (error) {
+    set({ error: error.message, loading: false });
+  }
+},
+
+  // Register position
   register: async (formData) => {
     set({ loading: true, error: null });
-
     try {
-      // Call the API to register the position
-      const result = await registerPosition(formData);
+      const newPosition = await registerPosition(formData);
       set((state) => ({
-        // Add the new position to the existing list of positions
-        PositionsDetails: [...state.PositionsDetails, result.data],
+        PositionsDetails: [...state.PositionsDetails, newPosition],
         loading: false,
       }));
-    } catch (err) {
-      set({ error: err.message, loading: false });
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  // Update position
+  updatePosition: async (id, updatedData) => {
+    set({ loading: true, error: null });
+    try {
+      const updatedPosition = await updatePosition(id, updatedData);
+      set((state) => ({
+        PositionsDetails: state.PositionsDetails.map((position) =>
+          position.id === id ? updatedPosition : position
+        ),
+        loading: false,
+      }));
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  // Delete position
+  deletePosition: async (id) => {
+    set({ loading: true, error: null });
+    try {
+      await deletePosition(id);
+      set((state) => ({
+        PositionsDetails: state.PositionsDetails.filter((position) => position.id !== id),
+        loading: false,
+      }));
+    } catch (error) {
+      set({ error: error.message, loading: false });
     }
   },
 }));

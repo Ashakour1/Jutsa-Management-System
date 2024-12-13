@@ -1,17 +1,19 @@
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 import TitleCard from "../../../components/Cards/TitleCard";
 import { useNavigate } from "react-router-dom";
 import usePositionStore from "../../../stores/positionStore";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../../common/headerSlice";
 
 const TopSideButtons = () => {
-  const Navigate = useNavigate();
-  console.log("Navigate", Navigate);
+  const navigate = useNavigate();
   return (
     <div className="inline-block float-right">
       <button
         className="btn px-6 btn-sm normal-case btn-primary"
-        onClick={() => Navigate("/app/positions/add")}
+        onClick={() => navigate("/app/positions/add")}
       >
         Add New
       </button>
@@ -20,11 +22,29 @@ const TopSideButtons = () => {
 };
 
 function Positions() {
-  const { PositionsDetails, loading, error, fetchPositionDetails } =
-    usePositionStore();
+  const {
+    PositionsDetails,
+    loading,
+    error,
+    fetchPositionDetails,
+    deletePosition,
+  } = usePositionStore();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     fetchPositionDetails();
-  }, []);
+  }, [fetchPositionDetails]);
+
+  const handleDelete = async (id) => {
+    try {
+      await deletePosition(id);
+      dispatch(showNotification({ message: "Position deleted!", status: 1 }));
+      fetchPositionDetails(); // Refresh positions list after deletion
+    } catch (err) {
+      dispatch(showNotification({ message: err.message, status: 0 }));
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -38,7 +58,6 @@ function Positions() {
     <>
       <TitleCard
         title="Positions"
-        // description="Financial"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >
@@ -52,15 +71,22 @@ function Positions() {
             </tr>
           </thead>
           <tbody>
-            {PositionsDetails.map((k, index) => (
-              <tr>
-                <td>{k.title}</td>
-                <td>{k.description}</td>
-
-                <td>{k.createdAt.slice(0, 10)}</td>
-
+            {PositionsDetails.map((position) => (
+              <tr key={position.id}>
+                <td>{position.title}</td>
+                <td>{position.description}</td>
+                <td>{position.createdAt.slice(0, 10)}</td>
                 <td>
-                  <button className="btn btn-square btn-ghost">
+                  <button
+                    className="btn btn-square btn-ghost"
+                    onClick={() => navigate(`/app/positions/update/${position.id}`)}
+                  >
+                    <PencilIcon className="w-5" />
+                  </button>
+                  <button
+                    className="btn btn-square btn-ghost"
+                    onClick={() => handleDelete(position.id)}
+                  >
                     <TrashIcon className="w-5" />
                   </button>
                 </td>

@@ -2,124 +2,91 @@ import { ObjectId } from "mongodb";
 import prisma from "../config/db.js";
 import asyncHandler from "express-async-handler";
 
+// Helper function to validate MongoDB ObjectId
+const isValidObjectId = (id) => ObjectId.isValid(id);
+
+// Get all positions
 export const getAllPositions = asyncHandler(async (req, res) => {
   const positions = await prisma.position.findMany();
-
-  res.status(200).json({
-    success: true,
-    error: null,
-    data: positions,
-  });
+  res.status(200).json({ success: true, data: positions });
 });
 
-export const registerPosition = asyncHandler(async (req, res) => {
-  const { id, title, description } = req.body;
-
-  if (!title || !description) {
-    res.status(404);
-    throw new Error("All fields are required ");
-  }
-
-  const findPosition = await prisma.position.findUnique({
-    where: {
-      title,
-    },
-  });
-
-  if (findPosition) {
-    res.status(400);
-    throw new Error("This position already exists");
-  }
-  const createdPosition = await prisma.position.create({
-    data: {
-      id,
-      title,
-      description,
-    },
-  });
-
-  // response status
-  res.status(200).json({
-    success: true,
-    error: null,
-    data: createdPosition,
-  });
-});
-
-export const updatePosition = asyncHandler(async (req, res) => {
-  // get id from request params
+// Get position by ID
+export const getPositionById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  if (!ObjectId.isValid(id)) {
-    res.status(404);
-    throw new Error("Invalid id");
-  }
-  //
-  const { title, description } = req.body;
-
-  const findPosition = await prisma.position.findUnique({
-    where: {
-      id,
-    },
-  });
-
-  // check if position is available
-  if (!findPosition) {
-    res.status(404);
-    throw new Error("this position is not existing");
+  if (!isValidObjectId(id)) {
+    return res.status(400).json({ success: false, message: "Invalid ID format" });
   }
 
-  // updatePosition
-  const updatePosition = await prisma.position.update({
-    data: {
-      title,
-      description,
-    },
-    where: {
-      id,
-    },
-  });
-  // response status
-  res.status(200).json({
-    success: true,
-    error: null,
-    data: updatePosition,
-  });
+  const position = await prisma.position.findUnique({ where: { id } });
+
+  if (!position) {
+    return res.status(404).json({ success: false, message: "Position not found" });
+  }
+
+  res.status(200).json({ success: true, data: position });
 });
 
+// Register a new position
+export const registerPosition = asyncHandler(async (req, res) => {
+  const { title, description } = req.body;
+
+  if (!title || !description) {
+    return res.status(400).json({ success: false, message: "Title and description are required" });
+  }
+
+  const existingPosition = await prisma.position.findUnique({ where: { title } });
+
+  if (existingPosition) {
+    return res.status(409).json({ success: false, message: "Position already exists" });
+  }
+
+  const newPosition = await prisma.position.create({
+    data: { title, description },
+  });
+
+  res.status(201).json({ success: true, data: newPosition });
+});
+
+// Update a position
+export const updatePosition = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { title, description } = req.body;
+
+  if (!isValidObjectId(id)) {
+    return res.status(400).json({ success: false, message: "Invalid ID format" });
+  }
+
+  const position = await prisma.position.findUnique({ where: { id } });
+
+  if (!position) {
+    return res.status(404).json({ success: false, message: "Position not found" });
+  }
+
+  const updatedPosition = await prisma.position.update({
+    where: { id },
+    data: { title, description },
+  });
+
+  res.status(200).json({ success: true, data: updatedPosition });
+});
+
+// Delete a position
 export const deletePosition = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  // Delete the position
-  if (!ObjectId.isValid(id)) {
-    res.status(404);
-    throw new Error("Invalid id");
+  if (!isValidObjectId(id)) {
+    return res.status(400).json({ success: false, message: "Invalid ID format" });
   }
 
-  // find the position
-  const findPosition = await prisma.position.findUnique({
-    where: {
-      id,
-    },
-  });
+  const position = await prisma.position.findUnique({ where: { id } });
 
-  // check if the position is available
-  if (!findPosition) {
-    res.status(404);
-    throw new Error("Position not found");
+  if (!position) {
+    return res.status(404).json({ success: false, message: "Position not found" });
   }
 
-  // delete the position
-  const deletePosition = await prisma.position.delete({
-    where: {
-      id,
-    },
-  });
+  await prisma.position.delete({ where: { id } });
 
-  // response status
-  res.status(200).json({
-    success: true,
-    error: null,
-    data: deletePosition,
-  });
+  res.status(200).json({ success: true, message: "Position deleted successfully" });
 });
