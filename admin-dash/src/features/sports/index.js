@@ -23,13 +23,8 @@ const TopSideButtons = () => {
 };
 
 function Sports() {
-  const {
-    SportsDetails,
-    loading,
-    error,
-    fetchSportsDetails,
-    deleteSports,
-  } = useSportsStore();
+  const { SportsDetails, loading, error, fetchSportsDetails, deleteSports } =
+    useSportsStore();
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -41,7 +36,9 @@ function Sports() {
   const handleDelete = async (id) => {
     try {
       await deleteSports(id);
-      dispatch(showNotification({ message: "Sport record deleted!", status: 1 }));
+      dispatch(
+        showNotification({ message: "Sport record deleted!", status: 1 })
+      );
       fetchSportsDetails();
     } catch (err) {
       dispatch(showNotification({ message: err.message, status: 0 }));
@@ -76,6 +73,7 @@ function Sports() {
                 <th>Class Name</th>
                 <th>Description</th>
                 <th>Amount</th>
+                <th>Reg Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -88,7 +86,19 @@ function Sports() {
                     <div className="badge badge-primary">{sport.className}</div>
                   </td>
                   <td>{sport.description}</td>
-                  <td>{sport.amount}</td>
+                  <td>${sport.amount}</td>
+                  <td>
+                    {" "}
+                    {new Date(sport.createdAt).toLocaleString("en-US", {
+                      year: "numeric",
+                      month: "numeric",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                      hour12: true,
+                    })}
+                  </td>
                   <td>
                     <div className="flex space-x-2">
                       <button

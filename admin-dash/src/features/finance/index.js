@@ -29,11 +29,12 @@ const Leads = () => {
     fetchFinanceDetails();
   }, []);
 
-
   const handleDelete = async (id) => {
     try {
       await deleteFinance(id);
-      dispatch(showNotification({ message: "Finance record deleted!", status: 1 }));
+      dispatch(
+        showNotification({ message: "Finance record deleted!", status: 1 })
+      );
       fetchFinanceDetails();
     } catch (err) {
       dispatch(showNotification({ message: err.message, status: 0 }));
@@ -71,7 +72,7 @@ const Leads = () => {
               <tr key={key.id}>
                 <td>{key.id}</td>
                 <td>{key.title}</td>
-                <td>{key.amount}</td>
+                <td>${key.amount}</td>
                 <td>
                   <div
                     className={`badge ${
@@ -82,7 +83,18 @@ const Leads = () => {
                   </div>
                 </td>
                 <td>{key.category}</td>
-                <td>{key.createdAt.slice(0, 10)}</td>
+                <td>
+                  {" "}
+                  {new Date(key.createdAt).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true,
+                  })}
+                </td>
                 <td>
                   <div className="flex space-x-2">
                     <button

@@ -248,11 +248,9 @@ export const loginUser = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     error: null,
-    results: {
-      message: "User Login Successfully",
-      token,
-      data: isUserExists,
-    },
+    message: "Login Successfully",
+    token,
+    data: isUserExists,
   });
 });
 // End of User Controller

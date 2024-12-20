@@ -10,7 +10,8 @@ export const LoginUser = async (data) => {
   });
 
   if (!response.ok) {
-    throw new Error("An error occurred while logging in");
+    console.log(response);
+    throw new Error(response.data?.message);
   }
 
   const result = await response.json();

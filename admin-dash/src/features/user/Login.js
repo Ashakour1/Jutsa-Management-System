@@ -1,34 +1,45 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LandingIntro from "./LandingIntro";
 import ErrorText from "../../components/Typography/ErrorText";
 import InputText from "../../components/Input/InputText";
 import useUserStore from "../../stores/userStore";
+import toast from "react-hot-toast";
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const { login, user, error } = useUserStore();
+  // const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  // Redirect if the user is already logged in
+  if (user) {
+    navigate("/dashboard");
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  console.log(formData);
-  const { login } = useUserStore();
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password) {
-      setErrorMessage("Please fill in all fields");
-      return;
+    if (error) {
+      toast.error(error);
     }
 
-    login(formData);
+    // setLoading(true);
+
+    try {
+      await login(formData);
+      navigate("/dashboard"); // Redirect to dashboard after successful login
+    } catch (e) {
+      console.log("Failed to login");
+      toast.error(e.message); // Show error if login fails
+    }
+
+    // setLoading(false);
   };
 
   return (
