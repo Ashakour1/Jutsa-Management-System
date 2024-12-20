@@ -15,6 +15,9 @@ const AddMember = lazy(() => import("../pages/protected/Add-member"));
 const Positions = lazy(() => import("../pages/protected/Positions"));
 const AddPosition = lazy(() => import("../pages/protected/Add-position"));
 const Competitors = lazy(() => import("../pages/protected/itday-competitors"));
+const AddCompetitor = lazy(() =>
+  import("../features/itDay-com/components/AddCompitetor")
+);
 const Integration = lazy(() => import("../pages/protected/Integration"));
 const Calendar = lazy(() => import("../pages/protected/Calendar"));
 const Team = lazy(() => import("../pages/protected/Team"));
@@ -84,6 +87,14 @@ const routes = [
   {
     path: "/it-day",
     component: Competitors,
+  },
+  {
+    path: "/it-day/add",
+    component: AddCompetitor,
+  },
+  {
+    path: "/it-day/update/:id",
+    component: AddCompetitor,
   },
   {
     path: "/settings-team",
