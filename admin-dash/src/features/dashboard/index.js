@@ -45,7 +45,7 @@ const statsData = [
 ];
 
 function Dashboard() {
-  const { user } = useUserStore();
+  // const { user } = useUserStore();
   const navigate = useNavigate();
 
   //   console.log(user);
@@ -53,17 +53,17 @@ function Dashboard() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // If user is not authenticated (either no user or no token), redirect to login
-    if (!user && !localStorage.getItem("token")) {
-      console.log("users" + user);
-      navigate("/login");
-    }
-  }, [user, navigate]); // Re-run the effect if user state changes
+  // useEffect(() => {
+  //   // If user is not authenticated (either no user or no token), redirect to login
+  //   if (!user && !localStorage.getItem("token")) {
+  //     console.log("users" + user);
+  //     navigate("/login");
+  //   }
+  // }, [user, navigate]); // Re-run the effect if user state changes
 
-  if (!user && !localStorage.getItem("token")) {
-    return <div>Loading...</div>; // Optionally show loading state
-  }
+  // if (!user && !localStorage.getItem("token")) {
+  //   return <div>Loading...</div>; // Optionally show loading state
+  // }
 
   const updateDashboardPeriod = (newRange) => {
     // Dashboard range changed, write code to refresh your values
