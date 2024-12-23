@@ -1,22 +1,22 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LandingIntro from "./LandingIntro";
+// import LandingIntro from "./LandingIntro";
 import ErrorText from "../../components/Typography/ErrorText";
 import InputText from "../../components/Input/InputText";
 import useUserStore from "../../stores/userStore";
 import toast from "react-hot-toast";
-
+import { LoginUser } from "../../services/userServices"; // Assuming this is your API call to login
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const { login, user, error } = useUserStore();
+  // const { login, user, error } = useUserStore();
   // const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   // Redirect if the user is already logged in
-  if (user) {
-    navigate("/dashboard");
-  }
+  // if (user) {
+  //   navigate("/dashboard");
+  // }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,15 +25,16 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (error) {
-      toast.error(error);
-    }
+    // if (error) {
+    //   toast.error(error);
+    // }
 
     // setLoading(true);
 
     try {
-      await login(formData);
-      navigate("/dashboard"); // Redirect to dashboard after successful login
+      LoginUser(formData);
+      navigate("/dashboard");
+      // Redirect to dashboard after successful login
     } catch (e) {
       console.log("Failed to login");
       toast.error(e.message); // Show error if login fails
