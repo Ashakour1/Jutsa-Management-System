@@ -1,28 +1,28 @@
-import axios from "axios"
+// import axios from "axios"
 
-const initializeApp = () => {
+// const initializeApp = () => {
     
-    // Setting base URL for all API request via axios
-    axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
+//     // Setting base URL for all API request via axios
+//     axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
 
 
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-        // dev code
-
-
-
-    } else {
-        // Prod build code
+//     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+//         // dev code
 
 
 
-        // Removing console.log from prod
-        console.log = () => {};
+//     } else {
+//         // Prod build code
 
 
-        // init analytics here
-    }
 
-}
+//         // Removing console.log from prod
+//         console.log = () => {};
 
-export default initializeApp
+
+//         // init analytics here
+//     }
+
+// }
+
+// export default initializeApp
