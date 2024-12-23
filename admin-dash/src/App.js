@@ -16,22 +16,15 @@ const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const Register = lazy(() => import("./pages/Register"));
-const Finance = lazy(() => import("./pages/protected/Finance"));
-const AddFinance = lazy(() => import("./pages/protected/Add-finance"));
 const Documentation = lazy(() => import("./pages/Documentation"));
 
 // Initializing different libraries
-initializeApp();
+// initializeApp();
 
 // Check for login and initialize axios
-const token = checkAuth();
+// const token = checkAuth();
 
 function App() {
-  useEffect(() => {
-    // 👆 daisy UI themes initialization
-    themeChange(false);
-  }, []);
-
   return (
     <>
       <Toaster />
