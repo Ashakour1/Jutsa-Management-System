@@ -16,6 +16,7 @@ import DoughnutChart from "./components/DoughnutChart";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../stores/userStore";
+import { useUser } from "../../hooks/useUser";
 
 const statsData = [
   {
@@ -45,7 +46,7 @@ const statsData = [
 ];
 
 function Dashboard() {
-  // const { user } = useUserStore();
+  const { user } = useUser();
   const navigate = useNavigate();
 
   //   console.log(user);
@@ -53,13 +54,13 @@ function Dashboard() {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // If user is not authenticated (either no user or no token), redirect to login
-  //   if (!user && !localStorage.getItem("token")) {
-  //     console.log("users" + user);
-  //     navigate("/login");
-  //   }
-  // }, [user, navigate]); // Re-run the effect if user state changes
+  useEffect(() => {
+    // If user is not authenticated (either no user or no token), redirect to login
+    if (!user) {
+      console.log("users" + user);
+      navigate("/login");
+    }
+  }, [user, navigate]); // Re-run the effect if user state changes
 
   // if (!user && !localStorage.getItem("token")) {
   //   return <div>Loading...</div>; // Optionally show loading state
