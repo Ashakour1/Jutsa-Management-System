@@ -105,6 +105,17 @@ model Caawiye {
   updatedAt     DateTime @updatedAt
 }
 
+model Candidate {
+  id            String   @id  @map("_id") 
+  name          String
+  number        Int
+  semester      String
+  className     String
+  status        String   @default("pending")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
 
 
 enum Role {
