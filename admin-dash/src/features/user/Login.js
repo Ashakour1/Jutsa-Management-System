@@ -5,8 +5,9 @@ import ErrorText from "../../components/Typography/ErrorText";
 import InputText from "../../components/Input/InputText";
 import useUserStore from "../../stores/userStore";
 import toast from "react-hot-toast";
-import { LoginUser } from "../../services/userServices"; // Assuming this is your API call to login
+import { useUser } from "../../hooks/useUser";
 function Login() {
+  const { login, user } = useUser();
   const [formData, setFormData] = useState({ email: "", password: "" });
   // const { login, user, error } = useUserStore();
   // const [loading, setLoading] = useState(false);
@@ -14,9 +15,9 @@ function Login() {
   const navigate = useNavigate();
 
   // Redirect if the user is already logged in
-  // if (user) {
-  //   navigate("/dashboard");
-  // }
+  if (user) {
+    navigate("/app/dashboard");
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,8 +33,8 @@ function Login() {
     // setLoading(true);
 
     try {
-      LoginUser(formData);
-      navigate("/dashboard");
+      login(formData);
+      navigate("/app/dashboard");
       // Redirect to dashboard after successful login
     } catch (e) {
       console.log("Failed to login");
