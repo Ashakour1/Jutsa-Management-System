@@ -18,7 +18,7 @@ const PORT = 5000;
 
 app.use(
   cors({
-    origin: "https://jms-kappa.vercel.app/",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   })
 );
