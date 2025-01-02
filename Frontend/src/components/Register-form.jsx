@@ -115,7 +115,7 @@ const RegisterForm = () => {
     // Fetch visibility status from the API when the component mounts
     const fetchFormVisibility = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/form");
+        const response = await fetch("https://jutsa-api.vercel.app/api/form");
         const data = await response.json();
         setShowForm(data.showForm);
       } catch (error) {
