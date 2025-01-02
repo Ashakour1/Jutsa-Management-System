@@ -56,7 +56,7 @@ function Dashboard() {
     // Fetch current form visibility status from API
     const fetchFormVisibility = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/form");
+        const response = await fetch("https://jutsa-api.vercel.app/api/form");
         const data = await response.json();
         setFormVisible(data.showForm);
       } catch (error) {
@@ -69,7 +69,7 @@ function Dashboard() {
 
   const toggleFormVisibility = async (status) => {
     try {
-      const response = await fetch("http://localhost:5000/api/form", {
+      const response = await fetch("https://jutsa-api.vercel.app/api/form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ showForm: status }),
