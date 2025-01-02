@@ -1,6 +1,7 @@
 import DashboardStats from "./components/DashboardStats";
 import AmountStats from "./components/AmountStats";
 import PageStats from "./components/PageStats";
+import axios from "axios";
 
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
@@ -49,9 +50,40 @@ function Dashboard() {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  //   console.log(user);
-  //   console.log(!user);
+  const [formVisible, setFormVisible] = useState(true);
 
+  useEffect(() => {
+    // Fetch current form visibility status from API
+    const fetchFormVisibility = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/form");
+        const data = await response.json();
+        setFormVisible(data.showForm);
+      } catch (error) {
+        console.error("Error fetching form visibility:", error);
+      }
+    };
+
+    fetchFormVisibility();
+  }, []);
+
+  const toggleFormVisibility = async (status) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ showForm: status }),
+      });
+
+      if (response.ok) {
+        setFormVisible(status);
+      } else {
+        console.error("Error toggling form visibility");
+      }
+    } catch (error) {
+      console.error("Error toggling form visibility:", error);
+    }
+  };
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -88,6 +120,14 @@ function Dashboard() {
         })}
       </div>
 
+      <div>
+        <h2>Manage Form Visibility</h2>
+        <button onClick={() => toggleFormVisibility(true)}>Enable Form</button>
+        <button onClick={() => toggleFormVisibility(false)}>
+          Disable Form
+        </button>
+        <p>The form is {formVisible ? "enabled" : "disabled"}.</p>
+      </div>
       {/** ---------------------- Different charts ------------------------- */}
       {/* <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
                 <LineChart />
