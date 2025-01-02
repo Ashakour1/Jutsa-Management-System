@@ -16,12 +16,12 @@ const app = express();
 
 const PORT = 5000;
 
-app.use(cors(
-  {
-    origin: 'https://jutsa-api.vercel.app/',
-    methods: ['GET', 'POST'],
-  }
-));
+app.use(
+  cors({
+    origin: "https://jms-kappa.vercel.app/",
+    methods: ["GET", "POST"],
+  })
+);
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
