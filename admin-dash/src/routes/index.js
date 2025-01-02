@@ -9,15 +9,15 @@ const Charts = lazy(() => import("../pages/protected/Charts"));
 const Finance = lazy(() => import("../pages/protected/Finance"));
 const AddFinance = lazy(() => import("../pages/protected/Add-finance"));
 const Sports = lazy(() => import("../pages/protected/Sports"));
-const addSports = lazy(() => import("../features/sports/components/AddSports"));
+const AddSports = lazy(() => import("../pages/protected/Add-sports"));
 const Members = lazy(() => import("../pages/protected/members"));
 const AddMember = lazy(() => import("../pages/protected/Add-member"));
 const Positions = lazy(() => import("../pages/protected/Positions"));
 const AddPosition = lazy(() => import("../pages/protected/Add-position"));
 const Competitors = lazy(() => import("../pages/protected/itday-competitors"));
-const AddCompetitor = lazy(() =>
-  import("../features/itDay-com/components/AddCompitetor")
-);
+const AddCompetitor = lazy(() => import("../pages/protected/Add-competitor"));
+const AddCaawiye = lazy(() => import("../pages/protected/Add-caawiye"));
+const Caawiye = lazy(() => import("../pages/protected/Caawiye"));
 const Integration = lazy(() => import("../pages/protected/Integration"));
 const Calendar = lazy(() => import("../pages/protected/Calendar"));
 const Team = lazy(() => import("../pages/protected/Team"));
@@ -54,11 +54,11 @@ const routes = [
   },
   {
     path: "/sports/add",
-    component: addSports,
+    component: AddSports,
   },
   {
     path: "/sports/update/:id",
-    component: addSports,
+    component: AddSports,
   },
   {
     path: "/positions",
@@ -71,6 +71,14 @@ const routes = [
   {
     path: "/positions/update/:id",
     component: AddPosition,
+  },
+  {
+    path: "/caawiye",
+    component: Caawiye,
+  },
+  {
+    path: "/caawiye/add",
+    component: AddCaawiye,
   },
   {
     path: "/members",
