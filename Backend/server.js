@@ -18,7 +18,7 @@ const PORT = 5000;
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://jutsa-api.vercel.app/",
   })
 );
 // Middleware
@@ -38,7 +38,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/finances", financeRoutes);
-
 
 // Error handler middleware
 app.use(errorHandler);
