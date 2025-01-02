@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import LandingIntro from "./LandingIntro";
 import ErrorText from "../../components/Typography/ErrorText";
@@ -15,9 +15,12 @@ function Login() {
   const navigate = useNavigate();
 
   // Redirect if the user is already logged in
-  if (user) {
-    navigate("/app/dashboard");
-  }
+
+  useEffect(() => {
+    if (user) {
+      navigate("/app/dashboard");
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
