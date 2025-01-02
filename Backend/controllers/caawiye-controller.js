@@ -16,7 +16,7 @@ export const getCaawiyeById = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const caawiye = await prisma.caawiye.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 
@@ -56,6 +56,7 @@ export const registerCaawiye = asyncHandler(async (req, res) => {
       password,
       problems,
       solutions,
+      status,
     },
   });
 
@@ -78,7 +79,7 @@ export const registerCaawiye = asyncHandler(async (req, res) => {
 
 export const updateCaawiye = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { name, number, semester, className, password, problems, solutions } =
+  const { name, number, semester, className, password, problems, solutions,status } =
     req.body;
 
   const caawiye = await prisma.caawiye.update({
@@ -93,6 +94,7 @@ export const updateCaawiye = asyncHandler(async (req, res) => {
       password,
       problems,
       solutions,
+      status,
     },
   });
 

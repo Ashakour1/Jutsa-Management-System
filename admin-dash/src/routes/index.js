@@ -81,6 +81,10 @@ const routes = [
     component: AddCaawiye,
   },
   {
+    path: "/caawiye/update/:id",
+    component: AddCaawiye,
+  },
+  {
     path: "/members",
     component: Members,
   },
