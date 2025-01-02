@@ -123,6 +123,7 @@ function Dashboard() {
       <div>
         <h2>Manage Form Visibility</h2>
         <button onClick={() => toggleFormVisibility(true)}>Enable Form</button>
+        <br />
         <button onClick={() => toggleFormVisibility(false)}>
           Disable Form
         </button>
