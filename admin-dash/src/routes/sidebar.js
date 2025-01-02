@@ -18,7 +18,7 @@ import InboxArrowDownIcon from "@heroicons/react/24/outline/InboxArrowDownIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import KeyIcon from "@heroicons/react/24/outline/KeyIcon";
 import DocumentDuplicateIcon from "@heroicons/react/24/outline/DocumentDuplicateIcon";
-import { MdOutlineSportsSoccer } from "react-icons/md";
+import { MdOutlineSportsSoccer, MdSupport, MdSupportAgent } from "react-icons/md";
 import { LuBookMarked } from "react-icons/lu";
 import { RiPresentationFill } from "react-icons/ri";
 
@@ -61,6 +61,11 @@ const routes = [
         path: "/app/it-day", //url
         icon: <LuBookMarked className={submenuIconClasses} />, // icon component
         name: "Faculty Day", // name that appear in Sidebar
+      },
+      {
+        path: "/app/caawiye", //url
+        icon: <MdSupportAgent className={submenuIconClasses} />, // icon component
+        name: "Caawiye", // name that appear in Sidebar
       },
       {
         path: "/app/sports",
