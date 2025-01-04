@@ -5,7 +5,7 @@ const router = express.Router();
 let formVisibility = { showForm: true };
 
 // Route to get form visibility status
-router.get("/form", (req, res) => {
+router.get("/get/form", (req, res) => {
   res.json(formVisibility); // Return current visibility status
 });
 
