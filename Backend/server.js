@@ -32,7 +32,7 @@ app.use("/api/competitors", competitorRoutes);
 app.use("/api/members", memberRoutes);
 app.use("/api/sports", SportRoutes);
 app.use("/api/caawiye", CaawiyeRoutes);
-app.use("/api", FormRoutes);
+app.use("/api/form", FormRoutes);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
