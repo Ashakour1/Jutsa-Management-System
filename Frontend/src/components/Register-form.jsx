@@ -115,8 +115,10 @@ const RegisterForm = () => {
     // Fetch visibility status from the API when the component mounts
     const fetchFormVisibility = async () => {
       try {
-        const response = await fetch("https://jutsa-api.vercel.app/api/form");
-        const data = await response.json();
+        const response = await axios.get(
+          "https://jutsa-api.vercel.app/api/form"
+        );
+        const data = response.data;
         setShowForm(data.showForm);
       } catch (error) {
         console.error("Error fetching form visibility:", error);
@@ -129,9 +131,7 @@ const RegisterForm = () => {
   }, []);
 
   if (loading) {
-    return (
-      <Spinner size="large" className="border border-blue-700" />
-    );
+    return <Spinner size="large" className="border border-blue-700" />;
   }
 
   if (!showForm) {
