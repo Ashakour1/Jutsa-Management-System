@@ -56,8 +56,10 @@ function Dashboard() {
     // Fetch current form visibility status from API
     const fetchFormVisibility = async () => {
       try {
-        const response = await fetch("https://jutsa-api.vercel.app/api/form");
-        const data = await response.json();
+        const response = await axios.get(
+          "https://jutsa-api.vercel.app/api/form"
+        );
+        const data = response.data;
         setFormVisible(data.showForm);
       } catch (error) {
         console.error("Error fetching form visibility:", error);
@@ -69,17 +71,15 @@ function Dashboard() {
 
   const toggleFormVisibility = async (status) => {
     try {
-      const response = await fetch("https://jutsa-api.vercel.app/api/form", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ showForm: status }),
-      });
+      const response = await axios.post(
+        "https://jutsa-api.vercel.app/api/form",
+        {
+          showForm: status,
+        }
+      );
 
-      if (response.ok) {
-        setFormVisible(status);
-      } else {
-        console.error("Error toggling form visibility");
-      }
+      console.log(response.data.message);
+      setFormVisible(status);
     } catch (error) {
       console.error("Error toggling form visibility:", error);
     }
@@ -123,7 +123,6 @@ function Dashboard() {
       <div>
         <h2>Manage Form Visibility</h2>
         <button onClick={() => toggleFormVisibility(true)}>Enable Form</button>
-        <br />
         <button onClick={() => toggleFormVisibility(false)}>
           Disable Form
         </button>
