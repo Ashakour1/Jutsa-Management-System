@@ -18,8 +18,8 @@ const PORT = 5000;
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    origin: "https://jutsa-api.vercel.app/",
+    
   })
 );
 // Middleware
