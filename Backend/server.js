@@ -18,8 +18,7 @@ const PORT = 5000;
 
 app.use(
   cors({
-    origin: "https://jutsa-api.vercel.app/",
-    
+    origin: "*",
   })
 );
 // Middleware
