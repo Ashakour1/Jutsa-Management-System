@@ -140,7 +140,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <main className="flex min-h-screen items-center justify-center bg-gray-100 py-20 px-4">
+      <main className="flex min-h-screen items-center justify-center bg-gray-100 py-36 px-4">
         <div className="w-[800px] rounded-lg mx-auto bg-white text-black p-8 shadow-lg ">
           <h1 className="my-4 text-3xl font-bold tracking-tight text-black">
             Registration
