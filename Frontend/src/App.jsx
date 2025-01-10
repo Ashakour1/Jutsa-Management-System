@@ -20,6 +20,7 @@ import Contact from "./pages/Contact";
 import AboutSection from "./components/jutsa-components/About";
 import EventsSection from "./components/jutsa-components/events";
 import CtaSection from "./components/jutsa-components/cta";
+import Announcement from "./components/jutsa-components/Announcement";
 
 // Layout with header and footer
 
@@ -52,8 +53,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Footer />
         </Router>
-        <Footer />
       </HelmetProvider>
     </>
   );
