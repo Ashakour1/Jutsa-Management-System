@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const AboutSection = () => {
   return (
     <section className="bg-gray-100">
-      <div className="flex  flex-col max-w-[1200px] px-10 md:h-full py-10 h-full mx-auto">
+      <div className="flex  flex-col max-w-[1200px] md:px-0 px-4  md:h-full py-10 h-full mx-auto">
         <div className="flex flex-col  justify-center items-center">
           <h1 className="max-w-xl text-3xl font-bold text-customBlue">
             About Us
