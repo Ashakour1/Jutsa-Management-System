@@ -14,32 +14,30 @@ const HeroSection = () => {
   // Avatar data with unique entries
   const avatars = [
     {
-      imageUrl: "https://avatars.githubusercontent.com/u/16860528",
-      profileUrl: "https://github.com/dillionverma",
+      imageUrl: "/hop.jpeg",
+      profileUrl:
+        "https://www.facebook.com/nimcowehliye.nimcowehliye.3?rdid=0yVC9m7vpZLqDhMR&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1F8ijj7McN%2F#",
     },
     {
-      imageUrl: "https://avatars.githubusercontent.com/u/20110627",
-      profileUrl: "https://github.com/tomonarifeehan",
+      imageUrl: "/cdo.jpg",
+      profileUrl: "https://abdishakur.reliatrusty.com/",
     },
     {
-      imageUrl: "https://avatars.githubusercontent.com/u/106103625",
-      profileUrl: "https://github.com/BankkRoll",
+      imageUrl: "hof.jpg",
+      profileUrl: "#",
     },
     {
-      imageUrl: "https://avatars.githubusercontent.com/u/20110627",
-      profileUrl: "https://github.com/tomonarifeehan",
+      imageUrl: "vp.jpg",
+      profileUrl: "#",
+    },
+
+    {
+      imageUrl: "president.jpg",
+      profileUrl: "#",
     },
     {
-      imageUrl: "https://avatars.githubusercontent.com/u/106103625",
-      profileUrl: "https://github.com/BankkRoll",
-    },
-    {
-      imageUrl: "https://avatars.githubusercontent.com/u/20110627",
-      profileUrl: "https://github.com/tomonarifeehan",
-    },
-    {
-      imageUrl: "https://avatars.githubusercontent.com/u/106103625",
-      profileUrl: "https://github.com/BankkRoll",
+      imageUrl: "cdo2.jpg",
+      profileUrl: "#",
     },
   ];
 
@@ -61,10 +59,10 @@ const HeroSection = () => {
             )}
           >
             <Link to="/about">
-            <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 ">
-              <span>✨ Join Our Community</span>
-              <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-            </AnimatedShinyText>
+              <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 ">
+                <span>✨ Join Our Community</span>
+                <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+              </AnimatedShinyText>
             </Link>
           </div>
         </div>

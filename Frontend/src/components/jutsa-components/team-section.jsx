@@ -1,6 +1,7 @@
 import { FaXTwitter } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { IoBasketballOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const TeamSection = () => {
   const teamMembers = [
@@ -10,44 +11,67 @@ const TeamSection = () => {
       description:
         "Leading our initiatives and representing student interests.",
       image: "/president.jpg",
+      facebook: "https://www.facebook.com/aim.king.395",
+      linkedIn: "https://www.linkedin.com/in/hassan-akariim-1ab7972ba/",
+
+      Website: "#",
     },
     {
-      name: "Maria Chan",
+      name: "Hafsa Mohamed Abdi",
       role: "Vice President",
       description: "Supporting the president and managing events.",
-      image:
-        "https://utfs.io/f/66b122b2-eefe-4e73-a744-5abec8dc8bd1-x9pr84.png",
+      image: "vp.jpg",
+      facebook: "#",
+      linkedIn: "#",
+      Website: "#",
     },
     {
       name: "Abdishakur Mohamed",
       role: "Chief Development Officer",
-      description: "Overseeing finances and budgeting for activities.",
-      image: "/cdo.jpg",
+      description:
+        "Visionary driving innovation and strategic growth initiatives.",
+      image: "/cdo2.jpg",
+      facebook: "https://www.facebook.com/",
+      linkedIn: "https://www.linkedin.com/in/a-shakour-mohammed-90836725a/",
+      Website: "https://abdishakur.reliatrusty.com/",
     },
     {
-      name: "Emily Davis",
-      role: "Secretary",
-      description: "Documenting meetings and maintaining communications.",
-      image:
-        "https://utfs.io/f/66b122b2-eefe-4e73-a744-5abec8dc8bd1-x9pr84.png",
+      name: "Naima Abdirahiim Wehliye",
+      role: "Operation Officer",
+      description: "Streamlining operations for efficiency and excellence.",
+      image: "hop.jpeg",
+      facebook: "#",
+      linkedIn: "#",
+      Website: "#",
+    },
+    {
+      name: "Mohamed Nur Mumin",
+      role: "Finance Officer",
+      description: "Managing financial strategy and growth.",
+      image: "hof.jpg",
+      facebook: "#",
+      linkedIn: "#",
+      Website: "#",
     },
   ];
 
   return (
     <section className="bg-gray-100">
-      <div className="max-w-[1200px] text-center mx-auto px-4 py-8">
-        <h2 className="font-bold mb-2 text-customGreen">Team</h2>
-        <h1 className="text-3xl font-bold mb-2 text-customBlue">
+      <div className="max-w-[1200px] mx-auto px-4 py-8">
+        <h2 className="font-bold mb-2 text-center text-customGreen">Team</h2>
+        <h1 className="text-3xl font-bold mb-2 text-center text-customBlue">
           Meet Our Team
         </h1>
-        <p className="mb-8">Meet the dedicated members of JUTSA.</p>
+        <p className="mb-8 text-center">
+          Get to know the talented individuals who bring JUTSA's vision to life.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {teamMembers.map((member, index) => (
             <div key={index}>
               <img
                 src={member.image}
                 alt={member.name}
-                className="w-full h-56 object-cover"
+                className="w-full h-60 object-cover"
               />
               <div className="p-4">
                 <h2 className="text-base text-customBlue font-semibold mb-1">
@@ -60,15 +84,24 @@ const TeamSection = () => {
                   {member.description}
                 </p>
                 <div className="flex space-x-4">
-                  <a href="#" className="hover:text-gray-600 text-xl">
-                    <FaXTwitter />
-                  </a>
-                  <a href="#" className="hover:text-gray-600 text-xl">
+                  <Link
+                    to={member.facebook}
+                    className="hover:text-gray-600 text-xl"
+                  >
+                    <FaFacebook />
+                  </Link>
+                  <Link
+                    to={member.linkedIn}
+                    className="hover:text-gray-600 text-xl"
+                  >
                     <FaLinkedin />
-                  </a>
-                  <a href="#" className="hover:text-gray-600 text-xl">
+                  </Link>
+                  <Link
+                    to={member.Website}
+                    className="hover:text-gray-600 text-xl"
+                  >
                     <IoBasketballOutline />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
