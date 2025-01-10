@@ -55,18 +55,18 @@ const Header = () => {
 
       <div onClick={openNavBar} className="md:hidden block items-center">
         {navIsOpen ? (
-          <button className="md:hidden absolute top-4 bg-customBlue text-white p-1 rounded-md right-4 ">
+          <button className="md:hidden absolute top-16 items-center bg-customBlue text-white p-1 rounded-md right-4 ">
             <TiThMenuOutline className="text-2xl" />
           </button>
         ) : (
-          <button className="md:hidden absolute top-4 right-4 bg-customBlue text-white p-1 rounded-md">
+          <button className="md:hidden absolute top-16 items-center bg-customBlue text-white p-1 rounded-md right-4">
             <TiThMenu className="text-2xl" />
           </button>
         )}
       </div>
 
       {navIsOpen ? (
-        <div className="md:hidden absolute top-14 rounded-sm right-0 h-64 w-full bg-customBlue text-white bg-backdrop-blur-sm mr-2 p-4">
+        <div className="md:hidden  top-14 rounded-sm w-full bg-customBlue text-white bg-backdrop-blur-sm  p-4">
           <div className="flex flex-col ">
             <Link onClick={closeNavBar} className="font-medium p-4" to="/">
               Home
@@ -83,6 +83,22 @@ const Header = () => {
             >
               FAQ
             </Link>
+            <hr />
+            <Link
+              onClick={closeNavBar}
+              className="font-medium p-4"
+              to="/it-day"
+            >
+              Faculty Day
+            </Link>
+            <hr />
+            <Link
+              onClick={closeNavBar}
+              className="font-medium p-4"
+              to="/sports"
+            >
+              Sports Tournament
+            </Link>{" "}
             <hr />
           </div>
           <div className="md:hidden flex pt-4">
