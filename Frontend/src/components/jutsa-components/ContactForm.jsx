@@ -53,10 +53,10 @@ const ContactForm = () => {
       if (form.current) {
         emailjs
           .sendForm(
-            "service_g3j76qr", // Replace with your service ID
-            "template_232zty2", // Replace with your template ID
+            "service_gi9q6i4", // Replace with your service ID
+            "template_zl3sn78", // Replace with your template ID
             form.current,
-            "ep3XQ79vKjCRzZeto" // Replace with your user ID
+            "xqsQ_LZhrZvC4f6Gf" // Replace with your user ID
           )
           .then(
             () => {
