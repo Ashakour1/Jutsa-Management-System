@@ -50,7 +50,7 @@ const HeroSection = () => {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <div className="max-w-[1200px] md:py-32 pt-10 mx-auto h-full flex flex-col">
+      <div className="max-w-[1200px] md:py-32 pt-24 mx-auto h-full flex flex-col">
         {/* button */}
         <div className="flex items-center justify-center">
           <div
