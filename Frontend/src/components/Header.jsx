@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TiThMenu } from "react-icons/ti";
 import { TiThMenuOutline } from "react-icons/ti";
+import Announcement from "./jutsa-components/Announcement";
 
 const Header = () => {
   const [navIsOpen, setNavIsOpen] = useState(false);
@@ -17,6 +18,7 @@ const Header = () => {
   };
   return (
     <header className="backdrop-blur-sm fixed w-full top-0 ">
+      <Announcement />
       <div className=" flex justify-between items-center px-5 max-w-[1200px] mx-auto h-16 mt-1">
         <div className="logo">
           {/* <img src="./logo.png" alt="" /> */}
@@ -36,6 +38,9 @@ const Header = () => {
           </Link>
           <Link className="font-medium p-4" to="/sports">
             Sports Tournament
+          </Link>
+          <Link className="font-medium p-4" to="/about/faq">
+            FAQ
           </Link>
         </div>
         <div className="hidden md:flex">
