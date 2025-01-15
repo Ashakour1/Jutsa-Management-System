@@ -1,19 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../common/headerSlice";
+import useCaawiyeStore from "../../stores/caawiyeStore";
 import TitleCard from "../../components/Cards/TitleCard";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 
 const TopSideButtons = () => (
   <div className="inline-block float-right">
     <Link to="/app/caawiye/add">
-      <button className="btn px-6 btn-sm normal-case btn-primary">
-        Add New
-      </button>
+      <button className="btn px-6 btn-sm normal-case btn-primary">Add New</button>
     </Link>
   </div>
 );
 
 const Caawiye = () => {
+  const {
+    caawiyeDetails,
+    loading,
+    error,
+    fetchCaawiyeDetails,
+    deleteCaawiye,
+  } = useCaawiyeStore();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchCaawiyeDetails();
+  }, [fetchCaawiyeDetails]);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteCaawiye(id);
+      dispatch(showNotification({ message: "Deleted successfully!", status: 1 }));
+    } catch (err) {
+      dispatch(showNotification({ message: err.message, status: 0 }));
+    }
+  };
+
+  const handleUpdate = (id) => {
+    navigate(`/app/caawiye/update/${id}`);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <TitleCard
       title="Competitors"
@@ -29,31 +60,47 @@ const Caawiye = () => {
               <th>Number</th>
               <th>Semester</th>
               <th>Class Name</th>
-              <th>Project Name</th>
+              <th>Password</th>
+              <th>Problems</th>
+              <th>Solutions</th>
               <th>Status</th>
+              <th>Created At</th>
+              <th>Updated At</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>12345</td>
-              <td>5th</td>
-              <td>Computer Science</td>
-              <td>Project Alpha</td>
-              <td>Active</td>
-              <td>
-                <div className="flex space-x-2">
-                  <button className="btn btn-square btn-ghost">
-                    <PencilIcon className="w-5" />
-                  </button>
-                  <button className="btn btn-square btn-ghost">
-                    <TrashIcon className="w-5" />
-                  </button>
-                </div>
-              </td>
-            </tr>
+            {caawiyeDetails.map((caawiye) => (
+              <tr key={caawiye.id}>
+                <td>{caawiye.id}</td>
+                <td>{caawiye.name}</td>
+                <td>{caawiye.number}</td>
+                <td>{caawiye.semester}</td>
+                <td>{caawiye.className}</td>
+                <td>{caawiye.password}</td>
+                <td>{caawiye.problems}</td>
+                <td>{caawiye.solutions}</td>
+                <td>{caawiye.status}</td>
+                <td>{new Date(caawiye.createdAt).toLocaleString()}</td>
+                <td>{new Date(caawiye.updatedAt).toLocaleString()}</td>
+                <td>
+                  <div className="flex space-x-2">
+                    <button
+                      className="btn btn-square btn-ghost"
+                      onClick={() => handleUpdate(caawiye.id)}
+                    >
+                      <PencilIcon className="w-5" />
+                    </button>
+                    <button
+                      className="btn btn-square btn-ghost"
+                      onClick={() => handleDelete(caawiye.id)}
+                    >
+                      <TrashIcon className="w-5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
