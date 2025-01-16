@@ -100,7 +100,7 @@ model Caawiye {
   password      String
   problems      String
   solutions     String
-  status        String   @default("pending")
+  status        String  
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -114,6 +114,19 @@ model Candidate {
   status        String   @default("pending")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+}
+
+model Activity {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title               String
+  description         String
+  date                DateTime
+  speaker             String
+  location            String
+type                String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
 }
 
 
