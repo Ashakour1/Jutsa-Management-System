@@ -15,8 +15,7 @@ const HeroSection = () => {
   const avatars = [
     {
       imageUrl: "/hop.jpeg",
-      profileUrl:
-        "https://www.facebook.com/nimcowehliye.nimcowehliye.3?rdid=0yVC9m7vpZLqDhMR&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1F8ijj7McN%2F#",
+      profileUrl: "#",
     },
     {
       imageUrl: "/cdo.jpg",
