@@ -1,3 +1,4 @@
+import { Globe } from "lucide-react";
 import { CgArrowRight, CgCode, CgGlobe } from "react-icons/cg";
 import { GiVote } from "react-icons/gi";
 import { TbInnerShadowTopRight } from "react-icons/tb";
@@ -20,7 +21,7 @@ const About = () => {
       title: "Association Website",
       description:
         "A platform showcasing our activities, achievements, and providing resources for members",
-      icon: CgGlobe,
+      icon: Globe,
     },
   ];
 
@@ -188,10 +189,28 @@ const About = () => {
             {innovations.map((innovation, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="bg-white rounded-lg  p-6 transition-all duration-300 "
               >
                 <div className="text-customGreen mb-4">
-                  <TbInnerShadowTopRight size={48} />
+                  {innovation.icon === CgCode ? (
+                    <CgCode
+                      className="text-customGreen rounded-md p-2"
+                      size={45}
+                      name="Management System"
+                    />
+                  ) : innovation.icon === GiVote ? (
+                    <GiVote
+                      className="text-customGreen rounded-md p-2"
+                      size={45}
+                      name="Election System"
+                    />
+                  ) : innovation.icon === Globe ? (
+                    <Globe
+                      className="text-customGreen rounded-md p-2"
+                      size={45}
+                      name="Association Website"
+                    />
+                  ) : null}
                 </div>
                 <h5 className="text-xl font-semibold mb-2">
                   {innovation.title}
