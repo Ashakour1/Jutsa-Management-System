@@ -21,6 +21,7 @@ import AboutSection from "./components/jutsa-components/About";
 import EventsSection from "./components/jutsa-components/events";
 import CtaSection from "./components/jutsa-components/cta";
 import Announcement from "./components/jutsa-components/Announcement";
+import CandidateForm from "./components/jutsa-components/CandidateForm";
 
 // Layout with header and footer
 
@@ -49,6 +50,7 @@ function App() {
             <Route path="/it-day" element={<ItDay />} />{" "}
             <Route path="/sports" element={<Sports />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/candidate-reg" element={<CandidateForm />} />
             <Route path="/about/faq" element={<FAQPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
