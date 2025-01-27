@@ -80,5 +80,25 @@ export const updateActivity = AsyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     data: activity,
+    message: "Activity updated",
+  });
+});
+
+// @desc    Delete activity
+// @route   DELETE /api/activity/:id
+// @access  Private
+
+export const deleteActivity = AsyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  await prisma.activity.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Activity deleted",
   });
 });
