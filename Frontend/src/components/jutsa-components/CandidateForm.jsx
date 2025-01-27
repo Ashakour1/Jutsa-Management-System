@@ -4,7 +4,7 @@ const CandidateForm = () => {
   return (
     <main class="flex min-h-screen items-center justify-center  px-4">
       <div class="w-[800px] rounded-lg mx-auto text-black p-8">
-        <h1 class="my-4 text-3xl font-bold tracking-tight text-black">
+        <h1 class="my-4 text-3xl font-bold tracking-tight text-customBlue">
           President Candidate Application{" "}
         </h1>
         <p class="mb-4 text-gray-700">
