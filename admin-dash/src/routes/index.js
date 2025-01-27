@@ -18,6 +18,8 @@ const Competitors = lazy(() => import("../pages/protected/itday-competitors"));
 const AddCompetitor = lazy(() => import("../pages/protected/Add-competitor"));
 const AddCaawiye = lazy(() => import("../pages/protected/Add-caawiye"));
 const Caawiye = lazy(() => import("../pages/protected/Caawiye"));
+const Activity = lazy(() => import("../pages/protected/Activity"));
+const AddActivity = lazy(() => import("../pages/protected/Add-activity"));
 const Integration = lazy(() => import("../pages/protected/Integration"));
 const Calendar = lazy(() => import("../pages/protected/Calendar"));
 const Team = lazy(() => import("../pages/protected/Team"));
@@ -83,6 +85,14 @@ const routes = [
   {
     path: "/caawiye/update/:id",
     component: AddCaawiye,
+  },
+  {
+    path: "/activity",
+    component: Activity,
+  },
+  {
+    path: "/activity/add",
+    component: AddActivity,
   },
   {
     path: "/members",
