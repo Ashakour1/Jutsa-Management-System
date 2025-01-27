@@ -109,8 +109,16 @@ model Candidate {
   id            String   @id  @map("_id") 
   name          String
   number        Int
+  email         String
+  gpa          Float
+  faculty       String
+  yearOfStudy   String
   semester      String
   className     String
+  isFinanceRequired Boolean @default(false)
+  isExamRequired Boolean @default(false)
+  experience    String
+  campaignPlan      String
   status        String   @default("pending")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -128,6 +136,7 @@ type                String
   updatedAt DateTime @updatedAt
   
 }
+
 
 
 
