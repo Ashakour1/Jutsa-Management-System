@@ -30,16 +30,16 @@ const Header = () => {
           <Link className="font-medium p-4" to="/">
             Home
           </Link>
-          <Link className="font-medium p-4" to="/about">
+          <Link className="font-medium text-sm p-4" to="/about">
             About
           </Link>
-          <Link className="font-medium p-4" to="/it-day">
+          <Link className="font-medium text-sm p-4" to="/it-day">
             Faculty Day
           </Link>
-          <Link className="font-medium p-4" to="/sports">
+          <Link className="font-medium text-sm p-4" to="/sports">
             Sports Tournament
           </Link>
-          <Link className="font-medium p-4" to="/about/faq">
+          <Link className="font-medium text-sm p-4" to="/about/faq">
             FAQ
           </Link>
         </div>
