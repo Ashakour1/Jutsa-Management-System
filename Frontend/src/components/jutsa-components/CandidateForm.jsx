@@ -3,7 +3,7 @@ import React from "react";
 const CandidateForm = () => {
   return (
     <main class="flex min-h-screen items-center justify-center py-36 px-4">
-      <div class="w-[800px] rounded-lg mx-auto text-black p-8 border">
+      <div class="w-[1000px] rounded-lg mx-auto text-black p-8">
         <h1 class="my-4 text-3xl font-bold tracking-tight text-black">
           President Candidate Application{" "}
         </h1>
@@ -175,12 +175,55 @@ const CandidateForm = () => {
               <input
                 class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="gpa"
-                placeholder="CA000"
+                placeholder="3.0"
                 type="text"
                 name="gpa"
               />
               <p class="text-gray-500 text-xs py-1">
-                Enter your current CGPA (minimum of 3.0)
+                Enter your current GPA (minimum of 3.0)
+              </p>
+            </div>
+
+            <div class="flex flex-col">
+              <label
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="semester"
+              >
+                Have you failed any course before?{" "}
+              </label>
+              <select
+                class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="semester"
+                name="semester"
+              >
+                <option value="">Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+
+              <p class="text-gray-500 text-xs py-1">
+                Have you failed any course before?
+              </p>
+            </div>
+            <div class="flex flex-col">
+              <label
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="semester"
+              >
+                No Finance Due
+              </label>
+              <select
+                class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="semester"
+                name="semester"
+              >
+                <option value="">Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+
+              <p class="text-gray-500 text-xs py-1">
+                Have you paid all your fees?
               </p>
             </div>
           </div>
