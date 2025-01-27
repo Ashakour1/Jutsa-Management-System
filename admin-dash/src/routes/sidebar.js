@@ -53,7 +53,7 @@ const routes = [
     name: "Activities", // name that appear in Sidebar
     submenu: [
       {
-        path: "/seminars",
+        path: "/app/activity",
         icon: <RiPresentationFill className={submenuIconClasses} />,
         name: "Seminars & Workshops",
       },
