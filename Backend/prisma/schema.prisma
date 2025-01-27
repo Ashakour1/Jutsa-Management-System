@@ -113,7 +113,6 @@ model Candidate {
   gpa          Float
   faculty       String
   yearOfStudy   String
-  semester      String
   className     String
   isFinanceRequired Boolean @default(false)
   isExamRequired Boolean @default(false)
