@@ -9,6 +9,8 @@ import financeRoutes from "./routes/finance-routes.js";
 import SportRoutes from "./routes/sport-routes.js";
 import CaawiyeRoutes from "./routes/caawiye-routes.js";
 import FormRoutes from "./routes/form-manage.js";
+import ActivityRoutes from "./routes/activity-routes.js";
+import CandidateRoutes from "./routes/candidate-routes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -33,6 +35,8 @@ app.use("/api/members", memberRoutes);
 app.use("/api/sports", SportRoutes);
 app.use("/api/caawiye", CaawiyeRoutes);
 app.use("/api/form", FormRoutes);
+app.use("/api/activities", ActivityRoutes);
+app.use("/api/candidates", CandidateRoutes);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
