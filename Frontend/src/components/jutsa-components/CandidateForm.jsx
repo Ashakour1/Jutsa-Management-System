@@ -1,8 +1,9 @@
 import React from "react";
+import CandidateContent from "./CandidateContent";
 
 const CandidateForm = () => {
   return (
-    <main class="flex min-h-screen items-center justify-center  px-4 border">
+    <main class="flex min-h-screen items-center justify-center  px-4">
       <div class="w-[800px] rounded-lg mx-auto text-black p-8">
         <h1 class="my-4 text-3xl font-bold tracking-tight text-customBlue">
           President Candidate Application{" "}
@@ -11,28 +12,7 @@ const CandidateForm = () => {
           Fill out this form to apply as a candidate for the association
           president position.
         </p>
-        <div className="p-4 border rounded my-4">
-          <h2 class="text-base font-semibold text-black">
-            Candidate Eligibility
-          </h2>
-          <div className="px-4 py-2">
-            <ul className="list-disc">
-              <li class="text-gray-700 list">
-                Must be a student of the association
-              </li>
-
-              <li class="text-gray-700">Must have a minimum CGPA of 3.0</li>
-
-              <li class="text-gray-700">
-                Must have completed at least 4 semesters
-              </li>
-
-              <li class="text-gray-700">
-                Must have a minimum of 2 years experience in the association
-              </li>
-            </ul>
-          </div>
-        </div>
+        <CandidateContent />
         <form class="space-y-6">
           <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div class="flex flex-col">
