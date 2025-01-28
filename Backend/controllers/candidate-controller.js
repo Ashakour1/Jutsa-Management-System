@@ -41,6 +41,24 @@ export const registerCandidate = AsyncHandler(async (req, res) => {
     campaignPlan,
   } = req.body;
 
+  if (
+    !studentID ||
+    !name ||
+    !number ||
+    !email ||
+    !gpa ||
+    !department ||
+    !semester ||
+    !className ||
+    !failedCourse ||
+    !financeDue ||
+    !experience ||
+    !campaignPlan
+  ) {
+    res.status(400);
+    throw new Error("All fields are required");
+  }
+
   console.log(req.body);
 
   const candidate = await prisma.candidate.create({
