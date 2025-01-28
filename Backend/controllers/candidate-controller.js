@@ -26,51 +26,41 @@ export const getCandidateById = AsyncHandler(async (req, res) => {
 });
 
 export const registerCandidate = AsyncHandler(async (req, res) => {
-  // id            String   @id  @map("_id")
-  // name          String
-  // number        Int
-  // email         String
-  // gpa          Float
-  // faculty       String
-  // yearOfStudy   String
-  // semester      String
-  // className     String
-  // isFinanceRequired Boolean @default(false)
-  // isExamRequired Boolean @default(false)
-  // experience    String
-  // campaignPlan      String
-
   const {
+    studentID,
     name,
     number,
     email,
     gpa,
-    faculty,
-    yearOfStudy,
+    department,
     semester,
     className,
-    isFinanceRequired,
-    isExamRequired,
+    failedCourse,
+    financeDue,
     experience,
     campaignPlan,
   } = req.body;
 
+  console.log(req.body);
+
   const candidate = await prisma.candidate.create({
     data: {
+      studentID,
       name,
-      number,
+      number: parseInt(number),
       email,
-      gpa,
-      faculty,
-      yearOfStudy,
+      gpa: parseFloat(gpa),
+      department,
       semester,
       className,
-      isFinanceRequired,
-      isExamRequired,
+      failedCourse,
+      financeDue,
       experience,
       campaignPlan,
     },
   });
+
+  console.log("success");
 
   res.status(201).json({
     success: true,
