@@ -36,6 +36,7 @@ const CandidateForm = () => {
       toast.success(response.data.message);
     } catch (error) {
       console.error(error);
+      toast.error(error.response.data.message);
     }
   };
 
