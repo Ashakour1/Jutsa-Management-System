@@ -3,7 +3,7 @@ import React from "react";
 
 const CandidateRegPage = () => {
   return (
-    <div className="h-full max-w-5xl mx-auto px-4 py-32 space-y-5">
+    <div className="h-full max-w-5xl mx-auto px-4 py-32 space-y-5 ">
       <CandidateForm />
     </div>
   );
