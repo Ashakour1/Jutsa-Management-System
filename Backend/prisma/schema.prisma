@@ -106,16 +106,16 @@ model Caawiye {
 }
 
 model Candidate {
-  id            String   @id  @map("_id") 
+  studentID            String    @id  @map("_id")  // unique id
   name          String
   number        Int
   email         String
   gpa          Float
-  faculty       String
-  yearOfStudy   String
+  semester     String
+  department    String
   className     String
-  isFinanceRequired Boolean @default(false)
-  isExamRequired Boolean @default(false)
+  failedCourse  String
+  financeDue    String
   experience    String
   campaignPlan      String
   status        String   @default("pending")
