@@ -1,7 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import CandidateContent from "./CandidateContent";
+import axios from "axios";
+import { toast } from "sonner";
 
 const CandidateForm = () => {
+  const [formData, setFormData] = useState({
+    studentID: "",
+    name: "",
+    number: "",
+    email: "",
+    gpa: "",
+    department: "",
+    semester: "",
+    className: "",
+    failedCourse: "",
+    financeDue: "",
+    experience: "",
+    campaignPlan: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+
+    // Send the form data to the server
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/candidates",
+        formData
+      );
+      toast.success(response.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <main class="w-full rounded-lg mx-auto text-black p-8">
       <h1 class="my-4 text-3xl font-bold tracking-tight text-customBlue">
@@ -12,8 +49,26 @@ const CandidateForm = () => {
         position.
       </p>
       <CandidateContent />
-      <form class="space-y-6">
+      <form class="space-y-6" onSubmit={handleSubmit}>
         <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
+          <div class="flex flex-col">
+            <label
+              class="mb-1 text-sm font-medium text-gray-700"
+              for="studentID"
+            >
+              Student ID
+            </label>
+            <input
+              class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+              id="studentID"
+              placeholder="C1200000"
+              type="text"
+              name="studentID"
+              value={formData.studentID}
+              onChange={handleChange}
+            />
+            <p class="text-gray-500 text-xs py-1">Enter your student ID.</p>
+          </div>
           <div class="flex flex-col">
             <label class="mb-1 text-sm font-medium text-gray-700" for="name">
               Name
@@ -24,6 +79,8 @@ const CandidateForm = () => {
               placeholder="John Doe"
               type="text"
               name="name"
+              value={formData.name}
+              onChange={handleChange}
             />
             <p class="text-gray-500 text-xs py-1">
               Enter your full name as it appears on official documents.
@@ -39,13 +96,13 @@ const CandidateForm = () => {
               placeholder="615555555"
               type="tel"
               name="number"
+              value={formData.number}
+              onChange={handleChange}
             />
             <p class="text-gray-500 text-xs py-2">
               Enter your phone number in the format 615555555
             </p>
           </div>
-        </div>
-        <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
           <div class="flex flex-col">
             <label class="mb-1 text-sm font-medium text-gray-700" for="email">
               Email
@@ -56,11 +113,16 @@ const CandidateForm = () => {
               placeholder="johndoe@gmail.com"
               type="email"
               name="email"
+              value={formData.email}
+              onChange={handleChange}
             />
             <p class="text-gray-500 text-xs py-1">
               Enter your email address to receive updates.
             </p>
           </div>
+        </div>
+        {/* 2 */}
+        <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
           <div class="flex flex-col">
             <label
               class="mb-1 text-sm font-medium text-gray-700"
@@ -71,7 +133,9 @@ const CandidateForm = () => {
             <select
               class="rounded-md border p-2 text-sm text-black focus:border-primary focus:ring-primary"
               id="department"
-              name="semester"
+              name="department"
+              value={formData.department}
+              onChange={handleChange}
             >
               <option value="">Select Department</option>
               <option value="Computer Application">Computer Application</option>
@@ -84,24 +148,6 @@ const CandidateForm = () => {
               Select your department from the list.
             </p>
           </div>
-        </div>
-        <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-          <div class="flex flex-col">
-            <label
-              class="mb-1 text-sm font-medium text-gray-700"
-              for="studentID"
-            >
-              Student ID
-            </label>
-            <input
-              class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="studentID"
-              placeholder="C1200000"
-              type="text"
-              name="studentID"
-            />
-            <p class="text-gray-500 text-xs py-1">Enter your student ID.</p>
-          </div>
           <div class="flex flex-col">
             <label
               class="mb-1 text-sm font-medium text-gray-700"
@@ -113,6 +159,8 @@ const CandidateForm = () => {
               class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
               id="semester"
               name="semester"
+              value={formData.semester}
+              onChange={handleChange}
             >
               <option value="">Semester</option>
               <option value="2">Semester 2</option>
@@ -123,20 +171,25 @@ const CandidateForm = () => {
             <p class="text-gray-500 text-xs py-1">
               Select the semester you are currently in.
             </p>
-          </div>
+          </div>{" "}
+        </div>
+        {/* shsh */}
+        <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
           <div class="flex flex-col">
             <label
               class="mb-1 text-sm font-medium text-gray-700"
-              for="classname"
+              for="className"
             >
               Class Name
             </label>
             <input
               class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="classname"
+              id="className"
               placeholder="CA000"
               type="text"
-              name="classname"
+              name="className"
+              value={formData.className}
+              onChange={handleChange}
             />
             <p class="text-gray-500 text-xs py-1">Enter your class name</p>
           </div>
@@ -150,6 +203,8 @@ const CandidateForm = () => {
               placeholder="3.0"
               type="text"
               name="gpa"
+              value={formData.gpa}
+              onChange={handleChange}
             />
             <p class="text-gray-500 text-xs py-1">
               Enter your current GPA (minimum of 3.0)
@@ -165,8 +220,10 @@ const CandidateForm = () => {
             </label>
             <select
               class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="semester"
-              name="semester"
+              id="failedCourse"
+              name="failedCourse"
+              value={formData.failedCourse}
+              onChange={handleChange}
             >
               <option value="">Select</option>
               <option value="yes">Yes</option>
@@ -186,8 +243,10 @@ const CandidateForm = () => {
             </label>
             <select
               class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="semester"
-              name="semester"
+              id="financeDue"
+              name="financeDue"
+              value={formData.financeDue}
+              onChange={handleChange}
             >
               <option value="">Select</option>
               <option value="yes">Yes</option>
@@ -214,6 +273,8 @@ const CandidateForm = () => {
             cols={50}
             placeholder="Describe your your previous Leadership roles and experience"
             name="experience"
+            value={formData.experience}
+            onChange={handleChange}
           />
           <p class="text-gray-500 py-1 text-xs">
             Enter your experience in the association
@@ -233,6 +294,8 @@ const CandidateForm = () => {
             cols={50}
             placeholder="Enter your campaignPlan"
             name="campaignPlan"
+            value={formData.campaignPlan}
+            onChange={handleChange}
           />
           <p class="text-gray-500 py-1 text-xs">
             Enter your campaign plan if you are elected.
