@@ -3,8 +3,8 @@ import CandidateContent from "./CandidateContent";
 
 const CandidateForm = () => {
   return (
-    <main class="">
-      <div class="w-[800px] rounded-lg mx-auto text-black p-8">
+    <main class="flex min-h-screen items-center justify-center bg-gray-100 py-36 px-4">
+      <div class="w-[800px] rounded-lg mx-auto bg-white text-black p-8 shadow-lg">
         <h1 class="my-4 text-3xl font-bold tracking-tight text-customBlue">
           President Candidate Application{" "}
         </h1>
