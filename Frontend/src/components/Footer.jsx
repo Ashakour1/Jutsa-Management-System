@@ -174,7 +174,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="text-center p-5 border  border-customBlue text-customGreen">
+      <div className="text-center p-5 border-t  border-customBlue text-customGreen">
         <p>
           Made with <span className="heart-animation">❤️</span> by{" "}
           <Link className="font-bold" to="https://abdishakur.reliatrusty.com/">

@@ -2,94 +2,100 @@ import React from "react";
 
 const CandidateForm = () => {
   return (
-    <main className="flex min-h-screen items-center justify-center px-4 border">
-      <div className="w-full max-w-[800px] rounded-lg mx-auto text-black p-4 sm:p-8">
-        <h1 className="my-4 text-2xl sm:text-3xl font-bold tracking-tight text-customBlue">
-          President Candidate Application
+    <main class="flex min-h-screen items-center justify-center  px-4 border">
+      <div class="w-[800px]  rounded-lg mx-auto text-black p-8">
+        <h1 class="my-4 text-3xl font-bold tracking-tight text-customBlue">
+          President Candidate Application{" "}
         </h1>
-        <p className="mb-4 text-gray-700">
+        <p class="mb-4 text-gray-700">
           Fill out this form to apply as a candidate for the association
           president position.
         </p>
+        <div className="p-4 border rounded my-4">
+          <h2 class="text-base font-semibold text-black">
+            Candidate Eligibility
+          </h2>
+          <div className="px-4 py-2">
+            <ul className="list-disc">
+              <li class="text-gray-700 list">
+                Must be a student of the association
+              </li>
 
-        {/* Eligibility Section */}
-     
+              <li class="text-gray-700">Must have a minimum CGPA of 3.0</li>
 
-        {/* Form Section */}
-        <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Name */}
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="name"
-              >
+              <li class="text-gray-700">
+                Must have completed at least 4 semesters
+              </li>
+
+              <li class="text-gray-700">
+                Must have a minimum of 2 years experience in the association
+              </li>
+            </ul>
+          </div>
+        </div>
+        <form class="space-y-6">
+          <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
+            <div class="flex flex-col">
+              <label class="mb-1 text-sm font-medium text-gray-700" for="name">
                 Name
               </label>
               <input
-                className="rounded-md border placeholder:text-gray-600 border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="name"
                 placeholder="John Doe"
                 type="text"
                 name="name"
               />
-              <p className="text-gray-500 text-xs py-1">
+              <p class="text-gray-500 text-xs py-1">
                 Enter your full name as it appears on official documents.
               </p>
             </div>
-            {/* Number */}
-            <div className="flex flex-col">
+            <div class="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="number"
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="number"
               >
                 Number
               </label>
               <input
-                className="rounded-md border placeholder:text-gray-600 border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="number"
                 placeholder="615555555"
                 type="tel"
                 name="number"
               />
-              <p className="text-gray-500 text-xs py-2">
+              <p class="text-gray-500 text-xs py-2">
                 Enter your phone number in the format 615555555
               </p>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Email */}
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="email"
-              >
+          <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
+            <div class="flex flex-col">
+              <label class="mb-1 text-sm font-medium text-gray-700" for="email">
                 Email
               </label>
               <input
-                className="rounded-md border placeholder:text-gray-600 border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="email"
                 placeholder="johndoe@gmail.com"
                 type="email"
                 name="email"
               />
-              <p className="text-gray-500 text-xs py-1">
+              <p class="text-gray-500 text-xs py-1">
                 Enter your email address to receive updates.
               </p>
             </div>
-            {/* Department */}
-            <div className="flex flex-col">
+            <div class="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="department"
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="department"
               >
                 Department
               </label>
               <select
-                className="rounded-md border p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                class="rounded-md border p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="department"
-                name="department"
+                name="semester"
               >
                 <option value="">Select Department</option>
                 <option value="Computer Application">
@@ -102,41 +108,37 @@ const CandidateForm = () => {
                   Multimedia and Animation Technology
                 </option>
               </select>
-              <p className="text-gray-500 text-xs py-1">
+              <p class="text-gray-500 text-xs py-1">
                 Select your department from the list.
               </p>
             </div>
           </div>
-
-          {/* Additional Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="flex flex-col">
+          <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
+            <div class="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="studentID"
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="studentID"
               >
                 Student ID
               </label>
               <input
-                className="rounded-md border placeholder:text-gray-600 border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="studentID"
                 placeholder="C1200000"
                 type="text"
                 name="studentID"
               />
-              <p className="text-gray-500 text-xs py-1">
-                Enter your student ID.
-              </p>
+              <p class="text-gray-500 text-xs py-1">Enter your student ID.</p>
             </div>
-            <div className="flex flex-col">
+            <div class="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="semester"
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="semester"
               >
                 Semester
               </label>
               <select
-                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="semester"
                 name="semester"
               >
@@ -145,86 +147,127 @@ const CandidateForm = () => {
                 <option value="4">Semester 4</option>
                 <option value="6">Semester 6</option>
               </select>
-              <p className="text-gray-500 text-xs py-1">
+
+              <p class="text-gray-500 text-xs py-1">
                 Select the semester you are currently in.
               </p>
             </div>
-            {/* Additional Inputs */}
-            <div className="flex flex-col">
+            <div class="flex flex-col">
               <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="classname"
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="classname"
               >
                 Class Name
               </label>
               <input
-                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="classname"
                 placeholder="CA000"
                 type="text"
                 name="classname"
               />
-              <p className="text-gray-500 text-xs py-1">
-                Enter your class name.
-              </p>
+              <p class="text-gray-500 text-xs py-1">Enter your class name</p>
             </div>
-            {/* GPA */}
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="gpa"
-              >
+            <div class="flex flex-col">
+              <label class="mb-1 text-sm font-medium text-gray-700" for="gpa">
                 GPA
               </label>
               <input
-                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="gpa"
                 placeholder="3.0"
                 type="text"
                 name="gpa"
               />
-              <p className="text-gray-500 text-xs py-1">
-                Enter your current GPA (minimum of 3.0).
+              <p class="text-gray-500 text-xs py-1">
+                Enter your current GPA (minimum of 3.0)
+              </p>
+            </div>
+
+            <div class="flex flex-col">
+              <label
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="semester"
+              >
+                Have you failed any course before?{" "}
+              </label>
+              <select
+                class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="semester"
+                name="semester"
+              >
+                <option value="">Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+
+              <p class="text-gray-500 text-xs py-1">
+                Have you failed any course before?
+              </p>
+            </div>
+            <div class="flex flex-col">
+              <label
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="semester"
+              >
+                No Finance Due
+              </label>
+              <select
+                class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="semester"
+                name="semester"
+              >
+                <option value="">Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+
+              <p class="text-gray-500 text-xs py-1">
+                Have you paid all your fees?
               </p>
             </div>
           </div>
 
-          {/* Additional Sections */}
-          <div className="flex flex-col space-y-4">
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="experience"
-              >
-                Previous Leadership Experience
-              </label>
-              <textarea
-                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-                id="experience"
-                rows={5}
-                placeholder="Describe your previous leadership roles and experience."
-                name="experience"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label
-                className="mb-1 text-sm font-medium text-gray-700"
-                htmlFor="campaignPlan"
-              >
-                Campaign Plan
-              </label>
-              <textarea
-                className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-                id="campaignPlan"
-                rows={7}
-                placeholder="Enter your campaign plan."
-                name="campaignPlan"
-              />
-            </div>
+          <div class="flex flex-col">
+            <label
+              class="mb-1 text-sm font-medium text-gray-700"
+              for="experience"
+            >
+              Previous Leadership Experience
+            </label>
+            <textarea
+              class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+              id="experience"
+              rows={5}
+              cols={50}
+              placeholder="Describe your your previous Leadership roles and experience"
+              name="experience"
+            />
+            <p class="text-gray-500 py-1 text-xs">
+              Enter your experience in the association
+            </p>
           </div>
-
+          <div class="flex flex-col">
+            <label
+              class="mb-1 text-sm font-medium text-gray-700"
+              for="campaignPlan"
+            >
+              Campaign Plan
+            </label>
+            <textarea
+              class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+              id="campaignPlan"
+              rows={7}
+              cols={50}
+              placeholder="Enter your campaignPlan"
+              name="campaignPlan"
+            />
+            <p class="text-gray-500 py-1 text-xs">
+              Enter your campaign plan if you are elected.
+            </p>
+          </div>
           <button
-            className="w-full rounded-md bg-customBlue px-4 py-3 text-sm font-medium text-white"
+            class="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
             type="submit"
           >
             Register
