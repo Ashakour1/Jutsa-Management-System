@@ -11,9 +11,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  server: {
-    proxy: {
-      "/api": "https://jutsa-api.vercel.app/",
-    },
-  },
+  // server: {
+  //   proxy: {
+      
+  //   },
+  // },
 });
