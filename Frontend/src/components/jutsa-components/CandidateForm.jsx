@@ -93,7 +93,7 @@ const CandidateForm = () => {
     // Send the form data to the server
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/candidates/",
+        "/api/candidates/",
         formData
       );
       toast.success(response.data.message);
