@@ -13,7 +13,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": "https://jutsa-api.vercel.app/",
+      "/api/": "https://jutsa-management-system.vercel.app/",
     },
   },
 });
