@@ -18,7 +18,7 @@ const app = express();
 
 const PORT = 5000;
 
-// app.use(cors());
+app.use(cors());
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
