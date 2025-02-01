@@ -18,11 +18,11 @@ const app = express();
 
 const PORT = 5000;
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "*",
+//   })
+// );
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
