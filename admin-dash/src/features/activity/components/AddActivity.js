@@ -116,7 +116,7 @@ const AddActivity = () => {
             <label className="block text-sm font-medium">Date</label>
             <input
               type="Date"
-              name="Date"
+              name="date"
               value={formData.date}
               onChange={handleChange}
               className="input input-bordered w-full"
@@ -138,7 +138,7 @@ const AddActivity = () => {
             <label className="block text-sm font-medium">Location</label>
             <input
               type="text"
-              name="Location"
+              name="location"
               value={formData.location}
               onChange={handleChange}
               className="input input-bordered w-full"
