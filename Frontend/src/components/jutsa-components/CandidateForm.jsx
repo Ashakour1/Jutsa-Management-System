@@ -19,20 +19,101 @@ const CandidateForm = () => {
     campaignPlan: "",
   });
 
-  const handleChange = (e) => {
+  const [errors, setErrors] = useState({});
+
+  const HandleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // validation function
+
+  const Validate = () => {
+    const newErrors = {};
+
+    if (!formData.studentID) newErrors.studentID = "Student must be required";
+
+    if (!formData.name) newErrors.name = "name is required";
+
+    if (!formData.number) {
+      newErrors.number = "phone number is required ";
+    } else if (!/^\d+$/.test(formData.number)) {
+      newErrors.number = "Phone number must be numeric";
+    }
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+    }
+
+    if (!formData.gpa) {
+      newErrors.gpa = "GPA is required";
+    } else if (!/^\d(\.\d{1,2})?$/.test(formData.gpa)) {
+      newErrors.gpa =
+        "GPA must be numeric and can have at most 2 decimal places";
+    } else if (parseFloat(formData.gpa) > 4.0) {
+      newErrors.gpa = "GPA cannot be greater than 4.0";
+    }
+
+    if (!formData.department)
+      newErrors.department = "must be choose department";
+
+    if (!formData.semester) newErrors.semester = "semester must be choose";
+
+    if (!formData.className) newErrors.className = "className must be choose";
+
+    if (!formData.failedCourse)
+      newErrors.failedCourse = "choose if you are failed yes or not no ";
+    if (!formData.financeDue)
+      newErrors.financeDue = "choose if you are finance Due yes or not no";
+
+    if (!formData.experience || formData.experience.length < 50) {
+      newErrors.experience = "Write minimum 50 characters";
+    } else if (formData.experience.length > 150) {
+      newErrors.experience = "You must write 150 characters only";
+    }
+
+    if (!formData.campaignPlan || formData.campaignPlan.length < 50) {
+      newErrors.campaignPlan = "Write minimum 50 characters";
+    } else if (formData.campaignPlan.length > 150) {
+      newErrors.campaignPlan = "You must write 150 characters only";
+    }
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
 
+    if (!Validate()) {
+      return;
+    }
+
     // Send the form data to the server
     try {
-      const response = await axios.post("/api/candidates", formData);
+      const response = await axios.post(
+        "http://localhost:5000/api/candidates/",
+        formData
+      );
       toast.success(response.data.message);
+      setFormData({
+        studentID: "",
+        name: "",
+        number: "",
+        email: "",
+        gpa: "",
+        department: "",
+        semester: "",
+        className: "",
+        failedCourse: "",
+        financeDue: "",
+        experience: "",
+        campaignPlan: "",
+      });
     } catch (error) {
-      console.error(error);
+      // console.error(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -62,10 +143,16 @@ const CandidateForm = () => {
               type="text"
               name="studentID"
               value={formData.studentID}
-              onChange={handleChange}
+              onChange={HandleChange}
             />
-            <p class="text-gray-500 text-xs py-1">Enter your student ID.</p>
+
+            {errors.studentID ? (
+              <p className="text-red-500 text-xs">{errors.studentID}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-1">Enter your student ID.</p>
+            )}
           </div>
+
           <div class="flex flex-col">
             <label class="mb-1 text-sm font-medium text-gray-700" for="name">
               Name
@@ -77,11 +164,16 @@ const CandidateForm = () => {
               type="text"
               name="name"
               value={formData.name}
-              onChange={handleChange}
+              onChange={HandleChange}
             />
-            <p class="text-gray-500 text-xs py-1">
-              Enter your full name as it appears on official documents.
-            </p>
+
+            {errors.name ? (
+              <p className="text-red-500 text-xs">{errors.name}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-1">
+                Enter your full name as it appears on official documents.
+              </p>
+            )}
           </div>
           <div class="flex flex-col">
             <label class="mb-1 text-sm font-medium text-gray-700" for="number">
@@ -94,11 +186,16 @@ const CandidateForm = () => {
               type="tel"
               name="number"
               value={formData.number}
-              onChange={handleChange}
+              onChange={HandleChange}
             />
-            <p class="text-gray-500 text-xs py-2">
-              Enter your phone number in the format 615555555
-            </p>
+
+            {errors.number ? (
+              <p className="text-red-500 text-xs">{errors.number}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-2">
+                Enter your phone number in the format 615555555
+              </p>
+            )}
           </div>
           <div class="flex flex-col">
             <label class="mb-1 text-sm font-medium text-gray-700" for="email">
@@ -111,11 +208,16 @@ const CandidateForm = () => {
               type="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
+              onChange={HandleChange}
             />
-            <p class="text-gray-500 text-xs py-1">
-              Enter your email address to receive updates.
-            </p>
+
+            {errors.email ? (
+              <p className="text-red-500 text-xs">{errors.email}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-1">
+                Enter your email address to receive updates.
+              </p>
+            )}
           </div>
         </div>
         {/* 2 */}
@@ -132,7 +234,7 @@ const CandidateForm = () => {
               id="department"
               name="department"
               value={formData.department}
-              onChange={handleChange}
+              onChange={HandleChange}
             >
               <option value="">Select Department</option>
               <option value="Computer Application">Computer Application</option>
@@ -141,9 +243,14 @@ const CandidateForm = () => {
                 Multimedia and Animation Technology
               </option>
             </select>
-            <p class="text-gray-500 text-xs py-1">
-              Select your department from the list.
-            </p>
+
+            {errors.department ? (
+              <p className="text-red-500 text-xs">{errors.department}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-1">
+                Select your department from the list.
+              </p>
+            )}
           </div>
           <div class="flex flex-col">
             <label
@@ -157,7 +264,7 @@ const CandidateForm = () => {
               id="semester"
               name="semester"
               value={formData.semester}
-              onChange={handleChange}
+              onChange={HandleChange}
             >
               <option value="">Semester</option>
               <option value="2">Semester 2</option>
@@ -165,9 +272,13 @@ const CandidateForm = () => {
               <option value="6">Semester 6</option>
             </select>
 
-            <p class="text-gray-500 text-xs py-1">
-              Select the semester you are currently in.
-            </p>
+            {errors.semester ? (
+              <p className="text-red-500 text-xs">{errors.semester}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-1">
+                Select the semester you are currently in.
+              </p>
+            )}
           </div>{" "}
         </div>
         {/* shsh */}
@@ -186,9 +297,14 @@ const CandidateForm = () => {
               type="text"
               name="className"
               value={formData.className}
-              onChange={handleChange}
+              onChange={HandleChange}
             />
             <p class="text-gray-500 text-xs py-1">Enter your class name</p>
+            {errors.className ? (
+              <p className="text-red-500 text-xs">{errors.className}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-1">Enter your class name</p>
+            )}
           </div>
           <div class="flex flex-col">
             <label class="mb-1 text-sm font-medium text-gray-700" for="gpa">
@@ -201,11 +317,14 @@ const CandidateForm = () => {
               type="text"
               name="gpa"
               value={formData.gpa}
-              onChange={handleChange}
+              onChange={HandleChange}
             />
-            <p class="text-gray-500 text-xs py-1">
-              Enter your current GPA (minimum of 3.0)
-            </p>
+
+            {errors.gpa ? (
+              <p className="text-red-500 text-xs">{errors.gpa}</p>
+            ) : (
+              <p className="text-red-500 text-xs">{errors.gpa}</p>
+            )}
           </div>
 
           <div class="flex flex-col">
@@ -220,16 +339,20 @@ const CandidateForm = () => {
               id="failedCourse"
               name="failedCourse"
               value={formData.failedCourse}
-              onChange={handleChange}
+              onChange={HandleChange}
             >
               <option value="">Select</option>
               <option value="yes">Yes</option>
               <option value="no">No</option>
             </select>
 
-            <p class="text-gray-500 text-xs py-1">
-              Have you failed any course before?
-            </p>
+            {errors.failedCourse ? (
+              <p className="text-red-500 text-xs">{errors.failedCourse}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-1">
+                Have you failed any course before?
+              </p>
+            )}
           </div>
           <div class="flex flex-col">
             <label
@@ -243,16 +366,20 @@ const CandidateForm = () => {
               id="financeDue"
               name="financeDue"
               value={formData.financeDue}
-              onChange={handleChange}
+              onChange={HandleChange}
             >
               <option value="">Select</option>
               <option value="yes">Yes</option>
               <option value="no">No</option>
             </select>
 
-            <p class="text-gray-500 text-xs py-1">
-              Have you paid all your fees?
-            </p>
+            {errors.financeDue ? (
+              <p className="text-red-500 text-xs">{errors.financeDue}</p>
+            ) : (
+              <p class="text-gray-500 text-xs py-1">
+                Have you paid all your fees?
+              </p>
+            )}
           </div>
         </div>
 
@@ -271,11 +398,15 @@ const CandidateForm = () => {
             placeholder="Describe your your previous Leadership roles and experience"
             name="experience"
             value={formData.experience}
-            onChange={handleChange}
+            minLength={50}
+            maxLength={150}
+            onChange={HandleChange}
           />
-          <p class="text-gray-500 py-1 text-xs">
-            Enter your experience in the association
-          </p>
+          {errors.experience ? (
+            <p className="text-red-500 text-xs">{errors.experience}</p>
+          ) : (
+            <p class="text-gray-500 text-xs py-1">Write your experience</p>
+          )}
         </div>
         <div class="flex flex-col">
           <label
@@ -291,12 +422,19 @@ const CandidateForm = () => {
             cols={50}
             placeholder="Enter your campaignPlan"
             name="campaignPlan"
+            // minLength={50}
+            // maxLength={150}
             value={formData.campaignPlan}
-            onChange={handleChange}
+            onChange={HandleChange}
           />
-          <p class="text-gray-500 py-1 text-xs">
-            Enter your campaign plan if you are elected.
-          </p>
+
+          {errors.campaignPlan ? (
+            <p className="text-red-500 text-xs">{errors.campaignPlan}</p>
+          ) : (
+            <p class="text-gray-500 py-1 text-xs">
+              Enter your campaign plan if you are elected.
+            </p>
+          )}
         </div>
         <button
           class="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
