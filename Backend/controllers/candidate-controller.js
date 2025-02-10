@@ -72,10 +72,10 @@ export const registerCandidate = AsyncHandler(async (req, res) => {
     throw new Error("Candidate already exists");
   }
 
-  if (isNaN(number) || isNaN(gpa)) {
-    res.status(400);
-    throw new Error("number and gpa must be a number");
-  }
+  // if (isNaN(number) || isNaN(gpa)) {
+  //   res.status(400);
+  //   throw new Error("number and gpa must be a number");
+  // }
 
   const candidate = await prisma.candidate.create({
     data: {
