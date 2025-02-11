@@ -21,6 +21,7 @@ const PORT = 5000;
 app.use(
   cors({
     origin: "https://jutsa.reliatrusty.com/",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
 // Middleware
