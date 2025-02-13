@@ -20,66 +20,82 @@ const CandidateForm = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-
   const [errors, setErrors] = useState({});
 
-  const HandleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const validateField = (name, value) => {
+    let error = "";
+
+    switch (name) {
+      case "studentID":
+        if (!value) error = "Student ID is required";
+        break;
+      case "name":
+        if (!value) error = "Name is required";
+        break;
+      case "number":
+        if (!value) error = "Phone number is required";
+        else if (!/^\d+$/.test(value)) error = "Phone number must be numeric";
+        break;
+      case "email":
+        if (!value) error = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(value)) error = "Email is invalid";
+        break;
+      case "gpa":
+        if (!value) error = "GPA is required";
+        else if (!/^\d(\.\d{1,2})?$/.test(value))
+          error = "GPA must be numeric and can have at most 2 decimal places";
+        else if (parseFloat(value) > 4.0)
+          error = "GPA cannot be greater than 4.0";
+        break;
+      case "department":
+        if (!value) error = "Department must be chosen";
+        break;
+      case "semester":
+        if (!value) error = "Semester must be chosen";
+        break;
+      case "className":
+        if (!value) error = "Class name must be chosen";
+        break;
+      case "failedCourse":
+        if (!value) error = "Choose if you have failed any course";
+        break;
+      case "financeDue":
+        if (!value) error = "Choose if you have any finance due";
+        break;
+      case "experience":
+        if (!value || value.length < 50)
+          error = "You have written less than 50 characters";
+        else if (value.length > 150)
+          error =
+            "You have written more than 150 characters. Please limit your campaign plan to 150 characters.";
+        break;
+      case "campaignPlan":
+        if (!value || value.length < 50)
+          error = "You have written less than 50 characters";
+        else if (value.length > 150)
+          error =
+            "You have written more than 150 characters. Please limit your campaign plan to 150 characters.";
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
   };
 
-  // validation function
+  const HandleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    validateField(name, value);
+  };
 
   const Validate = () => {
     const newErrors = {};
 
-    if (!formData.studentID) newErrors.studentID = "Student must be required";
-
-    if (!formData.name) newErrors.name = "name is required";
-
-    if (!formData.number) {
-      newErrors.number = "phone number is required ";
-    } else if (!/^\d+$/.test(formData.number)) {
-      newErrors.number = "Phone number must be numeric";
-    }
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
-    }
-
-    if (!formData.gpa) {
-      newErrors.gpa = "GPA is required";
-    } else if (!/^\d(\.\d{1,2})?$/.test(formData.gpa)) {
-      newErrors.gpa =
-        "GPA must be numeric and can have at most 2 decimal places";
-    } else if (parseFloat(formData.gpa) > 4.0) {
-      newErrors.gpa = "GPA cannot be greater than 4.0";
-    }
-
-    if (!formData.department)
-      newErrors.department = "must be choose department";
-
-    if (!formData.semester) newErrors.semester = "semester must be choose";
-
-    if (!formData.className) newErrors.className = "className must be choose";
-
-    if (!formData.failedCourse)
-      newErrors.failedCourse = "choose if you are failed yes or not no ";
-    if (!formData.financeDue)
-      newErrors.financeDue = "choose if you are finance Due yes or not no";
-
-    if (!formData.experience || formData.experience.length < 50) {
-      newErrors.experience = "Write minimum 50 characters";
-    } else if (formData.experience.length > 150) {
-      newErrors.experience = "You must write 150 characters only";
-    }
-
-    if (!formData.campaignPlan || formData.campaignPlan.length < 50) {
-      newErrors.campaignPlan = "Write minimum 50 characters";
-    } else if (formData.campaignPlan.length > 150) {
-      newErrors.campaignPlan = "You must write 150 characters only";
-    }
-    setErrors(newErrors);
+    Object.keys(formData).forEach((key) => {
+      validateField(key, formData[key]);
+      if (errors[key]) newErrors[key] = errors[key];
+    });
 
     return Object.keys(newErrors).length === 0;
   };
@@ -115,13 +131,12 @@ const CandidateForm = () => {
         campaignPlan: "",
       });
     } catch (error) {
-      // console.error(error.response.data.message);
       toast.error(error.response.data.message);
     }
   };
 
   return (
-    <main class="w-full rounded-lg mx-auto text-black p-8">
+    <main className="w-full rounded-lg mx-auto text-black p-8">
       {isSubmitted ? (
         <div className="bg-green-100 p-6 rounded-lg text-center">
           <h2 className="text-2xl font-bold text-green-700">
@@ -140,25 +155,25 @@ const CandidateForm = () => {
         </div>
       ) : (
         <>
-          <h1 class="my-4 text-3xl font-bold tracking-tight text-customBlue">
-            President Candidate Application{" "}
+          <h1 className="my-4 text-3xl font-bold tracking-tight text-customBlue">
+            President Candidate Application
           </h1>
-          <p class="mb-4 text-gray-700">
+          <p className="mb-4 text-gray-700">
             Fill out this form to apply as a candidate for the association
             president position.
           </p>
           <CandidateContent />
-          <form class="space-y-6" onSubmit={handleSubmit}>
-            <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-              <div class="flex flex-col">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="studentID"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="studentID"
                 >
                   Student ID
                 </label>
                 <input
-                  class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="studentID"
                   placeholder="C1200000"
                   type="text"
@@ -166,25 +181,20 @@ const CandidateForm = () => {
                   value={formData.studentID}
                   onChange={HandleChange}
                 />
-
-                {errors.studentID ? (
+                {errors.studentID && (
                   <p className="text-red-500 text-xs">{errors.studentID}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-1">
-                    Enter your student ID.
-                  </p>
                 )}
               </div>
 
-              <div class="flex flex-col">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="name"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="name"
                 >
                   Name
                 </label>
                 <input
-                  class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="name"
                   placeholder="John Doe"
                   type="text"
@@ -192,24 +202,19 @@ const CandidateForm = () => {
                   value={formData.name}
                   onChange={HandleChange}
                 />
-
-                {errors.name ? (
+                {errors.name && (
                   <p className="text-red-500 text-xs">{errors.name}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-1">
-                    Enter your full name as it appears on official documents.
-                  </p>
                 )}
               </div>
-              <div class="flex flex-col">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="number"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="number"
                 >
                   Number
                 </label>
                 <input
-                  class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="number"
                   placeholder="615555555"
                   type="tel"
@@ -217,24 +222,19 @@ const CandidateForm = () => {
                   value={formData.number}
                   onChange={HandleChange}
                 />
-
-                {errors.number ? (
+                {errors.number && (
                   <p className="text-red-500 text-xs">{errors.number}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-2">
-                    Enter your phone number in the format 615555555
-                  </p>
                 )}
               </div>
-              <div class="flex flex-col">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="email"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="email"
                 >
                   Email
                 </label>
                 <input
-                  class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="email"
                   placeholder="johndoe@gmail.com"
                   type="email"
@@ -242,27 +242,22 @@ const CandidateForm = () => {
                   value={formData.email}
                   onChange={HandleChange}
                 />
-
-                {errors.email ? (
+                {errors.email && (
                   <p className="text-red-500 text-xs">{errors.email}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-1">
-                    Enter your email address to receive email updates .
-                  </p>
                 )}
               </div>
             </div>
             {/* 2 */}
-            <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-              <div class="flex flex-col">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="department"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="department"
                 >
                   Department
                 </label>
                 <select
-                  class="rounded-md border p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="department"
                   name="department"
                   value={formData.department}
@@ -279,24 +274,19 @@ const CandidateForm = () => {
                     Multimedia and Animation Technology
                   </option>
                 </select>
-
-                {errors.department ? (
+                {errors.department && (
                   <p className="text-red-500 text-xs">{errors.department}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-1">
-                    Select your department from the list.
-                  </p>
                 )}
               </div>
-              <div class="flex flex-col">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="semester"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="semester"
                 >
                   Semester
                 </label>
                 <select
-                  class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="semester"
                   name="semester"
                   value={formData.semester}
@@ -307,27 +297,22 @@ const CandidateForm = () => {
                   <option value="4">Semester 4</option>
                   <option value="6">Semester 6</option>
                 </select>
-
-                {errors.semester ? (
+                {errors.semester && (
                   <p className="text-red-500 text-xs">{errors.semester}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-1">
-                    Select the semester you are currently in.
-                  </p>
                 )}
-              </div>{" "}
+              </div>
             </div>
             {/* shsh */}
-            <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-              <div class="flex flex-col">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="className"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="className"
                 >
                   Class Name
                 </label>
                 <input
-                  class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="className"
                   placeholder="CA000"
                   type="text"
@@ -335,21 +320,19 @@ const CandidateForm = () => {
                   value={formData.className}
                   onChange={HandleChange}
                 />
-                {/* <p class="text-gray-500 text-xs py-1">Enter your class name</p> */}
-                {errors.className ? (
+                {errors.className && (
                   <p className="text-red-500 text-xs">{errors.className}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-1">
-                    Enter your class name
-                  </p>
                 )}
               </div>
-              <div class="flex flex-col">
-                <label class="mb-1 text-sm font-medium text-gray-700" for="gpa">
+              <div className="flex flex-col">
+                <label
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="gpa"
+                >
                   GPA
                 </label>
                 <input
-                  class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="gpa"
                   placeholder="3.0"
                   type="text"
@@ -357,23 +340,20 @@ const CandidateForm = () => {
                   value={formData.gpa}
                   onChange={HandleChange}
                 />
-
-                {errors.gpa ? (
-                  <p className="text-red-500 text-xs">{errors.gpa}</p>
-                ) : (
+                {errors.gpa && (
                   <p className="text-red-500 text-xs">{errors.gpa}</p>
                 )}
               </div>
 
-              <div class="flex flex-col">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="semester"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="failedCourse"
                 >
                   Have you failed any course before?{" "}
                 </label>
                 <select
-                  class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="failedCourse"
                   name="failedCourse"
                   value={formData.failedCourse}
@@ -383,24 +363,19 @@ const CandidateForm = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
-
-                {errors.failedCourse ? (
+                {errors.failedCourse && (
                   <p className="text-red-500 text-xs">{errors.failedCourse}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-1">
-                    Have you failed any course before?
-                  </p>
                 )}
               </div>
-              <div class="flex flex-col">
+              <div className="flex flex-col">
                 <label
-                  class="mb-1 text-sm font-medium text-gray-700"
-                  for="semester"
+                  className="mb-1 text-sm font-medium text-gray-700"
+                  htmlFor="financeDue"
                 >
                   No Finance Due
                 </label>
                 <select
-                  class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  className="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
                   id="financeDue"
                   name="financeDue"
                   value={formData.financeDue}
@@ -410,72 +385,58 @@ const CandidateForm = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
-
-                {errors.financeDue ? (
+                {errors.financeDue && (
                   <p className="text-red-500 text-xs">{errors.financeDue}</p>
-                ) : (
-                  <p class="text-gray-500 text-xs py-1">
-                    Have you paid all your fees?
-                  </p>
                 )}
               </div>
             </div>
 
-            <div class="flex flex-col">
+            <div className="flex flex-col">
               <label
-                class="mb-1 text-sm font-medium text-gray-700"
-                for="experience"
+                className="mb-1 text-sm font-medium text-gray-700"
+                htmlFor="experience"
               >
                 Previous Leadership Experience
               </label>
               <textarea
-                class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                className="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="experience"
                 rows={5}
                 cols={50}
                 placeholder="Describe your your previous Leadership roles and experience"
                 name="experience"
                 value={formData.experience}
-                minLength={50}
-                maxLength={150}
+                // minLength={50}
+                // maxLength={150}
                 onChange={HandleChange}
               />
-              {errors.experience ? (
+              {errors.experience && (
                 <p className="text-red-500 text-xs">{errors.experience}</p>
-              ) : (
-                <p class="text-gray-500 text-xs py-1">Write your experience</p>
               )}
             </div>
-            <div class="flex flex-col">
+            <div className="flex flex-col">
               <label
-                class="mb-1 text-sm font-medium text-gray-700"
-                for="campaignPlan"
+                className="mb-1 text-sm font-medium text-gray-700"
+                htmlFor="campaignPlan"
               >
                 Campaign Plan
               </label>
               <textarea
-                class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                className="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
                 id="campaignPlan"
                 rows={7}
                 cols={50}
                 placeholder="Enter your campaignPlan"
                 name="campaignPlan"
-                // minLength={50}
-                // maxLength={150}
                 value={formData.campaignPlan}
                 onChange={HandleChange}
               />
-
-              {errors.campaignPlan ? (
+              {errors.campaignPlan && (
                 <p className="text-red-500 text-xs">{errors.campaignPlan}</p>
-              ) : (
-                <p class="text-gray-500 py-1 text-xs">
-                  Enter your campaign plan if you are elected.
-                </p>
               )}
             </div>
             <button
-              class="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
+              className="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
               type="submit"
             >
               Register
