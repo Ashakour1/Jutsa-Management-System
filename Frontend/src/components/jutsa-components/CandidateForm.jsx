@@ -19,6 +19,8 @@ const CandidateForm = () => {
     campaignPlan: "",
   });
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [errors, setErrors] = useState({});
 
   const HandleChange = (e) => {
@@ -97,6 +99,7 @@ const CandidateForm = () => {
         formData
       );
       toast.success(response.data.message);
+      setIsSubmitted(true);
       setFormData({
         studentID: "",
         name: "",
@@ -118,331 +121,368 @@ const CandidateForm = () => {
   };
 
   return (
-    <main class="w-full rounded-lg mx-auto text-black p-8">
-      <h1 class="my-4 text-3xl font-bold tracking-tight text-customBlue">
-        President Candidate Application{" "}
-      </h1>
-      <p class="mb-4 text-gray-700">
-        Fill out this form to apply as a candidate for the association president
-        position.
-      </p>
-      <CandidateContent />
-      <form class="space-y-6" onSubmit={handleSubmit}>
-        <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-          <div class="flex flex-col">
-            <label
-              class="mb-1 text-sm font-medium text-gray-700"
-              for="studentID"
-            >
-              Student ID
-            </label>
-            <input
-              class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="studentID"
-              placeholder="C1200000"
-              type="text"
-              name="studentID"
-              value={formData.studentID}
-              onChange={HandleChange}
-            />
-
-            {errors.studentID ? (
-              <p className="text-red-500 text-xs">{errors.studentID}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-1">Enter your student ID.</p>
-            )}
-          </div>
-
-          <div class="flex flex-col">
-            <label class="mb-1 text-sm font-medium text-gray-700" for="name">
-              Name
-            </label>
-            <input
-              class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="name"
-              placeholder="John Doe"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={HandleChange}
-            />
-
-            {errors.name ? (
-              <p className="text-red-500 text-xs">{errors.name}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-1">
-                Enter your full name as it appears on official documents.
-              </p>
-            )}
-          </div>
-          <div class="flex flex-col">
-            <label class="mb-1 text-sm font-medium text-gray-700" for="number">
-              Number
-            </label>
-            <input
-              class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="number"
-              placeholder="615555555"
-              type="tel"
-              name="number"
-              value={formData.number}
-              onChange={HandleChange}
-            />
-
-            {errors.number ? (
-              <p className="text-red-500 text-xs">{errors.number}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-2">
-                Enter your phone number in the format 615555555
-              </p>
-            )}
-          </div>
-          <div class="flex flex-col">
-            <label class="mb-1 text-sm font-medium text-gray-700" for="email">
-              Email
-            </label>
-            <input
-              class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="email"
-              placeholder="johndoe@gmail.com"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={HandleChange}
-            />
-
-            {errors.email ? (
-              <p className="text-red-500 text-xs">{errors.email}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-1">
-                Enter your email address to receive updates.
-              </p>
-            )}
-          </div>
-        </div>
-        {/* 2 */}
-        <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-          <div class="flex flex-col">
-            <label
-              class="mb-1 text-sm font-medium text-gray-700"
-              for="department"
-            >
-              Department
-            </label>
-            <select
-              class="rounded-md border p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="department"
-              name="department"
-              value={formData.department}
-              onChange={HandleChange}
-            >
-              <option value="">Select Department</option>
-              <option value="Computer Application">Computer Application</option>
-              <option value="Networking">Networking and Cyber Security</option>
-              <option value="Multimedia">
-                Multimedia and Animation Technology
-              </option>
-            </select>
-
-            {errors.department ? (
-              <p className="text-red-500 text-xs">{errors.department}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-1">
-                Select your department from the list.
-              </p>
-            )}
-          </div>
-          <div class="flex flex-col">
-            <label
-              class="mb-1 text-sm font-medium text-gray-700"
-              for="semester"
-            >
-              Semester
-            </label>
-            <select
-              class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="semester"
-              name="semester"
-              value={formData.semester}
-              onChange={HandleChange}
-            >
-              <option value="">Semester</option>
-              <option value="2">Semester 2</option>
-              <option value="4">Semester 4</option>
-              <option value="6">Semester 6</option>
-            </select>
-
-            {errors.semester ? (
-              <p className="text-red-500 text-xs">{errors.semester}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-1">
-                Select the semester you are currently in.
-              </p>
-            )}
-          </div>{" "}
-        </div>
-        {/* shsh */}
-        <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-          <div class="flex flex-col">
-            <label
-              class="mb-1 text-sm font-medium text-gray-700"
-              for="className"
-            >
-              Class Name
-            </label>
-            <input
-              class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="className"
-              placeholder="CA000"
-              type="text"
-              name="className"
-              value={formData.className}
-              onChange={HandleChange}
-            />
-            <p class="text-gray-500 text-xs py-1">Enter your class name</p>
-            {errors.className ? (
-              <p className="text-red-500 text-xs">{errors.className}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-1">Enter your class name</p>
-            )}
-          </div>
-          <div class="flex flex-col">
-            <label class="mb-1 text-sm font-medium text-gray-700" for="gpa">
-              GPA
-            </label>
-            <input
-              class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="gpa"
-              placeholder="3.0"
-              type="text"
-              name="gpa"
-              value={formData.gpa}
-              onChange={HandleChange}
-            />
-
-            {errors.gpa ? (
-              <p className="text-red-500 text-xs">{errors.gpa}</p>
-            ) : (
-              <p className="text-red-500 text-xs">{errors.gpa}</p>
-            )}
-          </div>
-
-          <div class="flex flex-col">
-            <label
-              class="mb-1 text-sm font-medium text-gray-700"
-              for="semester"
-            >
-              Have you failed any course before?{" "}
-            </label>
-            <select
-              class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="failedCourse"
-              name="failedCourse"
-              value={formData.failedCourse}
-              onChange={HandleChange}
-            >
-              <option value="">Select</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-
-            {errors.failedCourse ? (
-              <p className="text-red-500 text-xs">{errors.failedCourse}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-1">
-                Have you failed any course before?
-              </p>
-            )}
-          </div>
-          <div class="flex flex-col">
-            <label
-              class="mb-1 text-sm font-medium text-gray-700"
-              for="semester"
-            >
-              No Finance Due
-            </label>
-            <select
-              class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
-              id="financeDue"
-              name="financeDue"
-              value={formData.financeDue}
-              onChange={HandleChange}
-            >
-              <option value="">Select</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-
-            {errors.financeDue ? (
-              <p className="text-red-500 text-xs">{errors.financeDue}</p>
-            ) : (
-              <p class="text-gray-500 text-xs py-1">
-                Have you paid all your fees?
-              </p>
-            )}
-          </div>
-        </div>
-
-        <div class="flex flex-col">
-          <label
-            class="mb-1 text-sm font-medium text-gray-700"
-            for="experience"
+    <main class="w-3/5 rounded-lg mx-auto text-black p-8">
+      {isSubmitted ? (
+        <div className="bg-green-100 p-6 rounded-lg text-center">
+          <h2 className="text-2xl font-bold text-green-700">
+            Registration Successfully!
+          </h2>
+          <p className="text-gray-700 mt-2">
+            Thank you for submitting your application. We will review it and get
+            back to you soon.
+          </p>
+          <button
+            className="mt-4 bg-customBlue text-white px-4 py-2 rounded-md"
+            onClick={() => setIsSubmitted(false)}
           >
-            Previous Leadership Experience
-          </label>
-          <textarea
-            class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-            id="experience"
-            rows={5}
-            cols={50}
-            placeholder="Describe your your previous Leadership roles and experience"
-            name="experience"
-            value={formData.experience}
-            minLength={50}
-            maxLength={150}
-            onChange={HandleChange}
-          />
-          {errors.experience ? (
-            <p className="text-red-500 text-xs">{errors.experience}</p>
-          ) : (
-            <p class="text-gray-500 text-xs py-1">Write your experience</p>
-          )}
+            Submit Another Application
+          </button>
         </div>
-        <div class="flex flex-col">
-          <label
-            class="mb-1 text-sm font-medium text-gray-700"
-            for="campaignPlan"
-          >
-            Campaign Plan
-          </label>
-          <textarea
-            class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
-            id="campaignPlan"
-            rows={7}
-            cols={50}
-            placeholder="Enter your campaignPlan"
-            name="campaignPlan"
-            // minLength={50}
-            // maxLength={150}
-            value={formData.campaignPlan}
-            onChange={HandleChange}
-          />
+      ) : (
+        <>
+          <h1 class="my-4 text-3xl font-bold tracking-tight text-customBlue">
+            President Candidate Application{" "}
+          </h1>
+          <p class="mb-4 text-gray-700">
+            Fill out this form to apply as a candidate for the association
+            president position.
+          </p>
+          <CandidateContent />
+          <form class="space-y-6" onSubmit={handleSubmit}>
+            <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="studentID"
+                >
+                  Student ID
+                </label>
+                <input
+                  class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="studentID"
+                  placeholder="C1200000"
+                  type="text"
+                  name="studentID"
+                  value={formData.studentID}
+                  onChange={HandleChange}
+                />
 
-          {errors.campaignPlan ? (
-            <p className="text-red-500 text-xs">{errors.campaignPlan}</p>
-          ) : (
-            <p class="text-gray-500 py-1 text-xs">
-              Enter your campaign plan if you are elected.
-            </p>
-          )}
-        </div>
-        <button
-          class="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
-          type="submit"
-        >
-          Register
-        </button>
-      </form>
+                {errors.studentID ? (
+                  <p className="text-red-500 text-xs">{errors.studentID}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Enter your student ID.
+                  </p>
+                )}
+              </div>
+
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="name"
+                >
+                  Name
+                </label>
+                <input
+                  class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="name"
+                  placeholder="John Doe"
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={HandleChange}
+                />
+
+                {errors.name ? (
+                  <p className="text-red-500 text-xs">{errors.name}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Enter your full name as it appears on official documents.
+                  </p>
+                )}
+              </div>
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="number"
+                >
+                  Number
+                </label>
+                <input
+                  class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="number"
+                  placeholder="615555555"
+                  type="tel"
+                  name="number"
+                  value={formData.number}
+                  onChange={HandleChange}
+                />
+
+                {errors.number ? (
+                  <p className="text-red-500 text-xs">{errors.number}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-2">
+                    Enter your phone number in the format 615555555
+                  </p>
+                )}
+              </div>
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="email"
+                >
+                  Email
+                </label>
+                <input
+                  class="rounded-md border placeholder:text-gray-600 border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="email"
+                  placeholder="johndoe@gmail.com"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={HandleChange}
+                />
+
+                {errors.email ? (
+                  <p className="text-red-500 text-xs">{errors.email}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Enter your email address to receive email updates .
+                  </p>
+                )}
+              </div>
+            </div>
+            {/* 2 */}
+            <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="department"
+                >
+                  Department
+                </label>
+                <select
+                  class="rounded-md border p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="department"
+                  name="department"
+                  value={formData.department}
+                  onChange={HandleChange}
+                >
+                  <option value="">Select Department</option>
+                  <option value="Computer Application">
+                    Computer Application
+                  </option>
+                  <option value="Networking">
+                    Networking and Cyber Security
+                  </option>
+                  <option value="Multimedia">
+                    Multimedia and Animation Technology
+                  </option>
+                </select>
+
+                {errors.department ? (
+                  <p className="text-red-500 text-xs">{errors.department}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Select your department from the list.
+                  </p>
+                )}
+              </div>
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="semester"
+                >
+                  Semester
+                </label>
+                <select
+                  class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="semester"
+                  name="semester"
+                  value={formData.semester}
+                  onChange={HandleChange}
+                >
+                  <option value="">Semester</option>
+                  <option value="2">Semester 2</option>
+                  <option value="4">Semester 4</option>
+                  <option value="6">Semester 6</option>
+                </select>
+
+                {errors.semester ? (
+                  <p className="text-red-500 text-xs">{errors.semester}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Select the semester you are currently in.
+                  </p>
+                )}
+              </div>{" "}
+            </div>
+            {/* shsh */}
+            <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="className"
+                >
+                  Class Name
+                </label>
+                <input
+                  class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="className"
+                  placeholder="CA000"
+                  type="text"
+                  name="className"
+                  value={formData.className}
+                  onChange={HandleChange}
+                />
+                {/* <p class="text-gray-500 text-xs py-1">Enter your class name</p> */}
+                {errors.className ? (
+                  <p className="text-red-500 text-xs">{errors.className}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Enter your class name
+                  </p>
+                )}
+              </div>
+              <div class="flex flex-col">
+                <label class="mb-1 text-sm font-medium text-gray-700" for="gpa">
+                  GPA
+                </label>
+                <input
+                  class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="gpa"
+                  placeholder="3.0"
+                  type="text"
+                  name="gpa"
+                  value={formData.gpa}
+                  onChange={HandleChange}
+                />
+
+                {errors.gpa ? (
+                  <p className="text-red-500 text-xs">{errors.gpa}</p>
+                ) : (
+                  <p className="text-red-500 text-xs">{errors.gpa}</p>
+                )}
+              </div>
+
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="semester"
+                >
+                  Have you failed any course before?{" "}
+                </label>
+                <select
+                  class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="failedCourse"
+                  name="failedCourse"
+                  value={formData.failedCourse}
+                  onChange={HandleChange}
+                >
+                  <option value="">Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+
+                {errors.failedCourse ? (
+                  <p className="text-red-500 text-xs">{errors.failedCourse}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Have you failed any course before?
+                  </p>
+                )}
+              </div>
+              <div class="flex flex-col">
+                <label
+                  class="mb-1 text-sm font-medium text-gray-700"
+                  for="semester"
+                >
+                  No Finance Due
+                </label>
+                <select
+                  class="rounded-md border border-gray-300 p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                  id="financeDue"
+                  name="financeDue"
+                  value={formData.financeDue}
+                  onChange={HandleChange}
+                >
+                  <option value="">Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+
+                {errors.financeDue ? (
+                  <p className="text-red-500 text-xs">{errors.financeDue}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Have you paid all your fees?
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div class="flex flex-col">
+              <label
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="experience"
+              >
+                Previous Leadership Experience
+              </label>
+              <textarea
+                class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="experience"
+                rows={5}
+                cols={50}
+                placeholder="Describe your your previous Leadership roles and experience"
+                name="experience"
+                value={formData.experience}
+                minLength={50}
+                maxLength={150}
+                onChange={HandleChange}
+              />
+              {errors.experience ? (
+                <p className="text-red-500 text-xs">{errors.experience}</p>
+              ) : (
+                <p class="text-gray-500 text-xs py-1">Write your experience</p>
+              )}
+            </div>
+            <div class="flex flex-col">
+              <label
+                class="mb-1 text-sm font-medium text-gray-700"
+                for="campaignPlan"
+              >
+                Campaign Plan
+              </label>
+              <textarea
+                class="rounded-md border border-gray-300  p-2 text-sm text-black focus:border-primary focus:ring-primary"
+                id="campaignPlan"
+                rows={7}
+                cols={50}
+                placeholder="Enter your campaignPlan"
+                name="campaignPlan"
+                // minLength={50}
+                // maxLength={150}
+                value={formData.campaignPlan}
+                onChange={HandleChange}
+              />
+
+              {errors.campaignPlan ? (
+                <p className="text-red-500 text-xs">{errors.campaignPlan}</p>
+              ) : (
+                <p class="text-gray-500 py-1 text-xs">
+                  Enter your campaign plan if you are elected.
+                </p>
+              )}
+            </div>
+            <button
+              class="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
+              type="submit"
+            >
+              Register
+            </button>
+          </form>
+        </>
+      )}
     </main>
   );
 };
