@@ -121,7 +121,7 @@ const CandidateForm = () => {
   };
 
   return (
-    <main class="w-3/5 rounded-lg mx-auto text-black p-8">
+    <main class="w-full rounded-lg mx-auto text-black p-8">
       {isSubmitted ? (
         <div className="bg-green-100 p-6 rounded-lg text-center">
           <h2 className="text-2xl font-bold text-green-700">
