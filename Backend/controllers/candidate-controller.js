@@ -66,6 +66,10 @@ export const registerCandidate = AsyncHandler(async (req, res) => {
   const candidateExists = await prisma.candidate.findUnique({
     where: {
       studentID: studentID,
+      OR: {
+        email: email,
+        number: number,
+      },
     },
   });
 
