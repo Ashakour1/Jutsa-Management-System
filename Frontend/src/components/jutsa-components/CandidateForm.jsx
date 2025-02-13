@@ -93,7 +93,7 @@ const CandidateForm = () => {
     // Send the form data to the server
     try {
       const response = await axios.post(
-        "/api/candidates/",
+        "https://jutsa-management-system.vercel.app/api/candidate",
         formData
       );
       toast.success(response.data.message);

@@ -20,7 +20,7 @@ const PORT = 5000;
 
 app.use(
   cors({
-    origin: "https://jutsa.reliatrusty.com/",
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );

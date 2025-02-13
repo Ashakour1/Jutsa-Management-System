@@ -41,6 +41,8 @@ export const registerCandidate = AsyncHandler(async (req, res) => {
     campaignPlan,
   } = req.body;
 
+  console.log(req.body);
+
   if (
     !studentID ||
     !name ||
