@@ -25,6 +25,7 @@ export const getCandidateById = AsyncHandler(async (req, res) => {
   });
 });
 
+// ✅ Register a new candidate
 export const registerCandidate = AsyncHandler(async (req, res) => {
   const {
     studentID,
@@ -41,7 +42,7 @@ export const registerCandidate = AsyncHandler(async (req, res) => {
     campaignPlan,
   } = req.body;
 
-  console.log(req.body);
+  console.log("Received Data:", req.body);
 
   if (
     !studentID ||
@@ -57,28 +58,20 @@ export const registerCandidate = AsyncHandler(async (req, res) => {
     !experience ||
     !campaignPlan
   ) {
-    res.status(400);
-    throw new Error("All fields are required");
+    return res
+      .status(400)
+      .json({ success: false, error: "All fields are required" });
   }
 
-  console.log(req.body);
-
   const candidateExists = await prisma.candidate.findUnique({
-    where: {
-      studentID: studentID,
-    
-    },
+    where: { studentID },
   });
 
   if (candidateExists) {
-    res.status(400);
-    throw new Error("Candidate already exists");
+    return res
+      .status(400)
+      .json({ success: false, error: "Candidate already exists" });
   }
-
-  // if (isNaN(number) || isNaN(gpa)) {
-  //   res.status(400);
-  //   throw new Error("number and gpa must be a number");
-  // }
 
   const candidate = await prisma.candidate.create({
     data: {
@@ -97,12 +90,12 @@ export const registerCandidate = AsyncHandler(async (req, res) => {
     },
   });
 
-  console.log("success");
+  console.log("Candidate Registered Successfully");
 
   res.status(201).json({
     success: true,
     data: candidate,
-    message: "you registered successfully",
+    message: "You registered successfully",
   });
 });
 
