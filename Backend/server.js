@@ -16,6 +16,7 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 
+// console.log(dotenv.config(), "Database Connected");
 const PORT = 5000;
 
 app.use(
