@@ -56,7 +56,7 @@ model Member {
   semester      String
   studentId     String    @unique
   year          String
-  position_Id   String    
+  position_Id   String    @db.ObjectId
   position      Position  @relation(fields: [position_Id] ,references: [id])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

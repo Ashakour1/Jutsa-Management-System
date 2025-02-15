@@ -1,33 +1,33 @@
-import express from "express";
+// import express from "express";
 
-import {
-  getAllCandidates,
-  deleteCandidate,
-  getCandidateById,
-  registerCandidate,
-  updateCandidate,
-} from "../controllers/candidate-controller.js";
-// import authMiddleware from "../middlewares/auth-middleware.js";
+// import {
+//   getAllCandidates,
+//   deleteCandidate,
+//   getCandidateById,
+//   registerCandidate,
+//   updateCandidate,
+// } from "../controllers/candidate-controller.js";
+// // import authMiddleware from "../middlewares/auth-middleware.js";
 
-const router = express.Router();
+// const router = express.Router();
 
-// router.get("/", authMiddleware, getAllCandidates);
-router.post("/", registerCandidate);
-// router.get(
-//   "/:id",
-//   authMiddleware,
-//   getCandidateById
-// );
-// router.put(
-//   "/:id",
-//   authMiddleware,
-//   updateCandidate
-// );
-// router.delete(
-//   "/:id",
-//   authMiddleware,
+// // router.get("/", authMiddleware, getAllCandidates);
+// router.post("/", registerCandidate);
+// // router.get(
+// //   "/:id",
+// //   authMiddleware,
+// //   getCandidateById
+// // );
+// // router.put(
+// //   "/:id",
+// //   authMiddleware,
+// //   updateCandidate
+// // );
+// // router.delete(
+// //   "/:id",
+// //   authMiddleware,
 
-//   deleteCandidate
-// );
+// //   deleteCandidate
+// // );
 
-export default router;
+// export default router;
