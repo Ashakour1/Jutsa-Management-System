@@ -11,25 +11,23 @@ import authMiddleware from "../middlewares/auth-middleware.js";
 
 const router = express.Router();
 
-router.get("/", authMiddleware, getAllCandidates);
+// router.get("/", authMiddleware, getAllCandidates);
 router.post(registerCandidate);
-router.get(
-  "/:id",
-  authMiddleware,
+// router.get(
+//   "/:id",
+//   authMiddleware,
+//   getCandidateById
+// );
+// router.put(
+//   "/:id",
+//   authMiddleware,
+//   updateCandidate
+// );
+// router.delete(
+//   "/:id",
+//   authMiddleware,
 
-  getCandidateById
-);
-router.put(
-  "/:id",
-  authMiddleware,
-
-  updateCandidate
-);
-router.delete(
-  "/:id",
-  authMiddleware,
-
-  deleteCandidate
-);
+//   deleteCandidate
+// );
 
 export default router;
