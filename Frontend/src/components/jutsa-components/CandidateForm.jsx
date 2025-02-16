@@ -20,6 +20,7 @@ const CandidateForm = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   const validateField = (name, value) => {
@@ -108,6 +109,8 @@ const CandidateForm = () => {
       return;
     }
 
+    setIsLoading(true);
+
     // Send the form data to the server
     try {
       const response = await axios.post(
@@ -132,6 +135,8 @@ const CandidateForm = () => {
       });
     } catch (error) {
       toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -482,8 +487,9 @@ const CandidateForm = () => {
             <button
               className="w-full rounded-md bg-customBlue px-4 text-sm font-medium text-white py-3"
               type="submit"
+              disabled={isLoading}
             >
-              Register
+              {isLoading ? "Submitting..." : "Register"}
             </button>
           </form>
         </>
