@@ -181,8 +181,12 @@ const CandidateForm = () => {
                   value={formData.studentID}
                   onChange={HandleChange}
                 />
-                {errors.studentID && (
+                {errors.studentID ? (
                   <p className="text-red-500 text-xs">{errors.studentID}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Enter your student ID.
+                  </p>
                 )}
               </div>
 
@@ -202,8 +206,12 @@ const CandidateForm = () => {
                   value={formData.name}
                   onChange={HandleChange}
                 />
-                {errors.name && (
+                {errors.name ? (
                   <p className="text-red-500 text-xs">{errors.name}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Enter your full name as it appears on official documents.
+                  </p>
                 )}
               </div>
               <div className="flex flex-col">
@@ -222,8 +230,12 @@ const CandidateForm = () => {
                   value={formData.number}
                   onChange={HandleChange}
                 />
-                {errors.number && (
+                {errors.number ? (
                   <p className="text-red-500 text-xs">{errors.number}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-2">
+                    Enter your phone number in the format 615555555
+                  </p>
                 )}
               </div>
               <div className="flex flex-col">
@@ -242,8 +254,12 @@ const CandidateForm = () => {
                   value={formData.email}
                   onChange={HandleChange}
                 />
-                {errors.email && (
+                {errors.email ? (
                   <p className="text-red-500 text-xs">{errors.email}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Enter your email address to receive updates.
+                  </p>
                 )}
               </div>
             </div>
@@ -274,8 +290,12 @@ const CandidateForm = () => {
                     Multimedia and Animation Technology
                   </option>
                 </select>
-                {errors.department && (
+                {errors.department ? (
                   <p className="text-red-500 text-xs">{errors.department}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Select your department from the list.
+                  </p>
                 )}
               </div>
               <div className="flex flex-col">
@@ -297,8 +317,12 @@ const CandidateForm = () => {
                   <option value="4">Semester 4</option>
                   <option value="6">Semester 6</option>
                 </select>
-                {errors.semester && (
+                {errors.semester ? (
                   <p className="text-red-500 text-xs">{errors.semester}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Select the semester you are currently in.
+                  </p>
                 )}
               </div>
             </div>
@@ -320,8 +344,12 @@ const CandidateForm = () => {
                   value={formData.className}
                   onChange={HandleChange}
                 />
-                {errors.className && (
+                {errors.className ? (
                   <p className="text-red-500 text-xs">{errors.className}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Enter your class name
+                  </p>
                 )}
               </div>
               <div className="flex flex-col">
@@ -340,7 +368,9 @@ const CandidateForm = () => {
                   value={formData.gpa}
                   onChange={HandleChange}
                 />
-                {errors.gpa && (
+                {errors.gpa ? (
+                  <p className="text-red-500 text-xs">{errors.gpa}</p>
+                ) : (
                   <p className="text-red-500 text-xs">{errors.gpa}</p>
                 )}
               </div>
@@ -363,8 +393,12 @@ const CandidateForm = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
-                {errors.failedCourse && (
+                {errors.failedCourse ? (
                   <p className="text-red-500 text-xs">{errors.failedCourse}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Have you failed any course before?
+                  </p>
                 )}
               </div>
               <div className="flex flex-col">
@@ -385,8 +419,12 @@ const CandidateForm = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
-                {errors.financeDue && (
+                {errors.financeDue ? (
                   <p className="text-red-500 text-xs">{errors.financeDue}</p>
+                ) : (
+                  <p class="text-gray-500 text-xs py-1">
+                    Have you paid all your fees?
+                  </p>
                 )}
               </div>
             </div>
@@ -410,8 +448,10 @@ const CandidateForm = () => {
                 // maxLength={150}
                 onChange={HandleChange}
               />
-              {errors.experience && (
+              {errors.experience ? (
                 <p className="text-red-500 text-xs">{errors.experience}</p>
+              ) : (
+                <p class="text-gray-500 text-xs py-1">Write your experience</p>
               )}
             </div>
             <div className="flex flex-col">
@@ -431,8 +471,12 @@ const CandidateForm = () => {
                 value={formData.campaignPlan}
                 onChange={HandleChange}
               />
-              {errors.campaignPlan && (
+              {errors.campaignPlan ? (
                 <p className="text-red-500 text-xs">{errors.campaignPlan}</p>
+              ) : (
+                <p class="text-gray-500 py-1 text-xs">
+                  Enter your campaign plan if you are elected.
+                </p>
               )}
             </div>
             <button
