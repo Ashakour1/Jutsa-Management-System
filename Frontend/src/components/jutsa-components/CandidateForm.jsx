@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CandidateContent from "./CandidateContent";
 import axios from "axios";
 import { toast } from "sonner";
@@ -18,6 +18,7 @@ const CandidateForm = () => {
     experience: "",
     campaignPlan: "",
   });
+  const [isClosed, setIsClosed] = useState(false);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -140,9 +141,25 @@ const CandidateForm = () => {
     }
   };
 
+  useEffect(() => {
+    // Get the current date
+    const today = new Date();
+    // Define the closing date
+    const closingDate = new Date("2025-02-26");
+    // Check if today is greater than the closing date
+    if (today > closingDate) {
+      setIsClosed(true);
+    }
+  }, []);
+
   return (
     <main className="w-full rounded-lg mx-auto text-black p-8">
-      {isSubmitted ? (
+      {isClosed ? (
+        <div className="mt-6 p-4 bg-red-100 text-red-600 text-center rounded-lg">
+          <p className="font-semibold">The form is now closed.</p>
+          <p className="text-sm">Submission is no longer available.</p>
+        </div>
+      ) : isSubmitted ? (
         <div className="bg-green-100 p-6 rounded-lg text-center">
           <h2 className="text-2xl font-bold text-green-700">
             Registration Successfully!
