@@ -26,17 +26,34 @@ const AddActivity = () => {
     type: "",
   });
 
-  // useEffect(() => {
-  //   if (id) {
-  //     fetchActivityById(id);
-  //   }
-  // }, [id, fetchCaawiyeById]);
 
-  // useEffect(() => {
-  //   if (id && selectedCaawiye) {
-  //     setFormData(selectedCaawiye);
-  //   }
-  // }, [id, selectedCaawiye]);
+  useEffect(() => {
+    if (id) {
+      const fetchData = async () => {
+        try {
+          const data = await fetchActivityById(id);
+          setFormData({
+            title: data.title,
+            description: data.description,
+            date: data.date.split("T")[0], // Format date to YYYY-MM-DD
+            speaker: data.speaker,
+            location: data.location,
+            type: data.type,
+          });
+        } catch (err) {
+          dispatch(
+            showNotification({
+              message: err.message || "An error occurred.",
+              status: 0,
+            })
+          );
+        }
+      };
+      fetchData();
+    }
+  }, [id, fetchActivityById, dispatch]);
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
