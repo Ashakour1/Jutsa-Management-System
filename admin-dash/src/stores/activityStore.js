@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import {
-    addActivity,
+  addActivity,
   deleteActivity,
-  FecthActivities,
+  FetchActivities,
   fetchActivityById,
   updateActivity,
 } from "../services/activityServices";
@@ -21,10 +21,12 @@ const useActivityStore = create((set) => ({
     });
 
     try {
-      const data = await FecthActivities();
+      const data = await FetchActivities();
+
+      console.log(data);
 
       set({
-        ActivityDetails: data || [],
+        ActivitiesDetails: data,
         loading: false,
       });
     } catch (err) {
@@ -46,7 +48,7 @@ const useActivityStore = create((set) => ({
       const data = await fetchActivityById(id);
 
       set({
-        ActivityDetails: data,
+        ActivitiesDetails: data,
         loading: false,
       });
 
@@ -72,7 +74,7 @@ const useActivityStore = create((set) => ({
       const result = await addActivity(activityData);
 
       set((state) => ({
-        ActivityDetails: [...state.ActivityDetails, result.data],
+        ActivitiesDetails: [...state.ActivitiesDetails, result.data],
         loading: false,
       }));
     } catch (err) {
@@ -95,7 +97,7 @@ const useActivityStore = create((set) => ({
       const result = await updateActivity(id, updatedData);
 
       set((state) => ({
-        ActivityDetails: state.ActivityDetails.map((activity) =>
+        ActivitiesDetails: state.ActivitiesDetails.map((activity) =>
           activity.id === id ? result.data : activity
         ),
         loading: false,
@@ -120,7 +122,7 @@ const useActivityStore = create((set) => ({
       await deleteActivity(id);
 
       set((state) => ({
-        ActivityDetails: state.ActivityDetails.filter(
+        ActivitiesDetails: state.ActivitiesDetails.filter(
           (activity) => activity.id !== id
         ),
         loading: false,
