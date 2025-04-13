@@ -20,6 +20,8 @@ const TopSideButtons = () => (
 const Activity = () => {
   const { ActivitiesDetails, loading, error, fetchActivities, deleteActivity } =
     useActivityStore();
+
+  console.log(ActivitiesDetails);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,7 +41,7 @@ const Activity = () => {
   };
 
   const handleUpdate = (id) => {
-    navigate(`/app/activities/update/${id}`);
+    navigate(`/app/activity/update/${id}`);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -55,7 +57,6 @@ const Activity = () => {
         <table className="table w-full">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Title</th>
               <th>Description</th>
               <th>date</th>
