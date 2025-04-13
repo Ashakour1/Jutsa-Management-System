@@ -7,7 +7,11 @@ import prisma from "../config/db.js";
 
 export const getAllActivities = AsyncHandler(async (req, res) => {
   const activity = await prisma.activity.findMany();
-  res.json(activity);
+
+  res.status(200).json({
+    success: true,
+    data: activity,
+  });
 });
 
 // @desc    Get activity by ID
@@ -40,11 +44,17 @@ export const getActivityById = AsyncHandler(async (req, res) => {
 export const registerActivity = AsyncHandler(async (req, res) => {
   const { title, description, date, speaker, location, type } = req.body;
 
+  // Check if all required fields are provided
+  if (!title || !description || !date || !speaker || !location || !type) {
+    res.status(400);
+    throw new Error("Please add all required fields");
+  }
+
   const activity = await prisma.activity.create({
     data: {
       title,
       description,
-      date,
+      date: new Date(date),
       speaker,
       location,
       type,
@@ -70,7 +80,7 @@ export const updateActivity = AsyncHandler(async (req, res) => {
     data: {
       title,
       description,
-      date,
+      date: new Date(date),
       speaker,
       location,
       type,
@@ -99,6 +109,6 @@ export const deleteActivity = AsyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "Activity deleted",
+    message: "Activity deleted Successfully",
   });
 });
