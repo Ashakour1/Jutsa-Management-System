@@ -95,6 +95,10 @@ const routes = [
     component: AddActivity,
   },
   {
+    path: "/activity/update/:id",
+    component: AddActivity,
+  },
+  {
     path: "/members",
     component: Members,
   },
