@@ -1,112 +1,146 @@
-import DashboardStats from "./components/DashboardStats";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
-import CircleStackIcon from "@heroicons/react/24/outline/CircleStackIcon";
-import CreditCardIcon from "@heroicons/react/24/outline/CreditCardIcon";
 import DashboardTopBar from "./components/DashboardTopBar";
-import { useDispatch } from "react-redux";
+import DashboardStats from "./components/DashboardStats";
 import { showNotification } from "../common/headerSlice";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../../hooks/useUser";
 
-const statsData = [
-  {
-    title: "New Users",
-    value: "34.7k",
-    icon: <UserGroupIcon className="w-8 h-8" />,
-    description: "↗︎ 2300 (22%)",
-  },
-  {
-    title: "Total Sales",
-    value: "$34,545",
-    icon: <CreditCardIcon className="w-8 h-8" />,
-    description: "Current month",
-  },
-  {
-    title: "Pending Leads",
-    value: "450",
-    icon: <CircleStackIcon className="w-8 h-8" />,
-    description: "50 in hot leads",
-  },
-  {
-    title: "Active Users",
-    value: "5.6k",
-    icon: <UsersIcon className="w-8 h-8" />,
-    description: "↙ 300 (18%)",
-  },
-];
+import {
+  UsersIcon,
+  UserGroupIcon,
+  CircleStackIcon,
+  CreditCardIcon,
+} from "@heroicons/react/24/outline";
 
-const formNames = ["facultyForm", "sportsForm", "presidentForm"];
+const FORM_NAMES = ["facultyForm", "sportsForm", "presidentForm"];
+const API_BASE_URL = "http://localhost:5000/api";
 
 function Dashboard() {
   const { user } = useUser();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formVisibility, setFormVisibility] = useState({});
 
+  const [formVisibility, setFormVisibility] = useState({});
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    totalMembers: 0,
+    totalActivities: 0,
+    competitors: {},
+  });
+
+  // console.log(stats);
+
+  // Redirect if not authenticated
   useEffect(() => {
     if (!user) navigate("/login");
   }, [user, navigate]);
 
+  // Fetch form visibility
   useEffect(() => {
-    const fetchAllVisibilities = async () => {
+    const fetchFormVisibility = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/form");
-        setFormVisibility(response.data);
+        const { data } = await axios.get(`${API_BASE_URL}/form`);
+        setFormVisibility(data);
       } catch (error) {
-        console.error("Error fetching form visibility:", error);
+        console.error("Failed to fetch form visibility", error);
       }
     };
-    fetchAllVisibilities();
+    fetchFormVisibility();
   }, []);
 
-  const toggleForm = async (formName, status) => {
+  // Fetch stats data
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [membersRes, activitiesRes, competitorsRes] = await Promise.all([
+          // axios.get(`${API_BASE_URL}/users`),
+          axios.get(`${API_BASE_URL}/members`),
+          axios.get(`${API_BASE_URL}/activities`),
+          axios.get(`${API_BASE_URL}/competitors`),
+        ]);
+        console.log("competitor", competitorsRes.length);
+
+        setStats({
+          totalMembers: membersRes.data.length || 0,
+          totalActivities: activitiesRes.data.data.length || 0,
+          competitors: competitorsRes.data.length || 0,
+        });
+      } catch (error) {
+        console.error("Failed to fetch dashboard stats", error);
+      }
+    };
+    fetchStats();
+  }, []);
+
+  // Toggle form visibility
+  const toggleForm = async (formName, showForm) => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/form/${formName}`,
-        { showForm: status }
-      );
-      setFormVisibility((prev) => ({ ...prev, [formName]: status }));
-      dispatch(
-        showNotification({
-          message: response.data.message,
-          status: 1,
-        })
-      );
+      const { data } = await axios.post(`${API_BASE_URL}/form/${formName}`, {
+        showForm,
+      });
+      setFormVisibility((prev) => ({ ...prev, [formName]: showForm }));
+      dispatch(showNotification({ message: data.message, status: 1 }));
     } catch (error) {
-      console.error(`Error toggling visibility for ${formName}:`, error);
+      console.error(`Failed to toggle form: ${formName}`, error);
     }
   };
 
-  const updateDashboardPeriod = (newRange) => {
+  const updateDashboardPeriod = (range) => {
     dispatch(
       showNotification({
-        message: `Period updated to ${newRange.startDate} to ${newRange.endDate}`,
+        message: `Period updated to ${range.startDate} → ${range.endDate}`,
         status: 1,
       })
     );
   };
 
+  const currentYear = new Date().getFullYear();
+
+  const statsData = [
+    {
+      title: "Total Users",
+      icon: <UsersIcon className="w-6 h-6" />,
+      value: stats.totalUsers,
+    },
+    {
+      title: "Total Members",
+      icon: <UserGroupIcon className="w-6 h-6" />,
+      value: stats.totalMembers,
+    },
+    {
+      title: "Total Activities",
+      icon: <CircleStackIcon className="w-6 h-6" />,
+      value: stats.totalActivities,
+    },
+    {
+      title: `Competitors`,
+      icon: <CreditCardIcon className="w-6 h-6" />,
+      value: 111,
+    },
+  ];
+
   return (
     <>
       <DashboardTopBar updateDashboardPeriod={updateDashboardPeriod} />
 
-      <div className="grid lg:grid-cols-4 mt-4 md:grid-cols-2 grid-cols-1 gap-6">
-        {statsData.map((d, k) => (
-          <DashboardStats key={k} {...d} colorIndex={k} />
+      {/* Stats Cards */}
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 mt-6">
+        {statsData.map((item, index) => (
+          <DashboardStats key={index} {...item} colorIndex={index} />
         ))}
       </div>
 
+      {/* Form Visibility Controls */}
       <div className="mt-10 bg-white p-6 rounded shadow">
         <h2 className="text-xl font-bold mb-4">Form Visibility Management</h2>
         <div className="space-y-4">
-          {formNames.map((formName) => (
+          {FORM_NAMES.map((formName) => (
             <div
               key={formName}
-              className="flex items-center justify-between border-b pb-2"
+              className="flex items-center justify-between border-b pb-3"
             >
               <span className="capitalize font-medium text-gray-700">
                 {formName.replace("Form", " Form")}
