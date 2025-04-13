@@ -3,12 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useMemberStore from "../../../../stores/memberStore";
 import { showNotification } from "../../../common/headerSlice";
+import { fetchPositionDetailsFromAPI } from "../../../../services/positionServices";
 
 const AddMember = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, updateMember, fetchMemberById } = useMemberStore();
+  const [positions, setPositions] = useState([]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,6 +23,19 @@ const AddMember = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPositions = async () => {
+      try {
+        const data = await fetchPositionDetailsFromAPI();
+        setPositions(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchPositions();
+  }, []);
 
   useEffect(() => {
     if (!id) return;
@@ -64,7 +79,9 @@ const AddMember = () => {
       }
       navigate("/app/members");
     } catch (err) {
-      setError(id ? "Failed to update member details" : "Failed to save member details");
+      setError(
+        id ? "Failed to update member details" : "Failed to save member details"
+      );
     } finally {
       setLoading(false);
     }
@@ -145,14 +162,25 @@ const AddMember = () => {
         </div>
         <div>
           <label>Position</label>
-          <input
-            type="text"
-            name="position_Id"
-            value={formData.position_Id}
-            onChange={handleChange}
-            required
-            className="input input-bordered w-full"
-          />
+          {positions.length === 0 ? (
+            <p>Loading positions...</p> // Display a loading message while positions are being fetched
+          ) : (
+            <select
+              name="position_Id"
+              value={formData.position_Id}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+            >
+              <option value="" disabled>
+                Select Position
+              </option>
+              {positions.map((position) => (
+                <option key={position.id} value={position.id}>
+                  {position.title}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
 
         <button
