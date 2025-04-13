@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CandidateContent from "./CandidateContent";
 import axios from "axios";
 import { toast } from "sonner";
+import Spinner from "../ui/spinner";
 
 const CandidateForm = () => {
   const [formData, setFormData] = useState({
@@ -18,11 +19,13 @@ const CandidateForm = () => {
     experience: "",
     campaignPlan: "",
   });
-  const [isClosed, setIsClosed] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+
   const [errors, setErrors] = useState({});
+  const [showForm, setShowForm] = useState();
+
+  const [formName] = useState("presidentForm");
 
   const validateField = (name, value) => {
     let error = "";
@@ -142,24 +145,46 @@ const CandidateForm = () => {
   };
 
   useEffect(() => {
-    // Get the current date
-    const today = new Date();
-    // Define the closing date
-    const closingDate = new Date("2025-02-26");
-    // Check if today is greater than the closing date
-    if (today > closingDate) {
-      setIsClosed(true);
-    }
-  }, []);
+    const fetchFormVisibility = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/form/${formName}`
+        );
+        const data = response.data;
+        if (data[formName] === true) {
+          setShowForm(true);
+        } else {
+          setShowForm(false);
+        }
+      } catch (error) {
+        console.error("Error fetching form visibility:", error);
+        setShowForm(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  return (
-    <main className="w-full rounded-lg mx-auto text-black p-8">
-      {isClosed ? (
+    fetchFormVisibility();
+  }, [formName]);
+
+  if (isLoading) {
+    return <Spinner size="large" className="border border-blue-700" />;
+  }
+
+  if (showForm === false) {
+    return (
+      <>
         <div className="mt-6 p-4 bg-red-100 text-red-600 text-center rounded-lg">
           <p className="font-semibold">The form is now closed.</p>
           <p className="text-sm">Submission is no longer available.</p>
         </div>
-      ) : isSubmitted ? (
+      </>
+    );
+  }
+
+  return (
+    <main className="w-full rounded-lg mx-auto text-black p-8">
+      {isSubmitted ? (
         <div className="bg-green-100 p-6 rounded-lg text-center">
           <h2 className="text-2xl font-bold text-green-700">
             Registration Successfully!
@@ -206,7 +231,7 @@ const CandidateForm = () => {
                 {errors.studentID ? (
                   <p className="text-red-500 text-xs">{errors.studentID}</p>
                 ) : (
-                  <p class="text-gray-500 text-xs py-1">
+                  <p className="text-gray-500 text-xs py-1">
                     Enter your student ID.
                   </p>
                 )}
@@ -255,7 +280,7 @@ const CandidateForm = () => {
                 {errors.number ? (
                   <p className="text-red-500 text-xs">{errors.number}</p>
                 ) : (
-                  <p class="text-gray-500 text-xs py-2">
+                  <p className="text-gray-500 text-xs py-2">
                     Enter your phone number in the format 615555555
                   </p>
                 )}
@@ -279,7 +304,7 @@ const CandidateForm = () => {
                 {errors.email ? (
                   <p className="text-red-500 text-xs">{errors.email}</p>
                 ) : (
-                  <p class="text-gray-500 text-xs py-1">
+                  <p className="text-gray-500 text-xs py-1">
                     Enter your email address to receive updates.
                   </p>
                 )}
@@ -315,7 +340,7 @@ const CandidateForm = () => {
                 {errors.department ? (
                   <p className="text-red-500 text-xs">{errors.department}</p>
                 ) : (
-                  <p class="text-gray-500 text-xs py-1">
+                  <p className="text-gray-500 text-xs py-1">
                     Select your department from the list.
                   </p>
                 )}
@@ -342,7 +367,7 @@ const CandidateForm = () => {
                 {errors.semester ? (
                   <p className="text-red-500 text-xs">{errors.semester}</p>
                 ) : (
-                  <p class="text-gray-500 text-xs py-1">
+                  <p className="text-gray-500 text-xs py-1">
                     Select the semester you are currently in.
                   </p>
                 )}
@@ -369,7 +394,7 @@ const CandidateForm = () => {
                 {errors.className ? (
                   <p className="text-red-500 text-xs">{errors.className}</p>
                 ) : (
-                  <p class="text-gray-500 text-xs py-1">
+                  <p className="text-gray-500 text-xs py-1">
                     Enter your class name
                   </p>
                 )}
@@ -418,7 +443,7 @@ const CandidateForm = () => {
                 {errors.failedCourse ? (
                   <p className="text-red-500 text-xs">{errors.failedCourse}</p>
                 ) : (
-                  <p class="text-gray-500 text-xs py-1">
+                  <p className="text-gray-500 text-xs py-1">
                     Have you failed any course before?
                   </p>
                 )}
@@ -444,7 +469,7 @@ const CandidateForm = () => {
                 {errors.financeDue ? (
                   <p className="text-red-500 text-xs">{errors.financeDue}</p>
                 ) : (
-                  <p class="text-gray-500 text-xs py-1">
+                  <p className="text-gray-500 text-xs py-1">
                     Have you paid all your fees?
                   </p>
                 )}
@@ -473,7 +498,9 @@ const CandidateForm = () => {
               {errors.experience ? (
                 <p className="text-red-500 text-xs">{errors.experience}</p>
               ) : (
-                <p class="text-gray-500 text-xs py-1">Write your experience</p>
+                <p className="text-gray-500 text-xs py-1">
+                  Write your experience
+                </p>
               )}
             </div>
             <div className="flex flex-col">
@@ -496,7 +523,7 @@ const CandidateForm = () => {
               {errors.campaignPlan ? (
                 <p className="text-red-500 text-xs">{errors.campaignPlan}</p>
               ) : (
-                <p class="text-gray-500 py-1 text-xs">
+                <p className="text-gray-500 py-1 text-xs">
                   Enter your campaign plan if you are elected.
                 </p>
               )}

@@ -18,7 +18,7 @@ const Header = () => {
   };
   return (
     <header className="backdrop-blur-sm fixed w-full top-0 ">
-      <Announcement />
+      {/* <Announcement /> */}
       <div className=" flex justify-between items-center px-5 max-w-[1200px] mx-auto h-16 mt-1">
         <div className="logo">
           {/* <img src="./logo.png" alt="" /> */}
@@ -55,11 +55,11 @@ const Header = () => {
 
       <div onClick={openNavBar} className="md:hidden block items-center">
         {navIsOpen ? (
-          <button className="md:hidden absolute top-16 items-center bg-customBlue text-white p-1 rounded-md right-4 ">
+          <button className="md:hidden absolute top-4 items-center bg-customBlue text-white p-1 rounded-md right-4 ">
             <TiThMenuOutline className="text-2xl" />
           </button>
         ) : (
-          <button className="md:hidden absolute top-16 items-center bg-customBlue text-white p-1 rounded-md right-4">
+          <button className="md:hidden absolute top-4 items-center bg-customBlue text-white p-1 rounded-md right-4">
             <TiThMenu className="text-2xl" />
           </button>
         )}

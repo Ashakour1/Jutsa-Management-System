@@ -78,12 +78,11 @@ const RegisterForm = () => {
     });
     setErrors({});
   };
-  const [currentDate, setCurrentDate] = useState(new Date());
 
-  useEffect(() => {
-    setCurrentDate(new Date());
-  }, []);
-  const eventEndDate = new Date("2024-06-06");
+  // useEffect(() => {
+  //   setCurrentDate(new Date());
+  // }, []);
+  // const eventEndDate = new Date("2024-06-06");
 
   const handleSubmit = async (e) => {
     e.preventDefault();

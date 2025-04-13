@@ -162,14 +162,6 @@ const routes = [
     path: "/charts",
     component: Charts,
   },
-  {
-    path: "/404",
-    component: Page404,
-  },
-  {
-    path: "/blank",
-    component: Blank,
-  },
 ];
 
 export default routes;

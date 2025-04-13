@@ -1,12 +1,13 @@
-import React from 'react'
-import RegisterPage from './Register-page'
+import React from "react";
+import RegisterPage from "./Register-page";
+import SportsForm from "../components/jutsa-components/SportsForm";
 
 const Sports = () => {
   return (
     <div>
-        <RegisterPage/>
+      <SportsForm />
     </div>
-  )
-}
+  );
+};
 
-export default Sports
+export default Sports;

@@ -9,10 +9,7 @@ import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { LuBookMarked } from "react-icons/lu";
-import {
-  MdOutlineSportsSoccer,
-  MdSupportAgent
-} from "react-icons/md";
+import { MdOutlineSportsSoccer, MdSupportAgent } from "react-icons/md";
 import { RiPresentationFill } from "react-icons/ri";
 
 const iconClasses = `h-6 w-6`;
@@ -55,17 +52,6 @@ const routes = [
         icon: <MdSupportAgent className={submenuIconClasses} />, // icon component
         name: "Caawiye", // name that appear in Sidebar
       },
-
-      {
-        path: "/app/blank",
-        icon: <DocumentIcon className={submenuIconClasses} />,
-        name: "Blank Page",
-      },
-      {
-        path: "/app/404",
-        icon: <ExclamationTriangleIcon className={submenuIconClasses} />,
-        name: "404",
-      },
     ],
   },
   {
@@ -73,16 +59,6 @@ const routes = [
     icon: <Cog6ToothIcon className={`${iconClasses} inline`} />, // icon component
     name: "Settings", // name that appear in Sidebar
     submenu: [
-      {
-        path: "/app/settings-profile", //url
-        icon: <UserIcon className={submenuIconClasses} />, // icon component
-        name: "Profile", // name that appear in Sidebar
-      },
-      // {
-      //   path: "/app/settings-billing",
-      //   icon: <WalletIcon className={submenuIconClasses} />,
-      //   name: "Billing",
-      // },
       {
         path: "/app/Members", // url
         icon: <UsersIcon className={submenuIconClasses} />, // icon component
