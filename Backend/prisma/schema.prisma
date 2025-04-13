@@ -39,7 +39,7 @@ model Finance {
 }
 
 model Position {
-    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String   @unique
   description String
   members     Member[]
