@@ -9,19 +9,16 @@ import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 const TopSideButtons = () => (
   <div className="inline-block float-right">
     <Link to="/app/caawiye/add">
-      <button className="btn px-6 btn-sm normal-case btn-primary">Add New</button>
+      <button className="btn px-6 btn-sm normal-case btn-primary">
+        Add New
+      </button>
     </Link>
   </div>
 );
 
 const Caawiye = () => {
-  const {
-    caawiyeDetails,
-    loading,
-    error,
-    fetchCaawiyeDetails,
-    deleteCaawiye,
-  } = useCaawiyeStore();
+  const { caawiyeDetails, loading, error, fetchCaawiyeDetails, deleteCaawiye } =
+    useCaawiyeStore();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,7 +29,9 @@ const Caawiye = () => {
   const handleDelete = async (id) => {
     try {
       await deleteCaawiye(id);
-      dispatch(showNotification({ message: "Deleted successfully!", status: 1 }));
+      dispatch(
+        showNotification({ message: "Deleted successfully!", status: 1 })
+      );
     } catch (err) {
       dispatch(showNotification({ message: err.message, status: 0 }));
     }
@@ -47,7 +46,7 @@ const Caawiye = () => {
 
   return (
     <TitleCard
-      title="Competitors"
+      title="Caawiye"
       topMargin="mt-2"
       TopSideButtons={<TopSideButtons />}
     >

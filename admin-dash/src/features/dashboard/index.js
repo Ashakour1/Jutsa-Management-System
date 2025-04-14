@@ -28,7 +28,7 @@ function Dashboard() {
     totalUsers: 0,
     totalMembers: 0,
     totalActivities: 0,
-    competitors: {},
+    competitors: 0,
   });
 
   // console.log(stats);
@@ -61,12 +61,11 @@ function Dashboard() {
           axios.get(`${API_BASE_URL}/activities`),
           axios.get(`${API_BASE_URL}/competitors`),
         ]);
-        console.log("competitor", competitorsRes.length);
 
         setStats({
-          totalMembers: membersRes.data.length || 0,
-          totalActivities: activitiesRes.data.data.length || 0,
-          competitors: competitorsRes.data.length || 0,
+          totalMembers: membersRes.data.data.length,
+          totalActivities: activitiesRes.data.data.length,
+          competitors: competitorsRes.data.total,
         });
       } catch (error) {
         console.error("Failed to fetch dashboard stats", error);
@@ -118,7 +117,7 @@ function Dashboard() {
     {
       title: `Competitors`,
       icon: <CreditCardIcon className="w-6 h-6" />,
-      value: 111,
+      value: stats.competitors,
     },
   ];
 

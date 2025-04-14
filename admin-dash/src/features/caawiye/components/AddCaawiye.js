@@ -72,12 +72,12 @@ const AddCaawiye = () => {
     <TitleCard>
       <div className="p-6">
         <h1 className="text-2xl font-bold">
-          {id ? "Update Competitor" : "Add Competitor"}
+          {id ? "Update Caawiye" : "Add Caawiye"}
         </h1>
         <form onSubmit={handleSubmit} className="space-y-6 mt-5">
           {!id && (
             <div>
-              <label className="block text-sm font-medium">ID</label>
+              <label className="block text-sm font-medium">Student ID</label>
               <input
                 type="text"
                 name="id"
