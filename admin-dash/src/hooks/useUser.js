@@ -5,10 +5,11 @@ const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  const login = async (userData, expirisIn) => {
-    const expireTime = new Date().getTime() + expirisIn * 1000;
-    localStorage.setItem("expireTime", expireTime);
+  const login = async (userData) => {
+    // const expireTime = new Date().getTime() + expirisIn * 1000;
+
     localStorage.setItem("user", JSON.stringify(userData));
+
     setUser(userData);
   };
 
@@ -16,13 +17,6 @@ export const UserProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("user");
   };
-
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setUser(JSON.parse(user));
-    }
-  }, []);
 
   return (
     <UserContext.Provider value={{ user, login, logout }}>

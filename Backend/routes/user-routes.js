@@ -24,8 +24,7 @@ router.get(
 );
 router.post(
   "/auth/reg",
-  authMiddleware,
-  AuthorizeRole("SUPER_ADMIN", "ADMIN"),
+  
   UserRegister
 );
 router.put(

@@ -23,6 +23,7 @@ function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log(user);
   const [formVisibility, setFormVisibility] = useState({});
   const [stats, setStats] = useState({
     totalUsers: 0,
