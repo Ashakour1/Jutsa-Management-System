@@ -5,16 +5,11 @@ const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  const login = async (credentials) => {
-    try {
-      const user = await LoginUser(credentials); // Call the login service
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      console.log("User sucess")
-    } catch (error) {
-      console.log("Login failed:", error);
-      // Handle login error, e.g., show a message to the user
-    }
+  const login = async (userData, expirisIn) => {
+    const expireTime = new Date().getTime() + expirisIn * 1000;
+    localStorage.setItem("expireTime", expireTime);
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
   };
 
   const logout = () => {

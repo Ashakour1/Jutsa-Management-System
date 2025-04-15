@@ -36,9 +36,27 @@ function Login() {
     // setLoading(true);
 
     try {
-      login(formData);
+      const response = await fetch(
+        `http://localhost:5000/api/users/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message || "Login failed");
+        return;
+      }
+
+      const data = await response.json();
+
+      toast.success("Login successful!");
       navigate("/app/dashboard");
-      // Redirect to dashboard after successful login
     } catch (e) {
       console.log("Failed to login");
       toast.error(e.message); // Show error if login fails
@@ -80,15 +98,6 @@ function Login() {
             <button type="submit" className="btn mt-2 w-full btn-primary">
               Login
             </button>
-
-            <div className="text-center mt-4">
-              Don't have an account yet?{" "}
-              <Link to="/register">
-                <span className="  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200">
-                  Register
-                </span>
-              </Link>
-            </div>
           </form>
         </div>
       </div>
