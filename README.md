@@ -28,7 +28,7 @@ Each version represents the work of a unique team, ensuring continuity, innovati
 
 | Version | Year | Lead Developer / Team                              | Key Contributions                                                 |
 | ------- | ---- | -------------------------------------------------- | ----------------------------------------------------------------- |
-| `v0.1`  | 2024 | [Abdishakur Mohamed](https://github.com/Ashakour1) | Initial version with core member management and election modules. |
+| `v0.1`  | 2024 | [Abdishakur Mohamed](https://github.com/Ashakour1) | 🚀 Started and built the full initial version, including database design, frontend, backend, and deployment of core modules.|
 
 ---
 
