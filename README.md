@@ -12,6 +12,15 @@ The **JUTSA Management System** is a student-led initiative designed to digitall
 
 Each version represents the work of a unique team, ensuring continuity, innovation, and hands-on experience for student developers.
 
+---
+
+## 📋 Core Features
+
+- 🔐 Member Registration & Management
+- 📢 Internal Announcements & Communication
+- 📊 Activities and Member Reporting
+- 🛠️ Admin Dashboard
+
 
 ---
 
