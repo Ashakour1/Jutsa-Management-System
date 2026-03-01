@@ -1,45 +1,42 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   email     String   @unique
   name      String?
   password  String
-  isAdmin Boolean @default(false)
-  role Role @default(USER)
+  isAdmin   Boolean  @default(false)
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   finance   Finance[]
 }
 
 model Finance {
-    id       String  @id @map("_id")
-  userId     String @db.ObjectId
-  user       User @relation(fields: [userId], references: [id])
-  title      String
-  amount     Float
-  type       String
-  category   String  
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  title     String
+  amount    Float
+  type      String
+  category  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model Position {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   title       String   @unique
   description String
   members     Member[]
@@ -47,101 +44,112 @@ model Position {
   updatedAt   DateTime @updatedAt
 }
 
-
 model Member {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  address       String
-  email         String    @unique
-  semester      String
-  studentId     String    @unique
-  year          String
-  position_Id   String    @db.ObjectId
-  position      Position  @relation(fields: [position_Id] ,references: [id])
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id          String   @id @default(uuid())
+  name        String
+  address     String
+  email       String   @unique
+  semester    String
+  studentId   String   @unique
+  year        String
+
+  positionId  String
+  position    Position @relation(fields: [positionId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([positionId])
 }
 
 model Competitor {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  number        Int
-  email         String
-  semester      String
+  id           String   @id @default(uuid())
+  name         String
+  number       Int
+  email        String
+  semester     String
+  className    String
+  idNumber     String
+  type         String
+  skill        String
+  projectName  String
+  technologies String
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Sport {
+  id            String   @id @default(uuid())
+  monitorName   String
+  monitorNumber String
   className     String
-  idNumber      String   
-  type          String
-  skill         String
-  projectName   String
-  technologies  String
-  status        String   @default("pending")
+  description   String
+  amount        Float
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
-
-model Sport{
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  monitorName     String
-  monitorNumber   String
-  className       String
-  description     String
-  amount          Float
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-}
-
 
 model Caawiye {
-  id            String   @id  @map("_id") 
-  name          String
-  number        Int
-  semester      String
-  className     String
-  password      String
-  problems      String
-  solutions     String
-  status        String  
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        String   @id @default(uuid())
+  name      String
+  number    Int
+  semester  String
+  className String
+  password  String
+  problems  String
+  solutions String
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Candidate {
-  studentID            String    @id  @map("_id")  // unique id
-  name          String
-  number        Int
-  email         String
+  studentID    String   @id // keep if this is the real unique student id
+  name         String
+  number       Int
+  email        String
   gpa          Float
   semester     String
-  department    String
-  className     String
-  failedCourse  String
-  financeDue    String
-  experience    String
-  campaignPlan      String
-  status        String   @default("pending")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  department   String
+  className    String
+  failedCourse String
+  financeDue   String
+  experience   String
+  campaignPlan String
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Activity {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title               String
-  description         String
-  date                DateTime
-  speaker             String
-  location            String
-type                String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  date        DateTime
+  speaker     String
+  location    String
+  type        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
+/**
+ * ✅ THIS is the model that matches your "Secure Flow" ON/OFF switch
+ */
+model SystemControl {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  isActive  Boolean  @default(false)
+  updatedBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-
+  @@index([key])
+}
 
 enum Role {
   SUPER_ADMIN
   ADMIN
   USER
-  
 }
