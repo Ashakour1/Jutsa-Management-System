@@ -33,7 +33,7 @@ export const formerLeadership = [
     image: "/cdo2.jpg",
     facebook: "https://www.facebook.com/",
     linkedIn: "https://www.linkedin.com/in/a-shakour-mohammed-90836725a/",
-    website: "https://abdishakur.reliatrusty.com/",
+    website: "https://abdishakour.com/",
   },
   {
     name: "Naima Abdirahiim Wehliye",
