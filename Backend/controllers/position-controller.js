@@ -1,9 +1,5 @@
-import { ObjectId } from "mongodb";
 import prisma from "../config/db.js";
 import asyncHandler from "express-async-handler";
-
-// Helper function to validate MongoDB ObjectId
-const isValidObjectId = (id) => ObjectId.isValid(id);
 
 // Get all positions
 export const getAllPositions = asyncHandler(async (req, res) => {
@@ -14,10 +10,6 @@ export const getAllPositions = asyncHandler(async (req, res) => {
 // Get position by ID
 export const getPositionById = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
-  if (!isValidObjectId(id)) {
-    return res.status(400).json({ success: false, message: "Invalid ID format" });
-  }
 
   const position = await prisma.position.findUnique({ where: { id } });
 
@@ -54,10 +46,6 @@ export const updatePosition = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { title, description } = req.body;
 
-  if (!isValidObjectId(id)) {
-    return res.status(400).json({ success: false, message: "Invalid ID format" });
-  }
-
   const position = await prisma.position.findUnique({ where: { id } });
 
   if (!position) {
@@ -75,10 +63,6 @@ export const updatePosition = asyncHandler(async (req, res) => {
 // Delete a position
 export const deletePosition = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
-  if (!isValidObjectId(id)) {
-    return res.status(400).json({ success: false, message: "Invalid ID format" });
-  }
 
   const position = await prisma.position.findUnique({ where: { id } });
 

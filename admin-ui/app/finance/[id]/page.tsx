@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
+import { PageHeader } from "@/components/layout/page-header"
+import { AdminFormSection, FormActions } from "@/components/forms/admin-form-shell"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { financeService, FinanceCreate } from "@/services/finance.service"
 import { useToast } from "@/components/ui/use-toast"
 import { userService } from "@/services/user.service"
@@ -98,28 +99,25 @@ export default function FinanceFormPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {isEdit ? "Edit Finance" : "Add Finance"}
-          </h1>
-          <p className="text-muted-foreground">
-            {isEdit
-              ? "Update finance record details"
-              : "Create a new finance record"}
-          </p>
-        </div>
+      <div className="space-y-8 animate-in fade-in duration-500">
+        <PageHeader
+          title={isEdit ? "Edit finance" : "Add finance"}
+          description={
+            isEdit
+              ? "Update amounts, type, and categorization for this record."
+              : "Create a new income or expense entry."
+          }
+        />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Finance Details</CardTitle>
-            <CardDescription>
-              Fill in the information below to {isEdit ? "update" : "create"} a
-              finance record
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+        <AdminFormSection
+          title="Finance details"
+          description={
+            <>
+              Fill in the fields below to {isEdit ? "update" : "create"} a finance record.
+            </>
+          }
+        >
+          <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="title">Title</Label>
                 <Input
@@ -179,27 +177,22 @@ export default function FinanceFormPage() {
                 />
               </div>
 
-              <div className="flex gap-4">
-                <Button type="submit" disabled={loading}>
-                  {loading
-                    ? isEdit
-                      ? "Updating..."
-                      : "Creating..."
-                    : isEdit
+            <FormActions>
+              <Button type="submit" disabled={loading}>
+                {loading
+                  ? isEdit
+                    ? "Updating…"
+                    : "Creating…"
+                  : isEdit
                     ? "Update"
                     : "Create"}
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => router.back()}
-                >
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+              </Button>
+              <Button type="button" variant="outline" onClick={() => router.back()}>
+                Cancel
+              </Button>
+            </FormActions>
+          </form>
+        </AdminFormSection>
       </div>
     </DashboardLayout>
   )

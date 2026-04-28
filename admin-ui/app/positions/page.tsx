@@ -18,6 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { PageHeader } from "@/components/layout/page-header"
 
 export default function PositionsPage() {
   const [positions, setPositions] = useState<Position[]>([])
@@ -80,28 +81,21 @@ export default function PositionsPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 animate-in fade-in duration-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              Positions
-            </h1>
-            <p className="text-muted-foreground">
-              Manage team positions and roles
-            </p>
-          </div>
-          <Button 
-            onClick={() => router.push("/positions/new")}
-            className="transition-all hover:scale-105 shadow-md hover:shadow-lg"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Position
-          </Button>
-        </div>
+      <div className="space-y-8 animate-in fade-in duration-500">
+        <PageHeader
+          title="Positions"
+          description="Manage team positions and roles."
+          actions={
+            <Button onClick={() => router.push("/positions/new")} className="shadow-sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Add position
+            </Button>
+          }
+        />
 
-        <Card className="border-2 shadow-lg">
-          <CardHeader>
-            <CardTitle>Positions</CardTitle>
+        <Card className="rounded-xl border">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="text-lg">Directory</CardTitle>
             <CardDescription>All available positions</CardDescription>
           </CardHeader>
           <CardContent>

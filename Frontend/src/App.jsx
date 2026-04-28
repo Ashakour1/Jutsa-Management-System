@@ -1,5 +1,5 @@
 import { HelmetProvider } from "react-helmet-async";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import "./App.css";
 import About from "./pages/about";
@@ -23,7 +23,9 @@ import CtaSection from "./components/jutsa-components/cta";
 import Announcement from "./components/jutsa-components/Announcement";
 import CandidateForm from "./components/jutsa-components/CandidateForm";
 import CandidateRegPage from "./pages/candidate-reg";
-
+import Management from "./pages/Management";
+import FormerLeadership from "./pages/FormerLeadership";
+import Achievements from "./pages/Achievements";
 // Layout with header and footer
 
 function App() {
@@ -47,13 +49,20 @@ function App() {
                 </>
               }
             />
-            <Route path="/about" element={<About />} />{" "}
+            <Route path="/about" element={<About />} />
+            <Route path="/achievements" element={<Achievements />} />
             <Route path="/it-day" element={<ItDay />} />{" "}
             <Route path="/sports" element={<Sports />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/candidate-reg" element={<CandidateRegPage />} />
             <Route path="/about/faq" element={<FAQPage />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/management" element={<Management />} />
+            <Route
+              path="/previous-team"
+              element={<Navigate to="/former-leadership" replace />}
+            />
+            <Route path="/former-leadership" element={<FormerLeadership />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

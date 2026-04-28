@@ -1,33 +1,82 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  email     String    @unique
-  name      String?
-  password  String
-  isAdmin   Boolean   @default(false)
-  role      Role      @default(USER)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  finance   Finance[]
+  id           String       @id @default(cuid())
+  email        String       @unique
+  username     String       @unique
+  name         String?
+  passwordHash String
+  status       RecordStatus @default(ACTIVE)
+  userRoles    UserRole[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  finance      Finance[]
+
+  @@index([status])
+}
+
+model Role {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  permissions RolePermission[]
+  users       UserRole[]
+  createdAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Permission {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  module      String
+  description String?
+  roles       RolePermission[]
+  createdAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([module])
+}
+
+model RolePermission {
+  id             String @id @default(cuid())
+  roleId         String
+  permissionId   String
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, permissionId])
+}
+
+model UserRole {
+  id     String @id @default(cuid())
+  userId String
+  roleId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId])
+}
+
+enum RecordStatus {
+  ACTIVE
+  INACTIVE
 }
 
 model Finance {
-  id        String   @id @map("_id")
-  userId    String   @db.ObjectId
+  id        String   @id
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
   title     String
   amount    Float
@@ -38,30 +87,30 @@ model Finance {
 }
 
 model Position {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(cuid())
   title       String   @unique
   description String
   members     Member[]
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 }
 
 model Member {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(cuid())
   name        String
   address     String
   email       String   @unique
   semester    String
   studentId   String   @unique
   year        String
-  position_Id String   @db.ObjectId
+  position_Id String
   position    Position @relation(fields: [position_Id], references: [id])
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 }
 
 model Competitor {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(cuid())
   name         String
   number       Int
   email        String
@@ -78,7 +127,7 @@ model Competitor {
 }
 
 model Sport {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(cuid())
   monitorName   String
   monitorNumber String
   className     String
@@ -89,7 +138,7 @@ model Sport {
 }
 
 model Caawiye {
-  id        String   @id @map("_id")
+  id        String   @id
   name      String
   number    Int
   semester  String
@@ -103,7 +152,7 @@ model Caawiye {
 }
 
 model Candidate {
-  studentID    String   @id @map("_id") // unique id
+  studentID    String   @id
   name         String
   number       Int
   email        String
@@ -121,7 +170,7 @@ model Candidate {
 }
 
 model Activity {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(cuid())
   title       String
   description String
   date        DateTime
@@ -129,11 +178,5 @@ model Activity {
   location    String
   type        String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-enum Role {
-  SUPER_ADMIN
-  ADMIN
-  USER
+  updatedAt DateTime @updatedAt
 }

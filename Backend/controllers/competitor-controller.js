@@ -1,6 +1,5 @@
 import asyncHandler from "express-async-handler";
 import prisma from "../config/db.js";
-import { ObjectId } from "mongodb";
 
 /**
  * @controller create a new competitor
@@ -120,11 +119,6 @@ export const getAllCompetitors = asyncHandler(async (req, res) => {
 export const getCompetitorById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  if (!ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error("Please use  a valid id");
-  }
-
   const competitor = await prisma.competitor.findUnique({
     where: {
       id,
@@ -157,11 +151,6 @@ export const updatedCompetitor = asyncHandler(async (req, res) => {
     technologies,
     status,
   } = req.body;
-
-  if (!ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error("Please enter a valid id");
-  }
 
   const isCompetitorExists = await prisma.competitor.findUnique({
     where: {
@@ -211,11 +200,6 @@ export const updatedCompetitor = asyncHandler(async (req, res) => {
 // Delete existing competitor using unique ID
 export const deleteCompetitor = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
-  if (!ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error("Please enter a valid id");
-  }
 
   const competitor = await prisma.competitor.findUnique({
     where: {

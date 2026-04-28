@@ -1,6 +1,5 @@
 import asyncHandler from "express-async-handler";
 import prisma from "../config/db.js";
-import { ObjectId } from "mongodb";
 
 /**
  * @controller registerMember
@@ -66,11 +65,6 @@ export const getAllMembers = asyncHandler(async (req, res) => {
 export const getMemberById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  if (!ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error("Please use a valid id");
-  }
-
   const member = await prisma.member.findUnique({
     where: {
       id,
@@ -93,11 +87,6 @@ export const updateMember = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { name, address, email, semester, studentId, year, position_Id } =
     req.body;
-
-  if (!ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error("Please enter a valid id");
-  }
 
   const isMemberExists = await prisma.member.findUnique({
     where: {
@@ -142,11 +131,6 @@ export const updateMember = asyncHandler(async (req, res) => {
 // Delete existing member using unique ID
 export const deleteMember = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
-  if (!ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error("Please enter a valid id");
-  }
 
   const member = await prisma.member.findUnique({
     where: {

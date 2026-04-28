@@ -1,5 +1,4 @@
 // finance controller
-import { ObjectId } from "mongodb";
 import prisma from "../config/db.js";
 import asyncHandler from "express-async-handler";
 import generateCustomId from "../utils/generate-custom-id.js";
@@ -80,11 +79,6 @@ export const getFinance = asyncHandler(async (req, res) => {
 export const deleteFinance = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  // if (!ObjectId.isValid(id)) {
-  //   res.status(400);
-  //   throw new Error("Please provide a valid id");
-  // }
-
   const deletedFinance = await prisma.finance.delete({
     where: {
       id,
@@ -109,11 +103,6 @@ export const deleteFinance = asyncHandler(async (req, res) => {
 export const updateFinance = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { title, amount, type, category, userId } = req.body;
-
-  // if (!ObjectId.isValid(id)) {
-  //   res.status(400);
-  //   throw new Error("Please provide a valid id");
-  // }
 
   const isFinanceExists = await prisma.finance.findUnique({
     where: {

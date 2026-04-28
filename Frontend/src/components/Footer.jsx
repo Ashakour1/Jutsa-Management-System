@@ -79,12 +79,20 @@ const Footer = () => {
                 </li>
 
                 <li>
-                  <a
-                    href="/about"
+                  <Link
+                    to="/achievements"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                    {" "}
-                    Meet the Team{" "}
+                    Achievements
+                  </Link>
+                </li>
+
+                <li>
+                  <a
+                    href="/management"
+                    className="text-gray-700 transition hover:opacity-75"
+                  >
+                    Meet the team
                   </a>
                 </li>
 

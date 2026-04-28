@@ -4,50 +4,73 @@ import { Link } from "react-router-dom";
 
 const AboutSection = () => {
   return (
-    <section className="bg-gray-100">
-      <div className="flex  flex-col max-w-[1200px] md:px-0 px-4  md:h-full py-10 h-full mx-auto">
-        <div className="flex flex-col  justify-center items-center">
-          <h1 className="max-w-xl text-3xl font-bold text-customBlue">
+    <section className="relative bg-gradient-to-b from-gray-100 via-gray-50/80 to-white">
+      <div className="mx-auto flex h-full max-w-[1200px] flex-col px-4 py-14 md:px-6 md:py-16">
+        <div className="flex flex-col items-center text-center md:pb-10">
+          <p className="text-xs font-semibold uppercase tracking-widest text-customGreen">
+            Our story
+          </p>
+          <h2 className="mt-3 max-w-xl text-3xl font-bold tracking-tight text-customBlue md:text-[2rem]">
             About Us
-          </h1>
-          <p className="max-w-3xl text-gray-500 text-center mt-2">
+          </h2>
+          <p className="mt-4 max-w-3xl text-center leading-relaxed text-slate-600">
             Learn more about Jutsa and what we do to help students succeed in
             the tech industry. We are a community of IT students dedicated to
             helping each other grow and learn.
           </p>
         </div>
-        <div className="p-2   flex flex-col px-4 md:px-0 md:flex-row gap-4 pt-5 justify-center">
-          <div className="max-w-md flex-1 flex items-center">
-            <img
-              src="/hero-image.jpg"
-              alt=""
-              className="w-full h-full rounded-lg object-cover"
-              style={{ height: "300px" }} // Set a fixed height
-            />
+
+        <div className="flex flex-col justify-center gap-8 pt-6 md:flex-row md:items-stretch md:gap-10 md:pt-8">
+          <div className="flex flex-1 items-center md:max-w-md">
+            <div className="w-full overflow-hidden rounded-2xl shadow-lg shadow-slate-900/10 ring-1 ring-black/[0.06]">
+              <img
+                src="/hero-image.jpg"
+                alt="Jutsa student community"
+                width={560}
+                height={360}
+                className="h-[280px] w-full object-cover md:h-[300px]"
+              />
+            </div>
           </div>
-          <div className="w-full flex flex-col justify-between  flex-1">
-            <div className="space-y-3">
-              <h1 className="text-xl font-bold text-customGreen">Who we Are</h1>
-              <p className="text-gray-500 mt-2">
-                Jutsa is a student association that brings together IT students
-                from Jamhuuriya University of Science and Technology. We are
-                dedicated to fostering a community of collaboration and growth
-                in the field of technology.
-              </p>
-              <h1 className="text-xl font-bold text-customGreen">What we do</h1>
-              <p className="text-gray-500 mt-2">
-                We organize events, workshops, and competitions to help students
-                develop their skills and connect with industry professionals.
-                Our goal is to provide a platform for students to learn, grow,
-                and succeed in the tech industry.
-              </p>
+
+          <div className="flex flex-1 flex-col justify-center">
+            <div className="space-y-6">
+              <div>
+                <h3 className="flex items-center gap-3 text-xl font-bold text-customGreen">
+                  <span
+                    className="h-[3px] w-8 shrink-0 rounded-full bg-customGreen"
+                    aria-hidden
+                  />
+                  Who we Are
+                </h3>
+                <p className="mt-3 leading-relaxed text-slate-600">
+                  Jutsa is a student association that brings together IT students
+                  from Jamhuuriya University of Science and Technology. We are
+                  dedicated to fostering a community of collaboration and growth
+                  in the field of technology.
+                </p>
+              </div>
+              <div>
+                <h3 className="flex items-center gap-3 text-xl font-bold text-customGreen">
+                  <span
+                    className="h-[3px] w-8 shrink-0 rounded-full bg-customGreen/70"
+                    aria-hidden
+                  />
+                  What we do
+                </h3>
+                <p className="mt-3 leading-relaxed text-slate-600">
+                  We organize events, workshops, and competitions to help students
+                  develop their skills and connect with industry professionals.
+                  Our goal is to provide a platform for students to learn, grow,
+                  and succeed in the tech industry.
+                </p>
+              </div>
               <Link
                 to="/about"
-                type="button"
-                className="group flex  pt-5 items-center transition ease-in-out  text-customGreen"
+                className="group mt-2 inline-flex min-h-[44px] items-center pt-2 text-sm font-semibold text-customGreen transition ease-in-out hover:text-customBlue"
               >
                 Learn More
-                <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+                <ArrowRightIcon className="ml-2 size-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
               </Link>
             </div>
           </div>

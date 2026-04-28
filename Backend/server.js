@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import errorHandler from "./middlewares/error-middleware.js";
 import userRoutes from "./routes/user-routes.js";
+import rolesRoutes from "./routes/roles-routes.js";
 import competitorRoutes from "./routes/competitor-routes.js";
 import positionRoutes from "./routes/position-routes.js";
 import memberRoutes from "./routes/member-routes.js";
@@ -32,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 // Routes
 app.use("/api/positions", positionRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/roles", rolesRoutes);
 app.use("/api/competitors", competitorRoutes);
 app.use("/api/members", memberRoutes);
 app.use("/api/sports", SportRoutes);

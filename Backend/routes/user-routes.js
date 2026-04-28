@@ -4,7 +4,6 @@ import express from "express";
 
 const router = express.Router();
 
-// Import user controller
 import {
   getUsers,
   UserRegister,
@@ -14,38 +13,34 @@ import {
   updateUser,
 } from "../controllers/user-controller.js";
 import authMiddleware from "../middlewares/auth-middleware.js";
-import AuthorizeRole from "../middlewares/role-middleware.js";
+import { requirePermission } from "../middlewares/permission-middleware.js";
+import { P } from "../constants/permissions.js";
 
-router.get(
-  "/",
-  authMiddleware,
-  AuthorizeRole("SUPER_ADMIN", "ADMIN"),
-  getUsers
-);
+router.get("/", authMiddleware, requirePermission(P.USERS_READ), getUsers);
 router.post(
   "/auth/reg",
-  
+  authMiddleware,
+  requirePermission(P.USERS_WRITE),
   UserRegister
 );
 router.put(
   "/edit/:id",
   authMiddleware,
-  AuthorizeRole("SUPER_ADMIN", "ADMIN"),
+  requirePermission(P.USERS_WRITE),
   updateUser
 );
 router.post("/auth/login", loginUser);
 router.get(
   "/:id",
   authMiddleware,
-  AuthorizeRole("SUPER_ADMIN", "ADMIN"),
+  requirePermission(P.USERS_READ),
   getUser
 );
 router.delete(
   "/:id",
   authMiddleware,
-  AuthorizeRole("SUPER_ADMIN", "ADMIN"),
+  requirePermission(P.USERS_DELETE),
   deleteUser
 );
 
-// Export router
 export default router;

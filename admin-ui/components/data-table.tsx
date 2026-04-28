@@ -26,7 +26,16 @@ interface DataTableProps<T> {
   loading?: boolean
 }
 
-export function DataTable<T extends { id: string }>({
+function rowKey(row: object, index: number): string {
+  const r = row as Record<string, unknown>
+  const id = r["id"]
+  if (typeof id === "string") return id
+  const studentID = r["studentID"]
+  if (typeof studentID === "string") return studentID
+  return `row-${index}`
+}
+
+export function DataTable<T extends object>({
   data,
   columns,
   onEdit,
@@ -36,14 +45,14 @@ export function DataTable<T extends { id: string }>({
 }: DataTableProps<T>) {
   if (loading) {
     return (
-      <div className="rounded-md border">
+      <div className="overflow-hidden rounded-xl border border-border/80 bg-card shadow-sm">
         <Table>
           <TableHeader>
             <TableRow>
               {columns.map((col) => (
                 <TableHead key={String(col.key)}>{col.header}</TableHead>
               ))}
-              {(onEdit || onDelete) && <TableHead>Actions</TableHead>}
+              {(onEdit || onDelete || onView) && <TableHead>Actions</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -64,7 +73,7 @@ export function DataTable<T extends { id: string }>({
   }
 
   return (
-    <div className="rounded-md border">
+    <div className="overflow-hidden rounded-xl border border-border/80 bg-card shadow-sm">
       <Table>
         <TableHeader>
           <TableRow>
@@ -85,11 +94,12 @@ export function DataTable<T extends { id: string }>({
               </TableCell>
             </TableRow>
           ) : (
-            data.map((row) => (
-              <TableRow key={row.id} className="transition-colors hover:bg-muted/50">
+            data.map((row, index) => (
+              <TableRow key={rowKey(row, index)} className="transition-colors hover:bg-muted/50">
                 {columns.map((col) => {
-                  const value = col.key.includes(".")
-                    ? col.key.split(".").reduce((obj: any, key) => obj?.[key], row)
+                  const keyStr = String(col.key)
+                  const value = keyStr.includes(".")
+                    ? keyStr.split(".").reduce((obj: any, key) => obj?.[key], row)
                     : row[col.key as keyof T]
                   return (
                     <TableCell key={String(col.key)}>

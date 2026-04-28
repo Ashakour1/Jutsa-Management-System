@@ -7,17 +7,16 @@ import {
     updateSport,
 } from "../controllers/sport-controller.js";
 import authMiddleware from "../middlewares/auth-middleware.js";
-import AuthorizeRole from "../middlewares/role-middleware.js";
+import { requirePermission } from "../middlewares/permission-middleware.js";
+import { P } from "../constants/permissions.js";
 
 const router = express.Router();
 
-// Read — all authenticated roles
-router.get("/", authMiddleware, getAllSports);
-router.get("/:id", authMiddleware, getSingleSport);
+router.get("/", authMiddleware, requirePermission(P.SPORTS_READ), getAllSports);
+router.get("/:id", authMiddleware, requirePermission(P.SPORTS_READ), getSingleSport);
 
-// Write — admin and above only
-router.post("/", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), registerSport);
-router.put("/:id", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), updateSport);
-router.delete("/:id", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), deleteSport);
+router.post("/", authMiddleware, requirePermission(P.SPORTS_WRITE), registerSport);
+router.put("/:id", authMiddleware, requirePermission(P.SPORTS_WRITE), updateSport);
+router.delete("/:id", authMiddleware, requirePermission(P.SPORTS_WRITE), deleteSport);
 
 export default router;

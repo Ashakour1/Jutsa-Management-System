@@ -18,6 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { PageHeader } from "@/components/layout/page-header"
 
 export default function CaawiyePage() {
   const [caawiye, setCaawiye] = useState<Caawiye[]>([])
@@ -83,28 +84,21 @@ export default function CaawiyePage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 animate-in fade-in duration-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              Caawiye
-            </h1>
-            <p className="text-muted-foreground">
-              Manage support requests
-            </p>
-          </div>
-          <Button 
-            onClick={() => router.push("/caawiye/new")}
-            className="transition-all hover:scale-105 shadow-md hover:shadow-lg"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Caawiye
-          </Button>
-        </div>
+      <div className="space-y-8 animate-in fade-in duration-500">
+        <PageHeader
+          title="Caawiye"
+          description="Manage support requests."
+          actions={
+            <Button onClick={() => router.push("/caawiye/new")} className="shadow-sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Add entry
+            </Button>
+          }
+        />
 
-        <Card className="border-2 shadow-lg">
-          <CardHeader>
-            <CardTitle>Caawiye</CardTitle>
+        <Card className="overflow-hidden">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="text-lg">Directory</CardTitle>
             <CardDescription>All support requests</CardDescription>
           </CardHeader>
           <CardContent>

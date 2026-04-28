@@ -7,17 +7,16 @@ import {
   updateActivity,
 } from "../controllers/activity-controller.js";
 import authMiddleware from "../middlewares/auth-middleware.js";
-import AuthorizeRole from "../middlewares/role-middleware.js";
+import { requirePermission } from "../middlewares/permission-middleware.js";
+import { P } from "../constants/permissions.js";
 
 const router = express.Router();
 
-// Read — all authenticated roles
-router.get("/", authMiddleware, getAllActivities);
-router.get("/:id", authMiddleware, getActivityById);
+router.get("/", authMiddleware, requirePermission(P.ACTIVITIES_READ), getAllActivities);
+router.get("/:id", authMiddleware, requirePermission(P.ACTIVITIES_READ), getActivityById);
 
-// Write — admin and above only
-router.post("/", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), registerActivity);
-router.put("/:id", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), updateActivity);
-router.delete("/:id", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), deleteActivity);
+router.post("/", authMiddleware, requirePermission(P.ACTIVITIES_WRITE), registerActivity);
+router.put("/:id", authMiddleware, requirePermission(P.ACTIVITIES_WRITE), updateActivity);
+router.delete("/:id", authMiddleware, requirePermission(P.ACTIVITIES_WRITE), deleteActivity);
 
 export default router;

@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { PageHeader } from "@/components/layout/page-header"
+import { Card, CardContent } from "@/components/ui/card"
 import { financeService } from "@/services/finance.service"
 import { memberService } from "@/services/member.service"
 import { activityService } from "@/services/activity.service"
 import { competitorService } from "@/services/competitor.service"
 import { DollarSign, Users, Activity, Trophy } from "lucide-react"
-import { formatCurrency } from "@/lib/utils"
+import { formatCurrency, cn } from "@/lib/utils"
 
 export default function DashboardPage() {
   const [stats, setStats] = useState({
@@ -49,74 +50,80 @@ export default function DashboardPage() {
 
   const statCards = [
     {
-      title: "Total Finance",
+      title: "Total finance",
       value: formatCurrency(stats.totalFinance),
       icon: DollarSign,
-      description: "Total financial transactions",
+      hint: "Recorded transactions",
+      accent: "from-emerald-500/15 to-emerald-600/5 text-emerald-700 dark:text-emerald-400",
     },
     {
       title: "Members",
       value: stats.totalMembers,
       icon: Users,
-      description: "Total team members",
+      hint: "Active records",
+      accent: "from-sky-500/15 to-sky-600/5 text-sky-700 dark:text-sky-400",
     },
     {
       title: "Activities",
       value: stats.totalActivities,
       icon: Activity,
-      description: "Total activities",
+      hint: "Events & sessions",
+      accent: "from-violet-500/15 to-violet-600/5 text-violet-700 dark:text-violet-400",
     },
     {
       title: "Competitors",
       value: stats.totalCompetitors,
       icon: Trophy,
-      description: "Total competitors",
+      hint: "Tracked entries",
+      accent: "from-amber-500/15 to-amber-600/5 text-amber-800 dark:text-amber-400",
     },
   ]
 
   return (
     <DashboardLayout>
-      <div className="space-y-8 animate-in fade-in duration-500">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2">
-            Dashboard
-          </h1>
-          <p className="text-slate-600 text-lg">
-            Overview of your management system
-          </p>
-        </div>
+      <div className="space-y-10 animate-in fade-in duration-500">
+        <PageHeader
+          title="Dashboard"
+          description="High-level metrics across your organization."
+        />
 
         {loading ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {[...Array(4)].map((_, i) => (
-              <Card key={i} className="animate-pulse">
-                <CardHeader className="h-20" />
+              <Card key={i} className="overflow-hidden border-border/80">
+                <CardContent className="p-6">
+                  <div className="h-24 animate-pulse rounded-lg bg-muted" />
+                </CardContent>
               </Card>
             ))}
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {statCards.map((stat, index) => {
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {statCards.map((stat) => {
               const Icon = stat.icon
               return (
-                <Card 
+                <Card
                   key={stat.title}
-                  className="transition-all duration-300 hover:scale-105 hover:shadow-lg border-2 hover:border-primary/50"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="group overflow-hidden border-border/80 transition-shadow hover:shadow-md"
                 >
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      {stat.title}
-                    </CardTitle>
-                    <Icon className="h-5 w-5 text-primary transition-transform hover:scale-110" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                      {stat.value}
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-3">
+                        <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
+                        <p className="text-3xl font-semibold tracking-tight text-foreground tabular-nums">
+                          {stat.value}
+                        </p>
+                        <p className="text-xs text-muted-foreground">{stat.hint}</p>
+                      </div>
+                      <div
+                        className={cn(
+                          "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br",
+                          stat.accent
+                        )}
+                      >
+                        <Icon className="h-6 w-6" aria-hidden />
+                      </div>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {stat.description}
-                    </p>
                   </CardContent>
                 </Card>
               )

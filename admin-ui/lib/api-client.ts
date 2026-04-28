@@ -18,13 +18,12 @@ class ApiClient {
   ): Promise<T> {
     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      ...options.headers,
-    };
-
+    const headers = new Headers(options.headers);
+    if (!headers.has("Content-Type")) {
+      headers.set("Content-Type", "application/json");
+    }
     if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
+      headers.set("Authorization", `Bearer ${token}`);
     }
 
     try {
@@ -40,12 +39,28 @@ class ApiClient {
         throw new Error(error.message || "An error occurred");
       }
 
-      const data = await response.json();
-      // Handle different response structures
-      if (data.data !== undefined) {
-        return data.data;
+      const data = (await response.json()) as Record<string, unknown>;
+
+      if (typeof data.token === "string") {
+        return {
+          ...data,
+          user: data.data ?? data.user,
+        } as T;
       }
-      return data;
+      if (data.data !== undefined) {
+        return data.data as T;
+      }
+      if (
+        data.results !== undefined &&
+        typeof data.results === "object" &&
+        data.results !== null &&
+        "data" in data.results &&
+        (data.results as { data?: unknown }).data !== undefined
+      ) {
+        return (data.results as { data: T }).data;
+      }
+
+      return data as T;
     } catch (error) {
       if (error instanceof Error) {
         throw error;

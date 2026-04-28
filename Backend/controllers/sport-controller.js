@@ -1,6 +1,5 @@
 import asyncHandler from "express-async-handler";
 import prisma from "../config/db.js";
-import { ObjectId } from "mongodb";
 
 //Registering  A sport
 export const registerSport = asyncHandler(async (req, res) => {
@@ -71,11 +70,6 @@ export const registerSport = asyncHandler(async (req, res) => {
 export const deleteSport = asyncHandler(async (req, res) => {
     const { id } = req.params;
 
-    if (!ObjectId.isValid(id)) {
-      res.status(400);
-      throw new Error("Please provide a valid id");
-    }
-
     const deletedSport = await prisma.sport.delete({
       where: {
         id,
@@ -101,11 +95,6 @@ export const deleteSport = asyncHandler(async (req, res) => {
 export const updateSport = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { monitorName, monitorNumber, className, description, amount } = req.body;
-
-    if (!ObjectId.isValid(id)) {
-      res.status(400);
-      throw new Error("Please provide a valid id");
-    }
 
     const isSportExists = await prisma.sport.findUnique({
       where: {

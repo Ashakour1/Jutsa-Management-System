@@ -2,8 +2,16 @@ import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcrypt';
+import { ALL_PERMISSIONS } from '../constants/permissions.js';
 
 const prisma = new PrismaClient();
+
+function emailToUsername(email) {
+    return email
+        .toLowerCase()
+        .replace(/@/g, '_at_')
+        .replace(/[^a-z0-9._-]/gi, '_');
+}
 
 async function main() {
     console.log('🌱 Starting database seeding...\n');
@@ -18,38 +26,89 @@ async function main() {
     await prisma.sport.deleteMany();
     await prisma.member.deleteMany();
     await prisma.position.deleteMany();
+    await prisma.userRole.deleteMany();
+    await prisma.rolePermission.deleteMany();
     await prisma.user.deleteMany();
+    await prisma.permission.deleteMany();
+    await prisma.role.deleteMany();
     console.log('   Done.\n');
 
-    // ── Passwords ────────────────────────────────────────────────────────────────
+    console.log('🔐 Roles & permissions...');
+    for (const name of ALL_PERMISSIONS) {
+        await prisma.permission.create({
+            data: {
+                name,
+                module: name.split('.')[0],
+                description: `Access: ${name}`,
+            },
+        });
+    }
+    const permRecords = await prisma.permission.findMany();
+    const permIdByName = Object.fromEntries(permRecords.map((p) => [p.name, p.id]));
+
+    const roleSuper = await prisma.role.create({
+        data: { name: 'SUPER_ADMIN', description: 'Full system access' },
+    });
+    const roleAdmin = await prisma.role.create({
+        data: { name: 'ADMIN', description: 'Administrative access' },
+    });
+    const roleUser = await prisma.role.create({
+        data: { name: 'USER', description: 'Standard operator' },
+    });
+
+    const allPermIds = ALL_PERMISSIONS.map((n) => ({
+        permissionId: permIdByName[n],
+    }));
+
+    await prisma.rolePermission.createMany({
+        data: allPermIds.map((x) => ({ roleId: roleSuper.id, ...x })),
+    });
+    await prisma.rolePermission.createMany({
+        data: allPermIds.map((x) => ({ roleId: roleAdmin.id, ...x })),
+    });
+
+    const userScoped = ALL_PERMISSIONS.filter((n) => !n.startsWith('users.'));
+    await prisma.rolePermission.createMany({
+        data: userScoped.map((n) => ({
+            roleId: roleUser.id,
+            permissionId: permIdByName[n],
+        })),
+    });
+    console.log('   ✅ RBAC seeded.\n');
+
+    // ── 1. Users ─────────────────────────────────────────────────────────────────
+    console.log('👥 Creating Users...');
+
     const salt = await bcrypt.genSalt(10);
     const superAdminPass = await bcrypt.hash('SuperAdmin@123', salt);
     const adminPass = await bcrypt.hash('Admin@123', salt);
     const userPass = await bcrypt.hash('User@123', salt);
 
-    // ── 1. Users ─────────────────────────────────────────────────────────────────
-    console.log('👥 Creating Users...');
-
-    const userDefinitions = [
-        // Super Admin
-        { email: 'superadmin@jutsa.org', name: 'Ismail Mohamed', password: superAdminPass, role: 'SUPER_ADMIN', isAdmin: true },
-        // Admins
-        { email: 'admin1@jutsa.org', name: 'Asad Farah', password: adminPass, role: 'ADMIN', isAdmin: true },
-        { email: 'admin2@jutsa.org', name: 'Hinda Warsame', password: adminPass, role: 'ADMIN', isAdmin: true },
-        // Regular Users
-        { email: 'user1@jutsa.org', name: 'Omar Hassan', password: userPass, role: 'USER', isAdmin: false },
-        { email: 'user2@jutsa.org', name: 'Faadumo Ali', password: userPass, role: 'USER', isAdmin: false },
-        { email: 'user3@jutsa.org', name: 'Abdullahi Nur', password: userPass, role: 'USER', isAdmin: false },
-        { email: 'user4@jutsa.org', name: 'Nasra Ibrahim', password: userPass, role: 'USER', isAdmin: false },
-        { email: 'user5@jutsa.org', name: 'Yusuf Mohamud', password: userPass, role: 'USER', isAdmin: false },
-        { email: 'user6@jutsa.org', name: 'Hodan Jama', password: userPass, role: 'USER', isAdmin: false },
-        { email: 'user7@jutsa.org', name: 'Mahad Abdi', password: userPass, role: 'USER', isAdmin: false },
-        { email: 'user8@jutsa.org', name: 'Ikran Salah', password: userPass, role: 'USER', isAdmin: false },
+    const userDefs = [
+        ['superadmin@jutsa.org', 'Ismail Mohamed', superAdminPass, roleSuper.id],
+        ['admin1@jutsa.org', 'Asad Farah', adminPass, roleAdmin.id],
+        ['admin2@jutsa.org', 'Hinda Warsame', adminPass, roleAdmin.id],
+        ['user1@jutsa.org', 'Omar Hassan', userPass, roleUser.id],
+        ['user2@jutsa.org', 'Faadumo Ali', userPass, roleUser.id],
+        ['user3@jutsa.org', 'Abdullahi Nur', userPass, roleUser.id],
+        ['user4@jutsa.org', 'Nasra Ibrahim', userPass, roleUser.id],
+        ['user5@jutsa.org', 'Yusuf Mohamud', userPass, roleUser.id],
+        ['user6@jutsa.org', 'Hodan Jama', userPass, roleUser.id],
+        ['user7@jutsa.org', 'Mahad Abdi', userPass, roleUser.id],
+        ['user8@jutsa.org', 'Ikran Salah', userPass, roleUser.id],
     ];
 
     const createdUsers = [];
-    for (const u of userDefinitions) {
-        const user = await prisma.user.create({ data: u });
+    for (const [email, name, hash, rid] of userDefs) {
+        const user = await prisma.user.create({
+            data: {
+                email,
+                username: emailToUsername(email),
+                name,
+                passwordHash: hash,
+                userRoles: { create: [{ roleId: rid }] },
+            },
+        });
         createdUsers.push(user);
     }
     console.log(`   ✅ Created ${createdUsers.length} users.\n`);

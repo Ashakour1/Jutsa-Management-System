@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
+import { PageHeader } from "@/components/layout/page-header"
+import { AdminFormSection, FormActions } from "@/components/forms/admin-form-shell"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { competitorService, CompetitorCreate } from "@/services/competitor.service"
 import { useToast } from "@/components/ui/use-toast"
 import {
@@ -102,19 +103,14 @@ export default function CompetitorFormPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {isEdit ? "Edit Competitor" : "Add Competitor"}
-          </h1>
-        </div>
+      <div className="space-y-8 animate-in fade-in duration-500">
+        <PageHeader
+          title={isEdit ? "Edit competitor" : "Add competitor"}
+          description="IT Day participant profile, skills, and project metadata."
+        />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Competitor Details</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+        <AdminFormSection title="Competitor details">
+          <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
@@ -239,17 +235,16 @@ export default function CompetitorFormPage() {
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <Button type="submit" disabled={loading}>
-                  {loading ? (isEdit ? "Updating..." : "Creating...") : isEdit ? "Update" : "Create"}
-                </Button>
-                <Button type="button" variant="outline" onClick={() => router.back()}>
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+            <FormActions>
+              <Button type="submit" disabled={loading}>
+                {loading ? (isEdit ? "Updating…" : "Creating…") : isEdit ? "Update" : "Create"}
+              </Button>
+              <Button type="button" variant="outline" onClick={() => router.back()}>
+                Cancel
+              </Button>
+            </FormActions>
+          </form>
+        </AdminFormSection>
       </div>
     </DashboardLayout>
   )

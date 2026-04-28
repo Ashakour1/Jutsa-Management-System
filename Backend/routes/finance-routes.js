@@ -8,17 +8,16 @@ import {
     updateFinance,
 } from "../controllers/finance-controller.js";
 import authMiddleware from "../middlewares/auth-middleware.js";
-import AuthorizeRole from "../middlewares/role-middleware.js";
+import { requirePermission } from "../middlewares/permission-middleware.js";
+import { P } from "../constants/permissions.js";
 
 const router = express.Router();
 
-// Read — all authenticated roles
-router.get("/", authMiddleware, getFinances);
-router.get("/:id", authMiddleware, getFinance);
+router.get("/", authMiddleware, requirePermission(P.FINANCE_READ), getFinances);
+router.get("/:id", authMiddleware, requirePermission(P.FINANCE_READ), getFinance);
 
-// Write — admin and above only
-router.post("/reg", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), registerFinance);
-router.put("/update/:id", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), updateFinance);
-router.delete("/:id", authMiddleware, AuthorizeRole("SUPER_ADMIN", "ADMIN"), deleteFinance);
+router.post("/reg", authMiddleware, requirePermission(P.FINANCE_WRITE), registerFinance);
+router.put("/update/:id", authMiddleware, requirePermission(P.FINANCE_WRITE), updateFinance);
+router.delete("/:id", authMiddleware, requirePermission(P.FINANCE_WRITE), deleteFinance);
 
 export default router;

@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { useMemo } from "react"
 import {
   LayoutDashboard,
   DollarSign,
@@ -12,12 +13,13 @@ import {
   HelpCircle,
   FileText,
   Settings,
+  Shield,
   LogOut,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { userService } from "@/services/user.service"
-import { useRouter } from "next/navigation"
+import { canAccessRoute } from "@/lib/navigation-access"
 
 const menuItems = [
   {
@@ -71,6 +73,11 @@ const menuItems = [
     icon: Settings,
   },
   {
+    title: "Roles",
+    href: "/roles",
+    icon: Shield,
+  },
+  {
     title: "Form Management",
     href: "/forms",
     icon: FileText,
@@ -81,49 +88,68 @@ export function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
 
+  const visibleItems = useMemo(() => {
+    const perms = userService.getEffectivePermissions()
+    return menuItems.filter((item) => canAccessRoute(item.href, perms))
+  }, [pathname])
+
   const handleLogout = () => {
     userService.logout()
     router.push("/login")
   }
 
   return (
-    <div className="flex h-screen w-64 flex-col border-r bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 shadow-lg">
-      <div className="flex h-16 items-center border-b px-6 bg-gradient-to-r from-primary/5 to-transparent">
-        <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-          Admin Panel
-        </h1>
+    <aside className="flex h-screen w-[17rem] shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
+      <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-5">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sidebar-accent text-primary-foreground shadow-sm">
+          <LayoutDashboard className="h-5 w-5" aria-hidden />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold tracking-tight text-sidebar-foreground">
+            Justa Admin
+          </p>
+          <p className="truncate text-xs text-sidebar-muted">Management</p>
+        </div>
       </div>
-      <nav className="flex-1 space-y-1 p-4">
-        {menuItems.map((item) => {
+      <nav className="flex-1 space-y-0.5 overflow-y-auto p-3">
+        {visibleItems.map((item) => {
           const Icon = item.icon
-          const isActive = pathname === item.href
+          const isActive =
+            pathname === item.href ||
+            pathname.startsWith(`${item.href}/`)
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 hover:scale-105",
+                "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground hover:shadow-sm"
+                  ? "bg-white/10 text-white shadow-sm ring-1 ring-white/10"
+                  : "text-sidebar-muted hover:bg-white/5 hover:text-sidebar-foreground"
               )}
             >
-              <Icon className="h-5 w-5 transition-transform group-hover:scale-110" />
-              {item.title}
+              <Icon
+                className={cn(
+                  "h-[1.125rem] w-[1.125rem] shrink-0 transition-opacity",
+                  isActive ? "text-sidebar-accent" : "opacity-80 group-hover:opacity-100"
+                )}
+                aria-hidden
+              />
+              <span className="truncate">{item.title}</span>
             </Link>
           )
         })}
       </nav>
-      <div className="border-t p-4">
+      <div className="border-t border-sidebar-border p-3">
         <Button
           variant="ghost"
-          className="w-full justify-start"
+          className="h-10 w-full justify-start gap-2 rounded-lg text-sidebar-muted hover:bg-white/5 hover:text-sidebar-foreground"
           onClick={handleLogout}
         >
-          <LogOut className="mr-2 h-4 w-4" />
-          Logout
+          <LogOut className="h-4 w-4" />
+          Log out
         </Button>
       </div>
-    </div>
+    </aside>
   )
 }

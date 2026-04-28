@@ -2,18 +2,17 @@
 
 import { useEffect, useState } from "react"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
+import { PageHeader } from "@/components/layout/page-header"
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { candidateService, Candidate } from "@/services/candidate.service"
 import { useToast } from "@/components/ui/use-toast"
-import { useRouter } from "next/navigation"
 import { formatDate } from "@/lib/utils"
 
 export default function CandidatesPage() {
   const [candidates, setCandidates] = useState<Candidate[]>([])
   const [loading, setLoading] = useState(true)
   const { toast } = useToast()
-  const router = useRouter()
 
   useEffect(() => {
     fetchCandidates()
@@ -52,19 +51,15 @@ export default function CandidatesPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 animate-in fade-in duration-500">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            Candidates
-          </h1>
-          <p className="text-muted-foreground">
-            View candidate applications
-          </p>
-        </div>
+      <div className="space-y-8 animate-in fade-in duration-500">
+        <PageHeader
+          title="Candidates"
+          description="Review candidate applications submitted to the system."
+        />
 
-        <Card className="border-2 shadow-lg">
-          <CardHeader>
-            <CardTitle>Candidates</CardTitle>
+        <Card className="overflow-hidden">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="text-lg">Directory</CardTitle>
             <CardDescription>All candidate applications</CardDescription>
           </CardHeader>
           <CardContent>

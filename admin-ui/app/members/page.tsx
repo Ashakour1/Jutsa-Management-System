@@ -18,6 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { PageHeader } from "@/components/layout/page-header"
 
 export default function MembersPage() {
   const [members, setMembers] = useState<Member[]>([])
@@ -88,28 +89,21 @@ export default function MembersPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 animate-in fade-in duration-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              Members
-            </h1>
-            <p className="text-muted-foreground">
-              Manage team members and their information
-            </p>
-          </div>
-          <Button 
-            onClick={() => router.push("/members/new")}
-            className="transition-all hover:scale-105 shadow-md hover:shadow-lg"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Member
-          </Button>
-        </div>
+      <div className="space-y-8 animate-in fade-in duration-500">
+        <PageHeader
+          title="Members"
+          description="Manage team members and their information."
+          actions={
+            <Button onClick={() => router.push("/members/new")} className="shadow-sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Add member
+            </Button>
+          }
+        />
 
-        <Card className="border-2 shadow-lg">
-          <CardHeader>
-            <CardTitle>Team Members</CardTitle>
+        <Card className="overflow-hidden">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="text-lg">Directory</CardTitle>
             <CardDescription>All registered team members</CardDescription>
           </CardHeader>
           <CardContent>
